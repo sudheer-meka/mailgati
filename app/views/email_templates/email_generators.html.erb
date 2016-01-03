@@ -1,0 +1,39 @@
+<% if current_user.email_templates.blank? %>
+    <h1>Please Create at least one email template.</h1>
+<% elsif current_user.email_templates.blank? %>
+    <h1>Please save your mail settings.</h1>
+<% else %>
+    <%= form_tag export_file_path, class: 'form-horizontal', multipart: true do |form| %>
+        <label for="address">Select Email Tempalte</label>
+        <div class="row">
+          <div class="col-md-3">
+            <%= select_tag :template_id, options_for_select(current_user.email_templates.map { |template| [template.title, template.id] }), prompt: 'Select', class: 'form-control', id: 'template', required: true %>
+          </div>
+          <div class="col-md-6">
+            <button type="button" id='template-selector' class="btn btn-default">Download Import File</button>
+          </div>
+        </div>
+        </br>
+        <div class="row">
+          <div class="col-md-4">
+            <%= file_field_tag :upload_file, class: "form-control", required: true %>
+          </div>
+        </div>
+        </br>
+        <%= submit_tag 'Export & Generate Emails', class: 'btn btn-default' %>
+    <% end %>
+
+    <script>
+        $(function () {
+            $('#template-selector').on('click', function () {
+                var value = $('#template').val();
+                if (value.length) {
+                    window.location.replace("http://localhost:3000/get_import_file?id=" + value);
+                }
+                else {
+                    alert('Please Select At least one email template.')
+                }
+            });
+        });
+    </script>
+<% end %>

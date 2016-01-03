@@ -1,0 +1,55 @@
+<%= form_for(@email_template) do |f| %>
+    <% if @email_template.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@email_template.errors.count, "error") %> prohibited this email_template from being
+            saved:</h2>
+
+          <ul>
+            <% @email_template.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+
+    <label for="title">Title</label>
+    <div class="input-group">
+      <%= f.text_field :title, class: 'form-control', id: 'title' %>
+    </div>
+    <label for="title">Subject</label>
+    <div class="input-group">
+      <%= f.text_field :subject, class: 'form-control', id: 'subject' %>
+    </div>
+    <label for="body">Body</label>
+    <%= f.text_area :body, class: 'form-control message-wysiwyg', id: 'body' %>
+    </br>
+    <div>
+      <button type="submit" class="btn btn-default">Submit</button>
+      <%= link_to 'Back', email_templates_path, class: "btn btn-default" %>
+    </div>
+<% end %>
+
+<script>
+    $(function () {
+        $('.message-wysiwyg').each(function (i, elem) {
+            $(elem).wysihtml5({'toolbar': {'blockquote': false, 'html': true}});
+//            {
+////                toolbar: {
+////                    'font-styles': true,
+////                    'color': true,
+////                    'emphasis': {
+////                        'small': true
+////                    },
+////                    'blockquote': true,
+////                    'lists': true,
+////                    'html': true,
+////                    'link': true,
+////                    'image': true,
+////                    'smallmodals': true
+////                }
+//            }
+        });
+        $('.message-wysiwyg').val('<%= @email_template.body.html_safe rescue nil %>');
+    });
+</script>

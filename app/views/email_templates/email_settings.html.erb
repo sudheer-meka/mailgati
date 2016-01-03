@@ -1,0 +1,54 @@
+
+<%= form_for(@email_setting,url: save_email_settings_email_templates_path,method: 'post' ) do |f| %>
+    <% if @email_setting.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@email_setting.errors.count, "error") %> prohibited this email_template from being
+            saved:</h2>
+
+          <ul>
+            <% @email_setting.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+
+    <label for="address">Address</label>
+    <div class="input-group">
+      <%= f.text_field :address, class: 'form-control', id: 'address' %>
+    </div>
+    <label for="domain">Domain</label>
+    <div class="input-group">
+      <%= f.text_field :domain, class: 'form-control', id: 'domain' %>
+    </div>
+
+    <label for="port">Port</label>
+    <div class="input-group">
+      <%= f.number_field :port, class: 'form-control', id: 'port' %>
+    </div>
+    <label for="username">Username</label>
+    <div class="input-group">
+      <%= f.text_field :username, class: 'form-control', id: 'username' %>
+    </div>
+    <label for="password">Password</label>
+    <div class="input-group">
+      <%= f.text_field :password, class: 'form-control', id: 'password' %>
+    </div>
+
+    <label for="authentication">Authentication</label>
+    <div class="input-group">
+      <%= f.select :authentication,[['Plain','plain'],['Login','login'],['Cram Md5','cram_md5']], class: 'form-control', id: 'authentication' %>
+    </div>
+
+
+    <label for="enable_starttls_auto">Enable Starttls Auto</label>
+    <div class="input-group">
+      <%= f.select :enable_starttls_auto,[['True',true],['False',false]], class: 'form-control', id: 'enable_starttls_auto' %>
+    </div>
+    </br>
+    <div>
+      <button type="submit" class="btn btn-default">Submit</button>
+      <%#= link_to 'Back', email_settings_email_templates_url, class: "btn btn-default" %>
+    </div>
+<% end %>

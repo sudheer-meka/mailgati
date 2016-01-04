@@ -28,7 +28,7 @@
             $('#template-selector').on('click', function () {
                 var value = $('#template').val();
                 if (value.length) {
-                    window.location.replace("http://localhost:3000/get_import_file?id=" + value);
+                    window.location.replace("/get_import_file?id=" + value);
                 }
                 else {
                     alert('Please Select At least one email template.')

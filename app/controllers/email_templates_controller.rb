@@ -107,19 +107,23 @@ class EmailTemplatesController < ApplicationController
       body_variables.select! { |var| var if var[0] == '@' }.compact
       email_setting = current_user.email_setting
       settings = {
-          :address => email_setting.address, # intentionally
-          :port => email_setting.port, # intentionally
-          :domain => email_setting.domain, #insetad of localhost.localdomain'
-          :user_name => email_setting.username,
-          :password => email_setting.password,
-          :authentication => email_setting.authentication # or smthing else
+      :address => email_setting.address, # intentionally
+      :port => email_setting.port, # intentionally
+      :domain => email_setting.domain, #insetad of localhost.localdomain'
+      :user_name => email_setting.username,
+      :password => email_setting.password,
+      :authentication => email_setting.authentication # or smthing else
       }
-      Notification.delay.send_notification("#{file_name}.xls",email_template,subject_variables,body_variables,settings)
+      # Notification.delay.send_notification("#{current_user.email}-#{ucid}.xls",email_template,subject_variables,body_variables,settings)
+      EmailGeneratorWorker.perform_async("#{current_user.email}-#{ucid}.xls",email_template.id,subject_variables,body_variables,settings)
+      
       redirect_to email_generators_email_templates_path, notice: 'Emails Are Triggered'
+      return
     rescue Exception => invalid
       @error = true
       @message = invalid.message
-      redirect_to email_generators_email_templates_path, alert: @message
+      redirect_to email_generators_email_templates_path, notice: @message
+      return
     end
 
     # email_setting = current_user.email_setting

@@ -1,6 +1,5 @@
 class EmailTemplatesController < ApplicationController
-  before_action :set_email_template, only: [:show, :edit, :update, :destroy,:get_import_file]
-
+  before_action :set_email_template, only: [:show, :edit, :update, :destroy, :get_import_file]
   # GET /email_templates
   # GET /email_templates.json
   def index
@@ -89,37 +88,82 @@ class EmailTemplatesController < ApplicationController
   end
 
   def export_file
-    upload_file = params[:upload_file]
+    require 'securerandom'
+    begin
+      file_name = params[:upload_file].original_filename
+      raise "Unacceptable File Format." unless File.extname(file_name) == '.xls'
+      raise 'File size must be less than 100MB.' if params[:upload_file].size > 100.megabytes
+      directory = "public/uploads"
+      ucid = SecureRandom.hex
+      path = File.join(directory, "#{current_user.email}-#{ucid}.xls")
+      File.open(path, "wb") { |f| f.write(params[:upload_file].read) }
+      email_template = EmailTemplate.find(params[:template_id])
+      subject = email_template.subject
+      body = email_template.body
+      subject_variables = subject.split(/<(.*?)>/)
+      subject_variables.select! { |var| var if var[0] == '@' }.compact
+      body_variables = body.split(/&lt;(.*?)&gt;/)
+      body_variables += body.split(/%3C(.*?)%3E/)
+      body_variables.select! { |var| var if var[0] == '@' }.compact
+      email_setting = current_user.email_setting
+      settings = {
+          :address => email_setting.address, # intentionally
+          :port => email_setting.port, # intentionally
+          :domain => email_setting.domain, #insetad of localhost.localdomain'
+          :user_name => email_setting.username,
+          :password => email_setting.password,
+          :authentication => email_setting.authentication # or smthing else
+      }
+      Notification.delay.send_notification("#{file_name}.xls",email_template,subject_variables,body_variables,settings)
+      redirect_to email_generators_email_templates_path, notice: 'Emails Are Triggered'
+    rescue Exception => invalid
+      @error = true
+      @message = invalid.message
+      redirect_to email_generators_email_templates_path, alert: @message
+    end
 
-    spreadsheet = open_spreadsheet(upload_file)
-    email_details_map = Hash.new
-    spreadsheet.each_with_pagename do |name, sheet|
-      Rails.logger.info "SHEET NAME ====== >>>> #{name}"
-      header = sheet.first
-      sheet.each_with_index do |row, index|
-        if index > 0
-          begin
-            details_key_value_pair = {}
-            count = 1
-            header[1..-1].each_with_index do |i|
-              details_key_value_pair[i] = row[count]
-              count += 1
-            end
-            email_details_map[row[0]] = details_key_value_pair
-          rescue Exception => invalid
-            @error = true
-            @message = invalid.message
-          end
-          break if @error
-        end
-      end
-      break if @error
-    end
-    email_template = EmailTemplate.find(params[:template_id])
-    email_details_map.each_pair do |key,value|
-      Notification.delay.send_notification(key,value,email_template,current_user)
-    end
-    redirect_to email_generators_email_templates_path,notice: 'Emails Are Triggered'
+    # email_setting = current_user.email_setting
+    # settings = {
+    #     :address => email_setting.address, # intentionally
+    #     :port => email_setting.port, # intentionally
+    #     :domain => email_setting.domain, #insetad of localhost.localdomain'
+    #     :user_name => email_setting.username,
+    #     :password => email_setting.password,
+    #     :authentication => email_setting.authentication # or smthing else
+    # }
+    # upload_file = params[:upload_file]
+    # email_template = EmailTemplate.find(params[:template_id])
+    # subject = email_template.subject
+    # body = email_template.body
+    # subject_variables = subject.split(/<(.*?)>/)
+    # subject_variables.select! { |var| var if var[0] == '@' }.compact
+    # body_variables = body.split(/&lt;(.*?)&gt;/)
+    # body_variables += body.split(/%3C(.*?)%3E/)
+    # body_variables.select! { |var| var if var[0] == '@' }.compact
+    # spreadsheet = open_spreadsheet(upload_file)
+    # spreadsheet.each_with_pagename do |name, sheet|
+    #   Rails.logger.info "SHEET NAME ====== >>>> #{name}"
+    #   header = sheet.first
+    #   sheet.each_with_index do |row, index|
+    #     if index > 0
+    #       begin
+    #         details_key_value_pair = {}
+    #         count = 1
+    #         header[1..-1].each_with_index do |i|
+    #           details_key_value_pair[i] = row[count]
+    #           count += 1
+    #         end
+    #         Notification.delay.send_notification(row[0], details_key_value_pair, email_template,subject_variables,body_variables,settings)
+    #       rescue Exception => invalid
+    #         @error = true
+    #         @message = invalid.message
+    #       end
+    #       break if @error
+    #     end
+    #   end
+    #   break if @error
+    # end
+    redirect_to email_generators_email_templates_path, notice: 'Emails Are Triggered'
   end
 
   private

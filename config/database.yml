@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: email_generator_production
-  username: email_generator
-  password: <%= ENV['EMAIL_GENERATOR_DATABASE_PASSWORD'] %>
+  username: root
+  password: 'secure@1234'

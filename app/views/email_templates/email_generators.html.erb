@@ -1,6 +1,6 @@
 <% if current_user.email_templates.blank? %>
     <h1>Please Create at least one email template.</h1>
-<% elsif current_user.email_templates.blank? %>
+<% elsif current_user.email_setting.blank? %>
     <h1>Please save your mail settings.</h1>
 <% else %>
     <%= form_tag export_file_path, class: 'form-horizontal', multipart: true do |form| %>

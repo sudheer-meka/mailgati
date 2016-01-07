@@ -53,3 +53,9 @@ gem 'spreadsheet' # For Spreadsheets
 gem 'roo-xls'
 gem 'sidekiq' # For Async jobs
 gem 'sinatra', '>= 1.3.0', :require => nil # For sidekiq web monitoring
+
+# For Deployment using capistrano
+gem 'capistrano'
+gem 'capistrano-ext'
+gem 'rvm-capistrano', require: false
+gem 'net-ssh', '2.7.0'

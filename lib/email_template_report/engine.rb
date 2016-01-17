@@ -12,11 +12,12 @@ module EmailTemplateReport
       @email_template = EmailTemplate.find(@template_id)
       statement_xls = Spreadsheet::Workbook.new
       sheet = statement_xls.create_worksheet :name => "Email Template Upload"
-      subject_variables = @email_template.subject.split(/<(.*?)>/)
+      subject_variables = @email_template.subject.split(/<(@[._a-zA-Z\d]*)>/)
       subject_variables.select!{|var| var if var[0] == '@' }.compact
       subject_variables = subject_variables.map{|var| var.split('@')[1].classify}
-      body_variables = @email_template.body.split(/&lt;(.*?)&gt;/)
-      body_variables += @email_template.body.split(/%3C(.*?)%3E/)
+      # body_variables = @email_template.body.split(/&lt;(.*?)&gt;/)
+      # body_variables += @email_template.body.split(/%3C(.*?)%3E/)
+      body_variables = @email_template.body.split(/<(@[._a-zA-Z\d]*)>/)
       body_variables.select!{|var| var if var[0] == '@' }.compact
       body_variables = body_variables.map{|var| var.split('@')[1].classify}
       header = ['Email'] + subject_variables + body_variables.uniq

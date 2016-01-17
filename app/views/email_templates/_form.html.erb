@@ -3,7 +3,6 @@
         <div id="error_explanation">
           <h2><%= pluralize(@email_template.errors.count, "error") %> prohibited this email_template from being
             saved:</h2>
-
           <ul>
             <% @email_template.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
@@ -22,7 +21,7 @@
       <%= f.text_field :subject, class: 'form-control', id: 'subject' %>
     </div>
     <label for="body">Body</label>
-    <%= f.text_area :body, class: 'form-control message-wysiwyg', id: 'body' %>
+    <%= f.text_area :body, class: 'form-control message-wysiwyg', id: 'body',rows: 10 %>
     </br>
     <div>
       <button type="submit" class="btn btn-default">Submit</button>
@@ -32,24 +31,27 @@
 
 <script>
     $(function () {
-        $('.message-wysiwyg').each(function (i, elem) {
-            $(elem).wysihtml5({'toolbar': {'blockquote': false, 'html': true}});
+//        $('.message-wysiwyg').each(function (i, elem) {
+//            $(elem).wysihtml5(
 //            {
-////                toolbar: {
-////                    'font-styles': true,
-////                    'color': true,
-////                    'emphasis': {
-////                        'small': true
-////                    },
-////                    'blockquote': true,
-////                    'lists': true,
-////                    'html': true,
-////                    'link': true,
-////                    'image': true,
-////                    'smallmodals': true
-////                }
-//            }
-        });
-        $('.message-wysiwyg').val('<%= @email_template.body.html_safe rescue nil %>');
+//                toolbar: {
+//                    'font-styles': true,
+//                    'color': true,
+//                    'emphasis': {
+//                        'small': true
+//                    },
+//                    'blockquote': true,
+//                    'lists': true,
+//                    'html': true,
+//                    'link': true,
+//                    'image': true,
+//                    'smallmodals': true
+//                }
+//            });
+//        });
+//        $('.message-wysiwyg').html('<%#= j @email_template.body rescue nil %>');
+
+//            $('.message-wysiwyg').wymeditor();
+//            $('.message-wysiwygs').html('<%#= j @email_template.body rescue nil %>');
     });
 </script>

@@ -39,6 +39,7 @@ class EmailTemplatesController < ApplicationController
   # PATCH/PUT /email_templates/1
   # PATCH/PUT /email_templates/1.json
   def update
+
     respond_to do |format|
       if @email_template.update(email_template_params)
         format.html { redirect_to email_templates_url, notice: 'Email template was successfully updated.' }
@@ -100,10 +101,11 @@ class EmailTemplatesController < ApplicationController
       email_template = EmailTemplate.find(params[:template_id])
       subject = email_template.subject
       body = email_template.body
-      subject_variables = subject.split(/<(.*?)>/)
+      subject_variables = subject.split(/<(@[._a-zA-Z\d]*)>/)
       subject_variables.select! { |var| var if var[0] == '@' }.compact
-      body_variables = body.split(/&lt;(.*?)&gt;/)
-      body_variables += body.split(/%3C(.*?)%3E/)
+      # body_variables = body.split(/&lt;(.*?)&gt;/)
+      # body_variables += body.split(/%3C(.*?)%3E/)
+      body_variables = body.split(/<(@[._a-zA-Z\d]*)>/)
       body_variables.select! { |var| var if var[0] == '@' }.compact
       email_setting = current_user.email_setting
       settings = {

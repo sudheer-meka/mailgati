@@ -1,12 +1,12 @@
 require "bundler/capistrano"
 require 'rvm/capistrano'
 
-#set :rvm_bin_path, "$HOME/.rvm/bin"
-# set :rvm_bin_path, "/usr/local/rvm/bin"
+# set :rvm_bin_path, "$HOME/.rvm/bin"
+set :rvm_bin_path, "/usr/local/rvm/bin"
 
 set :user, 'root'
 # Test Server
-set :domain, '162.243.200.195'
+set :domain, '128.199.116.50'
 set :application, 'mailer_desk'
 
 #ssh_options[:port] = 16888

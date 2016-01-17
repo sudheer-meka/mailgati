@@ -1,7 +1,8 @@
 require "bundler/capistrano"
 require 'rvm/capistrano'
 
-set :rvm_type, :system
+set :rvm_ruby_string, 'ruby-1.9.3-p327@mailer_desk'
+set :rvm_type, :user
 # set :rvm_bin_path, "$HOME/.rvm/bin"
 # set :rvm_bin_path, "/usr/local/rvm/bin"
 

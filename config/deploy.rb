@@ -3,7 +3,7 @@ require 'rvm/capistrano'
 
 set :rvm_type, :system
 # set :rvm_bin_path, "$HOME/.rvm/bin"
-set :rvm_bin_path, "/usr/local/rvm/bin"
+# set :rvm_bin_path, "/usr/local/rvm/bin"
 
 set :user, 'root'
 # Test Server

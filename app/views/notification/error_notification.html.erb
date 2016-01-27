@@ -1,0 +1,7 @@
+<table style="padding: 10px" border="1">
+  <% @invalid_mailers.each do |mailer| %>
+      <tr><td><%= mailer %></td></tr>
+  <% end %>
+
+  <h1>Total Count Is:  <%= @invalid_mailers %></h1>
+</table>

@@ -3,7 +3,7 @@
 <h1>Email Templates</h1>
 <table class="table table-bordered table-striped">
   <thead>
-    <tr>
+    <tr class="bg-blue">
       <th>Title</th>
       <th>Subject</th>
       <!--<th>Body</th>-->
@@ -16,10 +16,13 @@
       <tr>
         <td><%= email_template.title %></td>
         <td><%= email_template.subject %></td>
-        <!--<td><%= email_template.body %></td>-->
+        <td><%= link_to '<i class="glyphicon glyphicon-envelope">'.html_safe, test_email_template_path(email_template),remote: true, class: "btn btn-success" %></td>
         <td><%= link_to '<i class="glyphicon glyphicon-pencil">'.html_safe, edit_email_template_path(email_template), class: "btn btn-default" %></td>
-        <td><%= link_to '<i class="glyphicon glyphicon-trash">'.html_safe, email_template, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
+        <td><%= link_to '<i class="glyphicon glyphicon-trash">'.html_safe, email_template, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-float' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<div id="test-email">
+
+</div>

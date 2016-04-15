@@ -9,6 +9,9 @@ Rails.application.routes.draw do
       get 'email_settings'
       post 'save_email_settings'
     end
+    member do
+      get 'test'
+    end
   end
   # get '/get_import_file/:template_id', controller: 'email_templates', action: 'get_import_file'
   match '/get_import_file/(:id)', controller: :email_templates, action: :get_import_file,via: :get,as: 'get_import_file'

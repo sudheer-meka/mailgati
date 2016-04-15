@@ -1,3 +1,8 @@
+<%= javascript_include_tag 'plugins/editors/wysihtml5/wysihtml5.min' %>
+<%= javascript_include_tag 'plugins/editors/wysihtml5/toolbar' %>
+<%= javascript_include_tag 'plugins/editors/wysihtml5/parsers' %>
+<%= javascript_include_tag 'plugins/editors/wysihtml5/locales/bootstrap-wysihtml5.ua-UA' %>
+
 <%= form_for(@email_template) do |f| %>
     <% if @email_template.errors.any? %>
         <div id="error_explanation">
@@ -11,7 +16,6 @@
         </div>
     <% end %>
 
-
     <label for="title">Title</label>
     <div class="input-group">
       <%= f.text_field :title, class: 'form-control', id: 'title' %>
@@ -20,38 +24,14 @@
     <div class="input-group">
       <%= f.text_field :subject, class: 'form-control', id: 'subject' %>
     </div>
-    <label for="body">Body</label>
-    <%= f.text_area :body, class: 'form-control message-wysiwyg', id: 'body',rows: 10 %>
-    </br>
+    <div class="form-group">
+      <label for="body">Body</label>
+      <%= f.text_area :body,cols:'18', rows:'18', class: 'wysihtml5 wysihtml5-default form-control', id: 'body'%>
+    </div>
+
     <div>
       <button type="submit" class="btn btn-default">Submit</button>
       <%= link_to 'Back', email_templates_path, class: "btn btn-default" %>
     </div>
 <% end %>
-
-<script>
-    $(function () {
-//        $('.message-wysiwyg').each(function (i, elem) {
-//            $(elem).wysihtml5(
-//            {
-//                toolbar: {
-//                    'font-styles': true,
-//                    'color': true,
-//                    'emphasis': {
-//                        'small': true
-//                    },
-//                    'blockquote': true,
-//                    'lists': true,
-//                    'html': true,
-//                    'link': true,
-//                    'image': true,
-//                    'smallmodals': true
-//                }
-//            });
-//        });
-//        $('.message-wysiwyg').html('<%#= j @email_template.body rescue nil %>');
-
-//            $('.message-wysiwyg').wymeditor();
-//            $('.message-wysiwygs').html('<%#= j @email_template.body rescue nil %>');
-    });
-</script>
+<%= javascript_include_tag 'pages/editor_wysihtml5' %>

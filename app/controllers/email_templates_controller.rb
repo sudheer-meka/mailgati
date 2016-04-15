@@ -1,5 +1,5 @@
 class EmailTemplatesController < ApplicationController
-  before_action :set_email_template, only: [:show, :edit, :update, :destroy, :get_import_file]
+  before_action :set_email_template, only: [:show, :edit, :update, :destroy, :get_import_file,:test]
   # GET /email_templates
   # GET /email_templates.json
   def index
@@ -103,18 +103,15 @@ class EmailTemplatesController < ApplicationController
       body = email_template.body
       subject_variables = subject.split(/<(@[._a-zA-Z\d]*)>/)
       subject_variables.select! { |var| var if var[0] == '@' }.compact
-      # body_variables = body.split(/&lt;(.*?)&gt;/)
-      # body_variables += body.split(/%3C(.*?)%3E/)
-      body_variables = body.split(/<(@[._a-zA-Z\d]*)>/)
-      body_variables.select! { |var| var if var[0] == '@' }.compact
+      body_variables = email_template.body_variables
       email_setting = current_user.email_setting
       settings = {
-      :address => email_setting.address, # intentionally
-      :port => email_setting.port, # intentionally
-      :domain => email_setting.domain, #insetad of localhost.localdomain'
-      :user_name => email_setting.username,
-      :password => email_setting.password,
-      :authentication => email_setting.authentication # or smthing else
+          :address => email_setting.address, # intentionally
+          :port => email_setting.port, # intentionally
+          :domain => email_setting.domain, #insetad of localhost.localdomain'
+          :user_name => email_setting.username,
+          :password => email_setting.password,
+          :authentication => email_setting.authentication # or smthing else
       }
       # Notification.delay.send_notification("#{current_user.email}-#{ucid}.xls",email_template,subject_variables,body_variables,settings)
       EmailGeneratorWorker.perform_async("#{current_user.email}-#{ucid}.xls",email_template.id,subject_variables,body_variables,settings)
@@ -170,6 +167,15 @@ class EmailTemplatesController < ApplicationController
     #   break if @error
     # end
     redirect_to email_generators_email_templates_path, notice: 'Emails Are Triggered'
+  end
+
+  def test
+    @fields = ['Email'] + @email_template.subject_variables + @email_template.body_variables
+    @fields.uniq!
+    puts @fields.inspect
+    respond_to do |format|
+        format.js
+    end
   end
 
   private

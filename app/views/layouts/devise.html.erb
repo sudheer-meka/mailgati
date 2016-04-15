@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+  <%= stylesheet_link_tag 'devise', media: 'all' %>
+  <%= javascript_include_tag 'devise' %>
+  <%= csrf_meta_tags %>
+
+</head>
+
+<body class="bg-slate-800">
+
+<!-- Page container -->
+<div class="page-container login-container">
+
+  <!-- Page content -->
+  <div class="page-content">
+
+    <!-- Main content -->
+    <div class="content-wrapper">
+      <% if flash[:alert] %>
+          <div class="alert alert-danger alert-white rounded">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            <div class="icon"><i class="fa fa-times-circle"></i></div>
+            <strong>Error!</strong> <%= flash[:alert] %>
+          </div>
+      <% end %>
+      <% if flash[:notice] %>
+          <div class="alert alert-success alert-white rounded">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            <div class="icon"><i class="fa fa-check"></i></div>
+            <strong>Success!</strong> <%= flash[:notice] %>
+          </div>
+      <% end %>
+      <!-- Advanced login -->
+      <%= yield %>
+      <!-- /advanced login -->
+
+    </div>
+    <!-- /main content -->
+
+  </div>
+  <!-- /page content -->
+
+
+  <!-- Footer -->
+  <div class="footer text-white">
+    &copy; 2015. <a href="#" class="text-white">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" class="text-white" target="_blank">Eugene Kopyov</a>
+  </div>
+  <!-- /footer -->
+
+</div>
+<!-- /page container -->
+
+</body>
+</html>

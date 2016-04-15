@@ -12,7 +12,7 @@ class Notification < ApplicationMailer
     # Sidekiq.logger.warn "settings==#{settings}"
     ActionMailer::Base.smtp_settings.merge!(settings)
     @body = body   
-    mail(from: settings[:user_name],subject: "#{subject}", to: email)
+    mail(from: 'Salome Kulangara<salome@quikchex.in>',subject: "#{subject}", to: email)
   end
 
   def error_notification(invalid_mailers)

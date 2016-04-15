@@ -1,10 +1,11 @@
+#
 require "bundler/capistrano"
 require 'rvm/capistrano'
+#
+# # set :rvm_bin_path, "$HOME/.rvm/bin"
+set :rvm_bin_path, "/usr/local/rvm/bin"
+set :rvm_type, :system
 
-set :rvm_ruby_string, 'ruby-1.9.3-p327@mailer_desk'
-set :rvm_type, :user
-# set :rvm_bin_path, "$HOME/.rvm/bin"
-# set :rvm_bin_path, "/usr/local/rvm/bin"
 
 set :user, 'root'
 # Test Server
@@ -14,7 +15,7 @@ set :application, 'mailer_desk'
 #ssh_options[:port] = 16888
 #ssh_options[:forward_agent] = true
 default_run_options[:pty] = true
-set :rvm_type, :system
+# set :rvm_type, :system
 
 # To deploy from local machine
 # set :repository,  "."
@@ -89,8 +90,8 @@ end
 after 'deploy:update_code' do
   run "ln -nfs #{shared_path}/database.yml #{release_path}/config/database.yml"
   run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
-  run "cd #{release_path}; RAILS_ENV=production bundle exec rake db:create"
-  run "cd #{release_path}; RAILS_ENV=production bundle exec rake db:migrate"
+  # run "cd #{release_path}; RAILS_ENV=production bundle exec rake db:create"
+  # run "cd #{release_path}; RAILS_ENV=production bundle exec rake db:migrate"
   # run "cd #{release_path}; RAILS_ENV=production bundle exec rake db:seed"
   # run "cd #{release_path}; RAILS_ENV=production bundle exec rake db:mongoid:create_indexes"
 end

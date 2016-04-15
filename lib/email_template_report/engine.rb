@@ -15,12 +15,7 @@ module EmailTemplateReport
       subject_variables = @email_template.subject.split(/<(@[._a-zA-Z\d]*)>/)
       subject_variables.select!{|var| var if var[0] == '@' }.compact
       subject_variables = subject_variables.map{|var| var.split('@')[1].classify}
-      # body_variables = @email_template.body.split(/&lt;(.*?)&gt;/)
-      # body_variables += @email_template.body.split(/%3C(.*?)%3E/)
-      body_variables = @email_template.body.split(/<(@[._a-zA-Z\d]*)>/)
-      body_variables.select!{|var| var if var[0] == '@' }.compact
-      body_variables = body_variables.map{|var| var.split('@')[1].classify}
-      header = ['Email'] + subject_variables + body_variables.uniq
+      header = ['Email'] + subject_variables + @email_template.body_variables.map{|var| var.split('@')[1].classify}.uniq
       header.uniq!
       sheet.row(0).default_format = Spreadsheet::Format.new(:weight => :bold)
       header.each_with_index do |label, index|

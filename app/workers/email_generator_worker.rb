@@ -24,10 +24,12 @@ class EmailGeneratorWorker
             subject_variables.each do |variable|
               value = row[header_name_index_map[variable.split('@')[1].classify]]
               subject.gsub!("<#{variable}>", value)
+
             end
             body_variables.each do |variable|
               value = row[header_name_index_map[variable.split('@')[1].classify]]
               @body.gsub!("<#{variable}>", value)
+              @body.gsub!("&lt;#{variable}&gt;", value)
             end
             Notification.delay.send_notification(subject, @body, settings, email)
             puts "Email===>>>>>#{email}"

@@ -1,0 +1,49 @@
+
+<%= link_to '<i class="icon-add position-left"></i>Subscriber Group'.html_safe, new_subscriber_group_path, class: "btn btn-primary pull-right" %>
+<h1>Subscriber Groups</h1>
+<table class="table table-bordered table-striped" style="margin-bottom: 30px">
+  <thead>
+  <tr class="bg-blue">
+    <th>Name</th>
+    <th>Active</th>
+    <!--<th>Body</th>-->
+    <th colspan="2"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @subscriber_groups.each do |subscriber_group| %>
+      <tr>
+        <td><%= link_to subscriber_group.name.titleize, subscriber_group_path(subscriber_group) %></td>
+        <td><%= subscriber_group.is_active ? 'Active' : 'In Active' %></td>
+        <td><%= link_to '<i class="icon-pencil4">'.html_safe, edit_subscriber_group_path(subscriber_group), class: "btn btn-default" %></td>
+        <td><%= link_to '<i class="icon-bin">'.html_safe, subscriber_group, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+      </tr>
+  <% end %>
+  <% if @subscriber_groups.blank? %>
+  <tr>
+    <td colspan="4">No Subscriber Groups Found</td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<div class="row text-center no-margin" >
+  <%= will_paginate @subscriber_groups, renderer: BootstrapPagination::Rails %>
+</div>
+<script>
+    $(function(){
+        $('.table tr[data-href]').each(function(){
+            $(this).css('cursor','pointer').hover(
+                    function(){
+                        $(this).addClass('active');
+                    },
+                    function(){
+                        $(this).removeClass('active');
+                    }).click( function(){
+                        document.location = "http://localhost:3001/subscriber_groups/" + $(this).attr('data-href');
+                    }
+            );
+        });
+    });
+</script>

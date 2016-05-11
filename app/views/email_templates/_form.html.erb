@@ -1,9 +1,13 @@
+
 <%= javascript_include_tag 'plugins/editors/wysihtml5/wysihtml5.min' %>
 <%= javascript_include_tag 'plugins/editors/wysihtml5/toolbar' %>
 <%= javascript_include_tag 'plugins/editors/wysihtml5/parsers' %>
-<%= javascript_include_tag 'plugins/editors/wysihtml5/locales/bootstrap-wysihtml5.ua-UA' %>
 
-<%= form_for(@email_template) do |f| %>
+<%= javascript_include_tag 'plugins/editors/wysihtml5/locales/bootstrap-wysihtml5.ua-UA' %>
+<h1 align="center">Step 1: Email Campaign Settings</h1>
+<p class="color-danger lead text-center">Select the subject,sender and template for this campaign</p>
+
+<%= form_for(@email_template,html:{class: 'form-horizontal'}) do |f| %>
     <% if @email_template.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@email_template.errors.count, "error") %> prohibited this email_template from being
@@ -16,22 +20,48 @@
         </div>
     <% end %>
 
-    <label for="title">Title</label>
-    <div class="input-group">
-      <%= f.text_field :title, class: 'form-control', id: 'title' %>
-    </div>
-    <label for="title">Subject</label>
-    <div class="input-group">
-      <%= f.text_field :subject, class: 'form-control', id: 'subject' %>
-    </div>
     <div class="form-group">
-      <label for="body">Body</label>
-      <%= f.text_area :body,cols:'18', rows:'18', class: 'wysihtml5 wysihtml5-default form-control', id: 'body'%>
+      <label class="control-label col-lg-2">Title</label>
+      <div class="col-lg-10">
+        <%= f.text_field :title, class: 'form-control', id: 'title',placeholder: 'Title' %>
+      </div>
     </div>
 
-    <div>
-      <button type="submit" class="btn btn-default">Submit</button>
-      <%= link_to 'Back', email_templates_path, class: "btn btn-default" %>
+    <div class="form-group">
+      <label class="control-label col-lg-2">Subject</label>
+      <div class="col-lg-10">
+        <%= f.text_field :subject, class: 'form-control', id: 'subject' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-lg-2">Sender Address</label>
+      <div class="col-lg-10">
+        <%= f.email_field :sender_address, class: 'form-control', id: 'subject' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-lg-2">Body</label>
+      </br>
+      <div class="col-lg-12">
+        <%= f.text_area :body,cols:'18', rows:'18', class: 'wysihtml5 wysihtml5-default form-control', id: 'body'%>
+      </div>
+    </div>
+    <div class="text-center">
+      <%= link_to '<i class="icon-cancel-circle2 position-left"></i> Cancel'.html_safe, email_templates_path, class: "btn bg-slate-400 btn-ladda btn-ladda-progress" %>
+      <button class="btn btn-primary" type="submit">Proceed <i class="icon-arrow-right14 position-right"></i></button>
     </div>
 <% end %>
 <%= javascript_include_tag 'pages/editor_wysihtml5' %>
+
+<!--<input type="checkbox" class='icheck-me' data-skin="square" data-color="blue">-->
+
+<!--<script>-->
+<!--//    $(function(){-->
+<!--//        $(".icheck-me").iCheck({-->
+<!--//            checkboxClass: 'icheckbox_square-blue',-->
+<!--//            radioClass: 'iradio_square-blue'-->
+<!--//        });-->
+<!--//    })-->
+<!--</script>-->

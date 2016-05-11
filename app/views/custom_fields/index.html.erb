@@ -1,0 +1,32 @@
+
+<%= link_to 'New Custom Field', new_custom_field_path, class: "btn btn-default pull-right" %>
+<h1>Custom Fields</h1>
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr class="bg-blue">
+    <th>Name</th>
+    <th>Active</th>
+    <!--<th>Body</th>-->
+    <th colspan="2"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @custom_fields.each do |custom_field| %>
+      <tr>
+        <td><%= custom_field.name %></td>
+        <td><%= custom_field.is_active ? 'Active' : 'In Active' %></td>
+        <td><%= link_to '<i class="glyphicon glyphicon-pencil">'.html_safe, edit_custom_field_path(custom_field), class: "btn btn-default" %></td>
+        <td><%= link_to '<i class="glyphicon glyphicon-trash">'.html_safe, custom_field, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-float' %></td>
+      </tr>
+  <% end %>
+  <% if @custom_fields.blank? %>
+  <tr>
+    <td colspan="4">No Custom Fields Found</td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+<div id="test-email">
+
+</div>

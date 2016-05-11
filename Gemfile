@@ -61,3 +61,10 @@ gem 'capistrano-ext'
 gem 'rvm-capistrano', require: false
 gem 'net-ssh', '2.7.0'
 gem 'email_verifier'
+gem 'will_paginate-bootstrap'
+gem 'icheck-rails'
+# gem 'mongoid'
+# gem 'bson'
+# gem 'bson_ext'
+# gem "mongo_session_store-rails4" #To create session store
+#

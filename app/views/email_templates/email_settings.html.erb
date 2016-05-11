@@ -1,54 +1,187 @@
+<h1 class="text-center">Settings</h1>
+<p class="color-danger lead text-center">View Company Settings</p>
+<div class="tab-container">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#custom-fields-info" id="custom-fields-tab" data-toggle="tab">Custom Fields</a>
+    </li>
+    <li><a href="#email-settings-info" id="email-settings-tab" data-toggle="tab">Email Settings</a></li>
+  </ul>
 
-<%= form_for(@email_setting,url: save_email_settings_email_templates_path,method: 'post' ) do |f| %>
-    <% if @email_setting.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@email_setting.errors.count, "error") %> prohibited this email_template from being
-            saved:</h2>
+  <div class="tab-content">
+    <div id="custom-fields-info" class="tab-pane active cont">
+      <%= link_to '<i class="icon-add"></i>  Custom Field'.html_safe, new_custom_field_path, class: "btn btn-primary pull-right" %>
+      <h1>Custom Fields</h1>
+      <table class="table table-bordered table-striped">
+        <thead>
+        <tr class="bg-blue">
+          <th>Name</th>
+          <th>Active</th>
+          <!--<th>Body</th>-->
+          <th colspan="2"></th>
+        </tr>
+        </thead>
 
-          <ul>
-            <% @email_setting.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
+        <tbody>
+        <% @custom_fields.each do |custom_field| %>
+            <tr>
+              <td><%= custom_field.name %></td>
+              <td><%= custom_field.is_active ? 'Active' : 'In Active' %></td>
+              <td><%= link_to '<i class="glyphicon glyphicon-pencil">'.html_safe, edit_custom_field_path(custom_field), class: "btn btn-default" %></td>
+              <td><%= link_to '<i class="glyphicon glyphicon-trash">'.html_safe, custom_field, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger btn-float' %></td>
+            </tr>
+        <% end %>
+        <% if @custom_fields.blank? %>
+            <tr>
+              <td colspan="4">No Custom Fields Found</td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div id="email-settings-info" class="tab-pane cont">
+      <%= form_for(@email_setting, url: save_email_settings_email_templates_path, method: 'post', class: 'form-horizontal') do |f| %>
+          <button type="button" class="btn btn-primary edit-settings pull-right"><i class="icon-pencil"></i> Edit
+          </button>
+          <div class="editing-settings">
+            <button type="submit" class="btn btn-primary save-settings pull-right">Save</button>
+            <button type="button" class="btn btn-default cancel-settings pull-right" style="margin-right: 10px">Cancel</button>
+          </div>
+          <h1>Email Settings</h1>
+          <table class="table table-bordered table-striped">
+            <thead>
+            <tr class="bg-blue">
+              <th width="40%">Name</th>
+              <th>Active</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+              <td>Address</td>
+              <td>
+                <div class="view-settings">
+                  <%= @email_setting.address %>
+                </div>
+                <div class="editing-settings">
+                  <%= f.text_field :address, class: 'form-control', required: true %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Domain</td>
+              <td>
+                <div class="view-settings">
+                  <%= @email_setting.domain %>
+                </div>
+                <div class="editing-settings">
+                  <%= f.text_field :domain, class: 'form-control', required: true %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Port</td>
+              <td>
+                <div class="view-settings">
+                  <%= @email_setting.port %>
+                </div>
+                <div class="editing-settings">
+                  <%= f.text_field :port, class: 'form-control', required: true %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Username</td>
+              <td>
+                <div class="view-settings">
+                  <%= @email_setting.username %>
+                </div>
+                <div class="editing-settings">
+                  <%= f.text_field :username, class: 'form-control', required: true %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Password</td>
+              <td>
+                <div class="view-settings">
+                  <%= @email_setting.password %>
+                </div>
+                <div class="editing-settings">
+                  <%= f.text_field :password, class: 'form-control', required: true %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Authentication</td>
+              <td>
+                <div class="view-settings">
+                  <%= @email_setting.authentication %>
+                </div>
+                <div class="editing-settings">
+                  <%= f.text_field :authentication, class: 'form-control', required: true %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Enable Start TLS</td>
+              <td>
+                <div class="view-settings">
+                  <%= @email_setting.enable_starttls_auto %>
+                </div>
+                <div class="editing-settings">
+                  <%#= f.text_field :enable_starttls_auto,class: 'form-control',required: true %>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="radio">
+                        <label>
+                          <div class="choice border-primary-600 text-primary-800"><span class="checked">
+                            <input type="radio" checked="checked" class="control-primary" name="email_setting[enable_starttls_auto]">
+                          </span>
+                          </div>
+                          Enable
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="radio">
+                        <label>
+                          <div class="choice border-primary-600 text-primary-800">
+                            <span><input type="radio" class="control-primary" name="email_setting[enable_starttls_auto]"></span></div>
+                          Disable
+                        </label>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 
-    <label for="address">Address</label>
-    <div class="input-group">
-      <%= f.text_field :address, class: 'form-control', id: 'address' %>
-    </div>
-    <label for="domain">Domain</label>
-    <div class="input-group">
-      <%= f.text_field :domain, class: 'form-control', id: 'domain' %>
-    </div>
-
-    <label for="port">Port</label>
-    <div class="input-group">
-      <%= f.number_field :port, class: 'form-control', id: 'port' %>
-    </div>
-    <label for="username">Username</label>
-    <div class="input-group">
-      <%= f.text_field :username, class: 'form-control', id: 'username' %>
-    </div>
-    <label for="password">Password</label>
-    <div class="input-group">
-      <%= f.text_field :password, class: 'form-control', id: 'password' %>
-    </div>
-
-    <label for="authentication">Authentication</label>
-    <div class="input-group">
-      <%= f.select :authentication,[['Plain','plain'],['Login','login'],['Cram Md5','cram_md5']], class: 'form-control', id: 'authentication' %>
-    </div>
-
-
-    <label for="enable_starttls_auto">Enable Starttls Auto</label>
-    <div class="input-group">
-      <%= f.select :enable_starttls_auto,[['True',true],['False',false]], class: 'form-control', id: 'enable_starttls_auto' %>
-    </div>
-    </br>
-    <div>
-      <button type="submit" class="btn btn-default">Submit</button>
-      <%#= link_to 'Back', email_settings_email_templates_url, class: "btn btn-default" %>
-    </div>
-<% end %>
+<style>
+    .editing-settings {
+        display: none;
+    }
+</style>
+<script>
+    $(function () {
+        $(document).on("click", ".edit-settings", function () {
+            $(this).hide();
+            $('.view-settings').hide();
+            $('.editing-settings').show();
+        });
+        $(document).on("click", ".cancel-settings", function () {
+            $('.view-settings').show();
+            $('.editing-settings').hide();
+            $('.edit-settings').show();
+        });
+    });
+</script>

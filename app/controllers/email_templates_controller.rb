@@ -1,9 +1,10 @@
 class EmailTemplatesController < ApplicationController
-  before_action :set_email_template, only: [:show, :edit, :update, :destroy, :get_import_file,:test]
+  before_action :set_company
+  before_action :set_email_template, only: [:confirm_campaign, :show, :edit, :update, :destroy, :get_import_file, :test, :select_lists]
   # GET /email_templates
   # GET /email_templates.json
   def index
-    @email_templates = current_user.email_templates
+    @email_templates = @company.email_templates.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /email_templates/1
@@ -13,7 +14,7 @@ class EmailTemplatesController < ApplicationController
 
   # GET /email_templates/new
   def new
-    @email_template = current_user.email_templates.new
+    @email_template = @company.email_templates.new
   end
 
   # GET /email_templates/1/edit
@@ -23,11 +24,11 @@ class EmailTemplatesController < ApplicationController
   # POST /email_templates
   # POST /email_templates.json
   def create
-    @email_template = current_user.email_templates.new(email_template_params)
+    @email_template = @company.email_templates.new(email_template_params)
 
     respond_to do |format|
       if @email_template.save
-        format.html { redirect_to email_templates_url, notice: 'Email template was successfully created.' }
+        format.html { redirect_to select_lists_email_template_url(@email_template)}
         format.json { render :show, status: :created, location: @email_template }
       else
         format.html { render :new }
@@ -42,11 +43,40 @@ class EmailTemplatesController < ApplicationController
 
     respond_to do |format|
       if @email_template.update(email_template_params)
-        format.html { redirect_to email_templates_url, notice: 'Email template was successfully updated.' }
+        format.html { redirect_to select_lists_email_template_url(@email_template) }
         format.json { render :show, status: :ok, location: @email_template }
       else
         format.html { render :edit }
         format.json { render json: @email_template.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def select_lists
+    if request.method_symbol == :post
+      selected_lists = {}
+      @company.subscriber_groups.each do |group|
+        selected_lists[group.id] = group.name unless params["#{group.id}"].blank?
+      end
+      if selected_lists.blank?
+        session[:selected_lists] = {@email_template.id => {}}
+        redirect_to select_lists_email_template_url(@email_template), alert: 'Please Select at least one Subscriber Group'
+        return
+      else
+        session[:selected_lists] = {@email_template.id => selected_lists}
+        redirect_to confirm_campaign_email_template_url(@email_template)
+        return
+      end
+    else
+      @selected_lists = ((session[:selected_lists]["#{@email_template.id}"] || {}) rescue {})
+    end
+  end
+
+  def confirm_campaign
+    if request.method_symbol == :post
+      respond_to do |format|
+        format.html { redirect_to email_templates_url, notice: 'Email Campaign was successfully Sent' }
+        format.json { head :no_content }
       end
     end
   end
@@ -66,11 +96,12 @@ class EmailTemplatesController < ApplicationController
 
   def email_settings
     # @email_setting = EmailSetting.find_or_initialize_by(user_id: current_user.id).delete
-    @email_setting = EmailSetting.find_or_initialize_by(user_id: current_user.id)
+    @email_setting = EmailSetting.find_or_initialize_by(company_id: @company.id)
+    @custom_fields = @company.custom_fields
   end
 
   def save_email_settings
-    @email_setting = EmailSetting.find_or_initialize_by(user_id: current_user.id)
+    @email_setting = EmailSetting.find_or_initialize_by(company_id: @company.id)
     @email_setting.address = params[:email_setting][:address]
     @email_setting.domain = params[:email_setting][:domain]
     @email_setting.port = params[:email_setting][:port]
@@ -114,8 +145,8 @@ class EmailTemplatesController < ApplicationController
           :authentication => email_setting.authentication # or smthing else
       }
       # Notification.delay.send_notification("#{current_user.email}-#{ucid}.xls",email_template,subject_variables,body_variables,settings)
-      EmailGeneratorWorker.perform_async("#{current_user.email}-#{ucid}.xls",email_template.id,subject_variables,body_variables,settings)
-      
+      EmailGeneratorWorker.perform_async("#{current_user.email}-#{ucid}.xls", email_template.id, subject_variables, body_variables, settings)
+
       redirect_to email_generators_email_templates_path, notice: 'Emails Are Triggered'
       return
     rescue Exception => invalid
@@ -174,18 +205,18 @@ class EmailTemplatesController < ApplicationController
     @fields.uniq!
     puts @fields.inspect
     respond_to do |format|
-        format.js
+      format.js
     end
   end
 
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_email_template
-    @email_template = current_user.email_templates.find(params[:id])
+    @email_template = @company.email_templates.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def email_template_params
-    params.require(:email_template).permit(:title, :subject, :body)
+    params.require(:email_template).permit(:title, :subject, :body, :sender_address)
   end
 end

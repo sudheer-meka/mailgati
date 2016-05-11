@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :check_user_signed_in, only: "index"
   before_action :authenticate_user!
-  rescue_from ::Exception, with: :error_occurred
+  before_action :set_company_id
+  rescue_from ::Exception, with: :error_occurred unless Rails.env.development?
   layout :layout_by_resource
 
   def open_spreadsheet(file)
@@ -18,6 +19,14 @@ class ApplicationController < ActionController::Base
       else
         raise "Unknown file type: #{file.original_filename}"
     end
+  end
+
+  def set_company_id
+    session[:company_id] = current_user.company_id if current_user and !session[:company_id]
+  end
+
+  def set_company
+    @company = Company.find(session[:company_id])
   end
 
   def check_user_signed_in

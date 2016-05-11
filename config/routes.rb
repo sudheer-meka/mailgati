@@ -11,6 +11,22 @@ Rails.application.routes.draw do
     end
     member do
       get 'test'
+      get 'select_lists'
+      post 'select_lists'
+      post 'confirm_campaign'
+      get 'confirm_campaign'
+    end
+  end
+  # resources :companies do
+  #
+  # end
+  resources :custom_fields
+  resources :subscriber_groups do
+    member do
+      get 'import_subscribers'
+      post 'export_subscribers'
+    end
+    resources :subscribers do
     end
   end
   # get '/get_import_file/:template_id', controller: 'email_templates', action: 'get_import_file'

@@ -13,10 +13,15 @@
  * require_tree .
 
  *= require icons/icomoon/styles
+
  *= require bootstrap.min
- *= require core.min
+*= require core.min
  *= require components.min
  *= require colors.min
+
+ *= require custom
+
+ *= require icheck/square/_all
  * require bootstrap-wysihtml5
  *= require_self
  */

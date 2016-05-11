@@ -1,0 +1,48 @@
+<h1 align="center">Step 3: Confirm Email Campaign</h1>
+<p class="color-danger lead text-center">Please check the details and confirm!</p>
+
+<table class="table table-bordered table-striped" style="margin-bottom: 30px">
+  <tr>
+    <td>
+      <b>
+        Subject
+      </b>
+
+    </td>
+    <td>
+      <%= @email_template.subject %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <b>Sender Address</b>
+
+    </td>
+    <td>
+      <%= @email_template.sender_address %>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <span><b>Selected Subscriber Groups</b></span></br></br>
+      <% session[:selected_lists]["#{@email_template.id}"].values.each_with_index do |list,index| %>
+          <%= "#{index +1 }. #{list.titleize}" %>
+          </br>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <span><b>Body</b></span></br></br>
+      <%= @email_template.body.html_safe %>
+    </td>
+
+  </tr>
+
+</table>
+
+<div class="text-center">
+  <%= link_to '<i class="icon-arrow-left13 position-left"></i>Back'.html_safe, select_lists_email_template_url(@email_template), class: "btn btn-danger" %>
+  <%= link_to '<i class="icon-cancel-circle2 position-left"></i>Cancel'.html_safe, email_templates_path, class: "btn bg-slate-400" %>
+  <%= link_to '<i class="icon-checkmark3 position-left"></i>Confirm'.html_safe,confirm_campaign_email_template_url(@email_template),method:'post', class: "btn btn-primary" %>
+</div>

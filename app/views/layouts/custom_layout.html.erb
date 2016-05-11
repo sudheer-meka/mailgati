@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mailer Desk</title>
+  <title>Mail Gati</title>
 
   <!--Global stylesheets -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+  <!--<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800' rel='stylesheet' type='text/css'>-->
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
@@ -35,7 +35,7 @@
             <i class="caret "></i>
           </a>
 
-          <ul class="dropdown-menu dropdown-menu-right">
+          <ul class="dropdown-menu dropdown-menu-right" style="min-width: 203px">
             <li><%= link_to('<i class="icon-switch2"></i> Logout'.html_safe, destroy_user_session_path,method: :delete) %></li>
           </ul>
         </li>
@@ -53,9 +53,10 @@
 
     <div class="navbar-collapse collapse" id="navbar-second-toggle">
       <ul class="nav navbar-nav">
-        <li class="<%= 'active' if current_page?(email_templates_path) %>"><a href="<%= email_templates_path %>"><i class="icon-home5 position-left"></i> Email Templates</a></li>
+        <li class="<%= 'active' if current_page?(email_templates_path) %>"><a href="<%= email_templates_path %>"><i class="icon-home5 position-left"></i> Email Campaigns</a></li>
+        <li class="<%= 'active' if current_page?(subscriber_groups_path) %>"><a href="<%= subscriber_groups_path %>"><i class="icon-users4 position-left"></i>Subscriber Groups</a></li>
+        <li class="<%= 'active' if current_page?(email_settings_email_templates_path) %>"><a href="<%= email_settings_email_templates_path %>"><i class="icon-cogs position-left"></i>Settings</a></li>
         <li class="<%= 'active' if current_page?(email_generators_email_templates_path) %>"><a href="<%= email_generators_email_templates_path %>"><i class="icon-rocket position-left"></i>Generate Emails</a></li>
-        <li class="<%= 'active' if current_page?(email_settings_email_templates_path) %>"><a href="<%= email_settings_email_templates_path %>"><i class="icon-cogs position-left"></i>Email Settings</a></li>
       </ul>
     </div>
   </div>
@@ -96,21 +97,29 @@
 
     <!--Main content -->
     <div class="content-wrapper">
-      <% if flash[:alert] %>
-          <div class="alert alert-danger alert-white rounded">
-            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-            <div class="icon"><i class="fa fa-times-circle"></i></div>
-            <strong>Error!</strong> <%= flash[:alert] %>
-          </div>
-      <% end %>
-      <% if flash[:notice] %>
-          <div class="alert alert-success alert-white rounded">
-            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-            <div class="icon"><i class="fa fa-check"></i></div>
-            <strong>Success!</strong> <%= flash[:notice] %>
-          </div>
-      <% end %>
-      <%= yield %>
+
+      <div class="panel panel-flat">
+
+        <div class="panel-body">
+          <% if flash[:alert] %>
+              <div class="alert alert-danger alert-white rounded">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <div class="icon"><i class="fa fa-times-circle"></i></div>
+                <strong>Error!</strong> <%= flash[:alert] %>
+              </div>
+          <% end %>
+          <% if flash[:notice] %>
+              <div class="alert alert-success alert-white rounded">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <div class="icon"><i class="fa fa-check"></i></div>
+                <strong>Success!</strong> <%= flash[:notice] %>
+              </div>
+          <% end %>
+          <%= yield %>
+        </div>
+
+      </div>
+
     </div>
     <!-- /main content -->
 

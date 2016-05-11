@@ -1,0 +1,50 @@
+<h1 align="center">Step 2: Email Campaign Settings</h1>
+<p class="color-danger lead text-center">Select Subscriber Group(s) for this campaign</p>
+
+<%= form_for(@email_template, url: select_lists_email_template_url(@email_template), method: 'post', html: {class: 'form-horizontal'}) do |f| %>
+    <table class="table table-bordered table-striped" style="margin-bottom: 30px">
+      <thead>
+      <tr class="bg-blue">
+        <th></th>
+        <th>Subscriber Group</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @company.subscriber_groups.each do |group| %>
+          <tr>
+            <td>
+              <input type="checkbox" class='icheck-me' name=<%= group.id %> data-skin="square" data-color="blue" id="<%= group.id %>">
+            </td>
+            <td>
+              <%= group.name.titleize %>
+            </td>
+          </tr>
+      <% end %>
+
+      </tbody>
+    </table>
+
+
+    <div class="text-center">
+      <%= link_to '<i class="icon-arrow-left13 position-left"></i> Back'.html_safe, edit_email_template_path(@email_template), class: "btn btn-danger" %>
+      <%= link_to '<i class="icon-cancel-circle2 position-left"></i> Cancel'.html_safe, email_templates_path, class: "btn bg-slate-400" %>
+      <button class="btn btn-primary" type="submit">Proceed <i class="icon-arrow-right14 position-right"></i></button>
+    </div>
+<% end %>
+
+
+
+
+<script>
+    $(function () {
+        $(".icheck-me").iCheck({
+            checkboxClass: 'icheckbox_square-blue'
+        });
+
+        var selected_lists = <%= @selected_lists.keys.to_json.html_safe %>;
+        jQuery.each(selected_lists, function (index, item) {
+            $("#" + item).iCheck('check');
+        });
+    })
+</script>

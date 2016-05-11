@@ -12,7 +12,7 @@ class Notification < ApplicationMailer
     # Sidekiq.logger.warn "settings==#{settings}"
     ActionMailer::Base.smtp_settings.merge!(settings)
     @body = body   
-    mail(from: 'Salome Kulangara<salome@quikchex.in>',subject: "#{subject}", to: email)
+    mail(from: 'Salome<salome@quikchex.in>',subject: "#{subject}", to: email)
   end
 
   def error_notification(invalid_mailers)
@@ -21,8 +21,8 @@ class Notification < ApplicationMailer
         :address =>'smtp.mandrillapp.com', # intentionally
         :port => 587, # intentionally
         :domain => 'quikchex.in', #insetad of localhost.localdomain'
-        :user_name => 'allan@quikchex.in',
-        :password => 'xpSqHiQt9A7qT9dyB4bGyA',
+        :user_name => 'allanasd@quikchex.in',
+        :password => '--------',
         :authentication => 'plain' # or smthing else
     }
     ActionMailer::Base.smtp_settings.merge!(settings)

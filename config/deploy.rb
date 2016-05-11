@@ -9,8 +9,8 @@ set :rvm_type, :system
 
 set :user, 'root'
 # Test Server
-set :domain, '128.199.116.50'
-set :application, 'mailer_desk'
+set :domain, '128.199.207.119'
+set :application, 'mailer_gati'
 
 #ssh_options[:port] = 16888
 #ssh_options[:forward_agent] = true
@@ -26,7 +26,7 @@ default_run_options[:pty] = true
 set :deploy_to, "/var/www/rails_apps/#{application}"
 
 set :repository,  "https://github.com/sudheerm16/Dynamic-Email-Generator.git"
-set :local_repository,  "https://github.com/sudheerm16/Dynamic-Email-Generator.git"
+# set :local_repository,  "https://github.com/sudheerm16/Dynamic-Email-Generator.git"
 
 # set :repository,  "git@github.com:sudheerm16/Dynamic-Email-Generator.git"
 # set :local_repository,  "git@github.com:sudheerm16/Dynamic-Email-Generator.git"

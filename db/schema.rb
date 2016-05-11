@@ -11,7 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160102081007) do
+ActiveRecord::Schema.define(version: 20160501161901) do
+
+  create_table "companies", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.boolean  "is_active",              default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "custom_field_values", force: :cascade do |t|
+    t.integer  "custom_field_id", limit: 4
+    t.integer  "subscriber_id",   limit: 4
+    t.string   "value",           limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "custom_field_values", ["custom_field_id"], name: "index_custom_field_values_on_custom_field_id", using: :btree
+  add_index "custom_field_values", ["subscriber_id"], name: "index_custom_field_values_on_subscriber_id", using: :btree
+
+  create_table "custom_fields", force: :cascade do |t|
+    t.integer  "company_id", limit: 4
+    t.string   "name",       limit: 255
+    t.string   "type",       limit: 255
+    t.boolean  "is_active",              default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "custom_fields", ["company_id"], name: "index_custom_fields_on_company_id", using: :btree
 
   create_table "email_settings", force: :cascade do |t|
     t.integer  "user_id",              limit: 4
@@ -24,18 +53,43 @@ ActiveRecord::Schema.define(version: 20160102081007) do
     t.boolean  "enable_starttls_auto",             default: true
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
+    t.integer  "company_id",           limit: 4
   end
 
   add_index "email_settings", ["user_id"], name: "index_email_settings_on_user_id", using: :btree
 
   create_table "email_templates", force: :cascade do |t|
-    t.string   "title",      limit: 255
-    t.text     "subject",    limit: 65535
-    t.text     "body",       limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "user_id",    limit: 4
+    t.string   "title",          limit: 255
+    t.text     "subject",        limit: 65535
+    t.text     "body",           limit: 65535
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "user_id",        limit: 4
+    t.integer  "company_id",     limit: 4
+    t.string   "sender_address", limit: 255
   end
+
+  create_table "subscriber_groups", force: :cascade do |t|
+    t.integer  "company_id", limit: 4
+    t.string   "name",       limit: 255
+    t.boolean  "is_active",              default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "subscriber_groups", ["company_id"], name: "index_subscriber_groups_on_company_id", using: :btree
+
+  create_table "subscribers", force: :cascade do |t|
+    t.integer  "subscriber_group_id", limit: 4
+    t.string   "name",                limit: 255
+    t.string   "email",               limit: 255
+    t.string   "contact",             limit: 255
+    t.boolean  "is_active",                       default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "subscribers", ["subscriber_group_id"], name: "index_subscribers_on_subscriber_group_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -48,6 +102,7 @@ ActiveRecord::Schema.define(version: 20160102081007) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
+    t.integer  "company_id",             limit: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

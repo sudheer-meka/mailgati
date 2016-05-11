@@ -1,0 +1,26 @@
+<%= form_for(@subscriber_group) do |f| %>
+    <% if @subscriber_group.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@subscriber_group.errors.count, "error") %> prohibited this subscriber_group from being
+            saved:</h2>
+          <ul>
+            <% @subscriber_group.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <label for="title">Name</label>
+    <div class="input-group">
+      <%= f.text_field :name, class: 'form-control', id: 'title' %>
+    </div>
+
+    <div class="text-center">
+      <%= link_to '<i class="icon-arrow-left13 position-left"></i> Back'.html_safe, subscriber_groups_path, class: "btn btn-danger" %>
+      <button class="btn btn-primary" type="submit"><i class="icon-checkmark3 position-left"></i>Save</button>
+    </div>
+
+<% end %>
+
+

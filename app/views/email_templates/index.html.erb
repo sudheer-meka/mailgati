@@ -1,28 +1,41 @@
-
-<%= link_to 'New Email template', new_email_template_path, class: "btn btn-default pull-right" %>
-<h1>Email Templates</h1>
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr class="bg-blue">
-      <th>Title</th>
-      <th>Subject</th>
-      <!--<th>Body</th>-->
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @email_templates.each do |email_template| %>
-      <tr>
-        <td><%= email_template.title %></td>
-        <td><%= email_template.subject %></td>
-        <td><%= link_to '<i class="glyphicon glyphicon-envelope">'.html_safe, test_email_template_path(email_template),remote: true, class: "btn btn-success" %></td>
-        <td><%= link_to '<i class="glyphicon glyphicon-pencil">'.html_safe, edit_email_template_path(email_template), class: "btn btn-default" %></td>
-        <td><%= link_to '<i class="glyphicon glyphicon-trash">'.html_safe, email_template, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-float' %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<div id="test-email">
-
+<h1 class="text-center">Email Campaigns</h1>
+<p class="color-danger lead text-center">View/Send Email Campaigns</p>
+<div class="tab-container">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#active-info" data-toggle="tab">Sent</a>
+    </li>
+    <li><a href="#draft-info"data-toggle="tab">Drafts</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="active-info" class="tab-pane active cont">
+      <%= link_to '<i class="icon-add position-left"></i>Email Campaign'.html_safe, new_email_template_path, class: "btn btn-primary pull-right" %>
+      <h1>Email Campaigns</h1>
+      <table class="table table-bordered table-striped" style="margin-bottom: 30px">
+        <thead>
+        <tr class="bg-blue">
+          <th>Title</th>
+          <th>Subject</th>
+          <!--<th>Body</th>-->
+          <th colspan="3"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @email_templates.each do |email_template| %>
+            <tr>
+              <td><%= email_template.title %></td>
+              <td><%= email_template.subject %></td>
+              <td><%= link_to '<i class="glyphicon glyphicon-envelope">'.html_safe, test_email_template_path(email_template),remote: true, class: "btn btn-success" %></td>
+              <td><%= link_to '<i class="icon-pencil4">'.html_safe, edit_email_template_path(email_template), class: "btn btn-default" %></td>
+              <td><%= link_to '<i class="icon-bin">'.html_safe, email_template, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-float' %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <div class="row text-center no-margin" >
+        <%= will_paginate @email_templates, renderer: BootstrapPagination::Rails %>
+      </div>
+    </div>
+    <div id="draft-info" class="tab-pane cont"></div>
+  </div>
 </div>

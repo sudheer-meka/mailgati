@@ -1,0 +1,47 @@
+<%
+   method = action_name=='new'  ? 'post' : 'patch'
+   url = action_name=='new' ? subscriber_group_subscribers_path(@subscriber_group) : subscriber_group_subscriber_path(@subscriber_group,@subscriber)
+%>
+<%= form_for(@subscriber,url: url,method: method) do |f| %>
+    <% if @subscriber.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@subscriber.errors.count, "error") %> prohibited this subscriber from being
+            saved:</h2>
+          <ul>
+            <% @subscriber.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <label for="title">Name</label>
+    <div class="input-group">
+      <%= f.text_field :name, class: 'form-control', id: 'title' %>
+    </div>
+
+    <label for="email">Email</label>
+    <div class="input-group">
+      <%= f.email_field :email, class: 'form-control', id: 'email' %>
+    </div>
+
+    <label for="contact">Contact</label>
+    <div class="input-group">
+      <%= f.text_field :contact, class: 'form-control', id: 'contact' %>
+    </div>
+    <% values = @subscriber.custom_field_values %>
+    <% @company.custom_fields.each do |custom_field| %>
+
+        <label for="<%= custom_field.id %>"><%=custom_field.name %></label>
+        <div class="input-group">
+          <%= text_field_tag custom_field.id,(values.where(custom_field_id: custom_field.id).first.value rescue ''), class: 'form-control', id: "#{custom_field.id}" %>
+        </div>
+    <% end %>
+    <div class="text-center">
+      <%= link_to '<i class="icon-arrow-left13 position-left"></i> Back'.html_safe, subscriber_group_path(@subscriber_group), class: "btn btn-danger" %>
+      <button class="btn btn-primary" type="submit"><i class="icon-checkmark3 position-left"></i>Save</button>
+    </div>
+
+<% end %>
+
+

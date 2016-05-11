@@ -7,7 +7,7 @@
         <label for="address">Select Email Tempalte</label>
         <div class="row">
           <div class="col-md-3">
-            <%= select_tag :template_id, options_for_select(current_user.email_templates.map { |template| [template.title, template.id] }), prompt: 'Select', class: 'form-control', id: 'template', required: true %>
+            <%= select_tag :template_id, options_for_select(@company.email_templates.map { |template| [template.title, template.id] }), prompt: 'Select', class: 'form-control', id: 'template', required: true %>
           </div>
           <div class="col-md-6">
             <button type="button" id='template-selector' class="btn btn-default">Download Import File</button>

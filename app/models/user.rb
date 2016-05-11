@@ -5,4 +5,5 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :email_templates
   has_one :email_setting
+  belongs_to :company
 end

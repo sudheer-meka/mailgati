@@ -1,7 +1,8 @@
 class EmailTemplate < ActiveRecord::Base
   belongs_to :user
   belongs_to :company
-
+  has_and_belongs_to_many :subscriber_groups
+  audited associated_with: :company
   # validations
   validates :title, presence: true
   validates :subject, presence: true

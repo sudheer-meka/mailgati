@@ -1,13 +1,14 @@
 <h1 align="center">Step 3: Confirm Email Campaign</h1>
 <p class="color-danger lead text-center">Please check the details and confirm!</p>
-
+<button data-target="#modal_form_horizontal" data-toggle="modal" class="btn btn-primary btn-sm pull-right" type="button">
+  <i class="icon-mail5 position-left"></i>Test
+</button>
 <table class="table table-bordered table-striped" style="margin-bottom: 30px">
   <tr>
     <td>
       <b>
         Subject
       </b>
-
     </td>
     <td>
       <%= @email_template.subject %>
@@ -25,8 +26,8 @@
   <tr>
     <td colspan="3">
       <span><b>Selected Subscriber Groups</b></span></br></br>
-      <% session[:selected_lists]["#{@email_template.id}"].values.each_with_index do |list,index| %>
-          <%= "#{index +1 }. #{list.titleize}" %>
+      <% @email_template.subscriber_groups.each_with_index do |list, index| %>
+          <%= "#{index +1 }. #{list.name.titleize}" %>
           </br>
       <% end %>
     </td>
@@ -44,5 +45,30 @@
 <div class="text-center">
   <%= link_to '<i class="icon-arrow-left13 position-left"></i>Back'.html_safe, select_lists_email_template_url(@email_template), class: "btn btn-danger" %>
   <%= link_to '<i class="icon-cancel-circle2 position-left"></i>Cancel'.html_safe, email_templates_path, class: "btn bg-slate-400" %>
-  <%= link_to '<i class="icon-checkmark3 position-left"></i>Confirm'.html_safe,confirm_campaign_email_template_url(@email_template),method:'post', class: "btn btn-primary" %>
+  <%= link_to '<i class="icon-checkmark3 position-left"></i>Confirm'.html_safe, confirm_campaign_email_template_url(@email_template), method: 'post', class: "btn btn-primary" %>
+</div>
+
+<div class="modal fade in" id="modal_form_horizontal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <button data-dismiss="modal" class="close" type="button">×</button>
+        <h5 class="modal-title">Test <%= @email_template.title %></h5>
+      </div>
+      <%= form_tag test_email_template_path(@email_template), class: 'form-horizontal', multipart: true do |form| %>
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="control-label col-sm-3">Email</label>
+              <div class="col-sm-9">
+                <%= email_field_tag :email,nil,placeholder: 'Email',class:'form-control',required: true %>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default " type="button">Close</button>
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </div>
+      <% end %>
+    </div>
+  </div>
 </div>

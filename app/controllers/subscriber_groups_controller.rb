@@ -27,7 +27,7 @@ class SubscriberGroupsController < ApplicationController
     @subscriber_group = @company.subscriber_groups.new(subscriber_group_params)
     respond_to do |format|
       if @subscriber_group.save
-        format.html { redirect_to subscriber_groups_url, notice: 'Custom Field was successfully created.' }
+        format.html { redirect_to subscriber_groups_url, notice: 'Subscriber Group was successfully created.' }
         format.json { render :show, status: :created, location: @subscriber_group }
       else
         format.html { render :new }
@@ -41,7 +41,7 @@ class SubscriberGroupsController < ApplicationController
   def update
     respond_to do |format|
       if @subscriber_group.update(subscriber_group_params)
-        format.html { redirect_to subscriber_groups_url, notice: 'Custom Field was successfully updated.' }
+        format.html { redirect_to subscriber_groups_url, notice: 'Subscriber Group was successfully updated.' }
         format.json { render :show, status: :ok, location: @subscriber_group }
       else
         format.html { render :edit }
@@ -55,7 +55,7 @@ class SubscriberGroupsController < ApplicationController
   def destroy
     @subscriber_group.destroy
     respond_to do |format|
-      format.html { redirect_to subscriber_groups_url, notice: 'Custom Field was successfully destroyed.' }
+      format.html { redirect_to subscriber_groups_url, notice: 'Subscriber Group was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

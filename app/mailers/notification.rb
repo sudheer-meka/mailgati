@@ -30,4 +30,9 @@ class Notification < ApplicationMailer
     puts "invalid_mailers==>>>>#{@invalid_mailers.map{|mailer| mailer}}"
     mail(from: 'allan@quikchex.in',subject: 'Error Email',to: 'sudheer@quikchex.in')
   end
+
+  def test_campaign(email,email_template)
+    @body = email_template.body
+    mail(from: 'Allan<allan@quikchex.in>',subject: "#{email_template.subject}",to: email)
+  end
 end

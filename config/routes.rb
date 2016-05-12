@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       post 'save_email_settings'
     end
     member do
-      get 'test'
+      post 'test'
       get 'select_lists'
       post 'select_lists'
       post 'confirm_campaign'

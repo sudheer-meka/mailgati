@@ -68,3 +68,5 @@ gem 'icheck-rails'
 # gem 'bson_ext'
 # gem "mongo_session_store-rails4" #To create session store
 #
+gem 'audited', '~> 4.0'
+gem 'audited-activerecord', '~> 4.2'

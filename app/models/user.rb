@@ -6,4 +6,5 @@ class User < ActiveRecord::Base
   has_many :email_templates
   has_one :email_setting
   belongs_to :company
+  audited associated_with: :company
 end

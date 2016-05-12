@@ -4,4 +4,6 @@ class Company < ActiveRecord::Base
   has_many :subscriber_groups
   has_many :email_templates
   has_one :email_setting
+  audited
+  has_associated_audits
 end

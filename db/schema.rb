@@ -11,7 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160501161901) do
+ActiveRecord::Schema.define(version: 20160511164036) do
+
+  create_table "audits", force: :cascade do |t|
+    t.integer  "auditable_id",    limit: 4
+    t.string   "auditable_type",  limit: 255
+    t.integer  "associated_id",   limit: 4
+    t.string   "associated_type", limit: 255
+    t.integer  "user_id",         limit: 4
+    t.string   "user_type",       limit: 255
+    t.string   "username",        limit: 255
+    t.string   "action",          limit: 255
+    t.text     "audited_changes", limit: 65535
+    t.integer  "version",         limit: 4,     default: 0
+    t.string   "comment",         limit: 255
+    t.string   "remote_address",  limit: 255
+    t.string   "request_uuid",    limit: 255
+    t.datetime "created_at"
+  end
+
+  add_index "audits", ["associated_id", "associated_type"], name: "associated_index", using: :btree
+  add_index "audits", ["auditable_id", "auditable_type"], name: "auditable_index", using: :btree
+  add_index "audits", ["created_at"], name: "index_audits_on_created_at", using: :btree
+  add_index "audits", ["request_uuid"], name: "index_audits_on_request_uuid", using: :btree
+  add_index "audits", ["user_id", "user_type"], name: "user_index", using: :btree
 
   create_table "companies", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -62,12 +85,21 @@ ActiveRecord::Schema.define(version: 20160501161901) do
     t.string   "title",          limit: 255
     t.text     "subject",        limit: 65535
     t.text     "body",           limit: 65535
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
     t.integer  "user_id",        limit: 4
     t.integer  "company_id",     limit: 4
     t.string   "sender_address", limit: 255
+    t.string   "status",         limit: 255,   default: "In Complete"
   end
+
+  create_table "email_templates_subscriber_groups", id: false, force: :cascade do |t|
+    t.integer "email_template_id",   limit: 4
+    t.integer "subscriber_group_id", limit: 4
+  end
+
+  add_index "email_templates_subscriber_groups", ["email_template_id"], name: "index_email_templates_subscriber_groups_on_email_template_id", using: :btree
+  add_index "email_templates_subscriber_groups", ["subscriber_group_id"], name: "index_email_templates_subscriber_groups_on_subscriber_group_id", using: :btree
 
   create_table "subscriber_groups", force: :cascade do |t|
     t.integer  "company_id", limit: 4

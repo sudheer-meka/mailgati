@@ -4,7 +4,9 @@ class EmailTemplatesController < ApplicationController
   # GET /email_templates
   # GET /email_templates.json
   def index
-    @email_templates = @company.email_templates.paginate(page: params[:page], per_page: 10)
+    email_templates = @company.email_templates
+    @email_templates = email_templates.where.not(status: 'In Complete').order('updated_at desc').paginate(page: params[:page], per_page: 10)
+    @drafts = email_templates.where(status: 'In Complete').paginate(page: params[:page], per_page: 10)
   end
 
   # GET /email_templates/1
@@ -54,26 +56,32 @@ class EmailTemplatesController < ApplicationController
 
   def select_lists
     if request.method_symbol == :post
-      selected_lists = {}
+      @email_template.subscriber_groups.delete_all
+      selected_lists = []
       @company.subscriber_groups.each do |group|
-        selected_lists[group.id] = group.name unless params["#{group.id}"].blank?
+        @email_template.subscriber_groups  << group unless params["#{group.id}"].blank?
       end
-      if selected_lists.blank?
-        session[:selected_lists] = {@email_template.id => {}}
+      if @email_template.subscriber_groups.blank?
         redirect_to select_lists_email_template_url(@email_template), alert: 'Please Select at least one Subscriber Group'
         return
       else
-        session[:selected_lists] = {@email_template.id => selected_lists}
         redirect_to confirm_campaign_email_template_url(@email_template)
         return
       end
     else
-      @selected_lists = ((session[:selected_lists]["#{@email_template.id}"] || {}) rescue {})
+      @selected_lists = @email_template.subscriber_groups.map(&:id)
     end
   end
 
   def confirm_campaign
     if request.method_symbol == :post
+      @email_template.update_attribute(:status,'Approval Pending')
+      emails = []
+      @email_template.subscriber_groups.each do |group|
+        emails += group.subscribers.map(&:email)
+      end
+      # Notification.delay.test_campaign(emails,@email_template)
+      # Mailing Functionality To Be Implemented
       respond_to do |format|
         format.html { redirect_to email_templates_url, notice: 'Email Campaign was successfully Sent' }
         format.json { head :no_content }
@@ -201,11 +209,11 @@ class EmailTemplatesController < ApplicationController
   end
 
   def test
-    @fields = ['Email'] + @email_template.subject_variables + @email_template.body_variables
-    @fields.uniq!
-    puts @fields.inspect
-    respond_to do |format|
-      format.js
+    unless params[:email].blank?
+      Notification.delay.test_campaign(params[:email].split(',')[0],@email_template)
+      redirect_to confirm_campaign_email_template_url(@email_template),notice: 'Test Email Sent Successfully'
+    else
+      redirect_to confirm_campaign_email_template_url(@email_template),alert: 'Please Enter Email'
     end
   end
 

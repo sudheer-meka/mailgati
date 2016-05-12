@@ -42,7 +42,7 @@
             checkboxClass: 'icheckbox_square-blue'
         });
 
-        var selected_lists = <%= @selected_lists.keys.to_json.html_safe %>;
+        var selected_lists = <%= @selected_lists.to_json.html_safe %>;
         jQuery.each(selected_lists, function (index, item) {
             $("#" + item).iCheck('check');
         });

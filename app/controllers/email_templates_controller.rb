@@ -1,6 +1,6 @@
 class EmailTemplatesController < ApplicationController
-  before_action :set_company
-  before_action :set_email_template, only: [:confirm_campaign, :show, :edit, :update, :destroy, :get_import_file, :test, :select_lists]
+  before_action :set_company, except: [:act_on_campaign]
+  before_action :set_email_template, only: [:confirm_campaign, :show, :edit, :update, :destroy, :get_import_file, :test, :select_lists,:copy_template]
   # GET /email_templates
   # GET /email_templates.json
   def index
@@ -30,7 +30,7 @@ class EmailTemplatesController < ApplicationController
 
     respond_to do |format|
       if @email_template.save
-        format.html { redirect_to select_lists_email_template_url(@email_template)}
+        format.html { redirect_to select_lists_email_template_url(@email_template) }
         format.json { render :show, status: :created, location: @email_template }
       else
         format.html { render :new }
@@ -59,7 +59,7 @@ class EmailTemplatesController < ApplicationController
       @email_template.subscriber_groups.delete_all
       selected_lists = []
       @company.subscriber_groups.each do |group|
-        @email_template.subscriber_groups  << group unless params["#{group.id}"].blank?
+        @email_template.subscriber_groups << group unless params["#{group.id}"].blank?
       end
       if @email_template.subscriber_groups.blank?
         redirect_to select_lists_email_template_url(@email_template), alert: 'Please Select at least one Subscriber Group'
@@ -73,20 +73,45 @@ class EmailTemplatesController < ApplicationController
     end
   end
 
+  def collect_values(a, custom_field_id_name_map)
+    a.map(&:to_a).flatten(1).group_by { |k, v| "-@#{(custom_field_id_name_map[k] || k)}-" }.
+        each_value { |v| v.map! { |k, v| v || "-@#{(custom_field_id_name_map[k] || k)}-" } }
+  end
+
   def confirm_campaign
     if request.method_symbol == :post
-      @email_template.update_attribute(:status,'Approval Pending')
-      emails = []
-      @email_template.subscriber_groups.each do |group|
-        emails += group.subscribers.map(&:email)
-      end
-      # Notification.delay.test_campaign(emails,@email_template)
-      # Mailing Functionality To Be Implemented
+      @email_template.update_attribute(:status, 'Approval Pending')
       respond_to do |format|
         format.html { redirect_to email_templates_url, notice: 'Email Campaign was successfully Sent' }
         format.json { head :no_content }
       end
     end
+  end
+
+  def act_on_campaign
+    @email_template = EmailTemplate.find(params[:id])
+    if params[:status] == 'approve'
+      @company = @email_template.company
+      group_ids = @email_template.subscriber_groups.pluck('id').join(',')
+
+      @email_template.update_attribute(:status, 'Approved')
+      custom_field_id_name_map = {}
+      custom_fields = @company.custom_fields.where(name: (@email_template.subject_variables + @email_template.body_variables).uniq)
+      custom_fields.each do |filed|
+        custom_field_id_name_map["#{filed.id}"] = filed.name
+      end
+      custom_field_ids = custom_field_id_name_map.keys.join(',')
+      if custom_field_ids.blank?
+        @results = collect_values(ActiveRecord::Base.connection.exec_query("call get_subscribers('#{group_ids}')"), custom_field_id_name_map)
+      else
+        @results = collect_values(ActiveRecord::Base.connection.exec_query("call new_procedure('#{custom_field_ids}'"+','+"'#{group_ids}')"), custom_field_id_name_map)
+      end
+      Notification.delay.send_campaign(['sudheerm16@gmail.com'],@email_template,@results)
+    else
+      @email_template.update_attribute(:status, 'Rejected')
+    end
+    render json: 'ok'
+    return
   end
 
   # DELETE /email_templates/1
@@ -210,10 +235,22 @@ class EmailTemplatesController < ApplicationController
 
   def test
     unless params[:email].blank?
-      Notification.delay.test_campaign(params[:email].split(',')[0],@email_template)
-      redirect_to confirm_campaign_email_template_url(@email_template),notice: 'Test Email Sent Successfully'
+      Notification.delay.test_campaign(params[:email].split(',')[0], @email_template)
+      redirect_to confirm_campaign_email_template_url(@email_template), notice: 'Test Email Sent Successfully'
     else
-      redirect_to confirm_campaign_email_template_url(@email_template),alert: 'Please Enter Email'
+      redirect_to confirm_campaign_email_template_url(@email_template), alert: 'Please Enter Email'
+    end
+  end
+
+  def copy_template
+    template = @company.email_templates.new(title: @email_template.title,subject: @email_template.subject,body: @email_template.body,sender_address: @email_template.sender_address,status: 'In Complete')
+    template.save!
+    @email_template.subscriber_groups.each do |group|
+      template.subscriber_groups << group
+    end
+    respond_to do |format|
+      format.html { redirect_to email_templates_url, notice: 'Email campaign was copied successfully.' }
+      format.json { head :no_content }
     end
   end
 

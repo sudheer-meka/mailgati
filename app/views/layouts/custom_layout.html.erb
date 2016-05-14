@@ -36,7 +36,7 @@
           </a>
 
           <ul class="dropdown-menu dropdown-menu-right" style="min-width: 203px">
-            <li><%= link_to('<i class="icon-switch2"></i> Logout'.html_safe, destroy_user_session_path,method: :delete) %></li>
+            <li><%= link_to('<i class="icon-switch2"></i> Logout'.html_safe, destroy_user_session_path, method: :delete) %></li>
           </ul>
         </li>
       </ul>
@@ -44,47 +44,59 @@
   </div>
   <!-- /main navbar -->
   <!--Second navbar -->
-  <div class="navbar navbar-default" id="navbar-second">
-    <ul class="nav navbar-nav no-border visible-xs-block">
-      <li>
-        <a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second-toggle"><i class="icon-menu7"></i></a>
-      </li>
-    </ul>
+  <% unless current_user.email == 'systemadmin@mailgati.com' %>
+      <div class="navbar navbar-default" id="navbar-second">
+        <ul class="nav navbar-nav no-border visible-xs-block">
+          <li>
+            <a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second-toggle"><i class="icon-menu7"></i></a>
+          </li>
+        </ul>
 
-    <div class="navbar-collapse collapse" id="navbar-second-toggle">
-      <ul class="nav navbar-nav">
-        <li class="<%= 'active' if current_page?(email_templates_path) %>"><a href="<%= email_templates_path %>"><i class="icon-home5 position-left"></i> Email Campaigns</a></li>
-        <li class="<%= 'active' if current_page?(subscriber_groups_path) %>"><a href="<%= subscriber_groups_path %>"><i class="icon-users4 position-left"></i>Subscriber Groups</a></li>
-        <li class="<%= 'active' if current_page?(email_settings_email_templates_path) %>"><a href="<%= email_settings_email_templates_path %>"><i class="icon-cogs position-left"></i>Settings</a></li>
-        <li class="<%= 'active' if current_page?(email_generators_email_templates_path) %>"><a href="<%= email_generators_email_templates_path %>"><i class="icon-rocket position-left"></i>Generate Emails</a></li>
-      </ul>
-    </div>
-  </div>
+        <div class="navbar-collapse collapse" id="navbar-second-toggle">
+
+          <ul class="nav navbar-nav">
+            <li class="<%= 'active' if current_page?(email_templates_path) %>">
+              <a href="<%= email_templates_path %>"><i class="icon-home5 position-left"></i> Email Campaigns</a></li>
+            <li class="<%= 'active' if current_page?(subscriber_groups_path) %>">
+              <a href="<%= subscriber_groups_path %>"><i class="icon-users4 position-left"></i>Subscriber Groups</a>
+            </li>
+            <li class="<%= 'active' if current_page?(email_settings_email_templates_path) %>">
+              <a href="<%= email_settings_email_templates_path %>"><i class="icon-cogs position-left"></i>Settings</a>
+            </li>
+            <!--<li class="<%#= 'active' if current_page?(email_generators_email_templates_path) %>">-->
+              <!--<a href="<%#= email_generators_email_templates_path %>"><i class="icon-rocket position-left"></i>Generate-->
+                <!--Emails</a></li>-->
+          </ul>
+
+        </div>
+
+      </div>
+  <% end %>
   <!--/second navbar -->
 </div>
 
 
 <!-- Page header -->
 <!--<div class="page-header">-->
-  <!--<div class="page-header-content">-->
-    <!--<div class="page-title">-->
-      <!--<h4>-->
-        <!--<i class="icon-arrow-left52 position-left"></i>-->
-        <!--<span class="text-semibold">Home</span> - Dashboard-->
-        <!--<small class="display-block">Good morning, Victoria Baker!</small>-->
-      <!--</h4>-->
-    <!--</div>-->
+<!--<div class="page-header-content">-->
+<!--<div class="page-title">-->
+<!--<h4>-->
+<!--<i class="icon-arrow-left52 position-left"></i>-->
+<!--<span class="text-semibold">Home</span> - Dashboard-->
+<!--<small class="display-block">Good morning, Victoria Baker!</small>-->
+<!--</h4>-->
+<!--</div>-->
 
-    <!--<div class="heading-elements">-->
-      <!--<div class="heading-btn-group">-->
-        <!--<a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>-->
-        <!--<a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i>-->
-          <!--<span>Invoices</span></a>-->
-        <!--<a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i>-->
-          <!--<span>Schedule</span></a>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
+<!--<div class="heading-elements">-->
+<!--<div class="heading-btn-group">-->
+<!--<a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>-->
+<!--<a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i>-->
+<!--<span>Invoices</span></a>-->
+<!--<a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar5 text-primary"></i>-->
+<!--<span>Schedule</span></a>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
 <!--</div>-->
 <!-- /page header -->
 
@@ -128,13 +140,14 @@
 
   <!--Footer -->
   <!--<div class="footer text-muted">-->
-    <!--&copy; 2015.<a href="#">Limitless Web App Kit</a> by-->
-    <!--<a href="http://themeforest.net/user/Kopyov " target=" _blank ">Eugene Kopyov</a>-->
+  <!--&copy; 2015.<a href="#">Limitless Web App Kit</a> by-->
+  <!--<a href="http://themeforest.net/user/Kopyov " target=" _blank ">Eugene Kopyov</a>-->
   <!--</div>-->
   <!-- /footer -->
 
 </div>
 <!-- /page container -->
+
 
 </body>
 </html>

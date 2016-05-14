@@ -35,4 +35,12 @@ class Notification < ApplicationMailer
     @body = email_template.body
     mail(from: 'Allan<allan@quikchex.in>',subject: "#{email_template.subject}",to: email)
   end
+
+  def send_campaign(email,email_template,subs)
+    @body = email_template.body
+    headers["X-SMTPAPI"] = JSON.generate({to: email,sub: subs}, :indent => ' ')
+
+    puts "#{headers.inspect}====>>>>"
+    mail(from: 'Allan<allan@quikchex.in>',subject: "#{email_template.subject}",to: email)
+  end
 end

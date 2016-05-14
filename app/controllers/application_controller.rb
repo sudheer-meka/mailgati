@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_company_id
-    session[:company_id] = current_user.company_id if current_user and !session[:company_id]
+    session[:company_id] = current_user.company_id if current_user and !session[:company_id] rescue nil
   end
 
   def set_company
@@ -43,6 +43,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
+  def authenticate_site_admin
+    unless current_user.email.downcase == 'systemadmin@mailgati.com'
+      redirect_to root_path, :notice => "You don't have the authority to access this page."
+    end
+  end
 
   def error_occurred(exception)
     Rails.logger.error("backtrace-----#{exception.backtrace}===========>>>>>>>>>>>>>>>.")

@@ -2,15 +2,21 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web, at: '/sidekiq', as: 'sidekiq'
 
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "user/registrations"}
+  namespace :admin do
+    root :to => 'admin#index'
+  end
   resources :email_templates do
     collection do
       get 'email_generators'
       get 'email_settings'
+
       post 'save_email_settings'
     end
     member do
       post 'test'
+      get 'act_on_campaign'
+      get 'copy_template'
       get 'select_lists'
       post 'select_lists'
       post 'confirm_campaign'
@@ -37,7 +43,8 @@ Rails.application.routes.draw do
 # See how all your routes lay out with "rake routes".
 
 # You can have the root of your site routed with "root"
-  root 'email_templates#index'
+#   root 'email_templates#index'
+  root 'welcome#index'
 
 # Example of regular route:
 #   get 'products/:id' => 'catalog#view'

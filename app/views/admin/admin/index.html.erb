@@ -1,0 +1,72 @@
+<%# render :partial => 'admin/companies/companies_table' %>
+
+<table class="table table-bordered table-striped" style="margin-bottom: 30px">
+  <thead>
+  <tr class="bg-blue">
+    <th>Company</th>
+    <th>Title</th>
+    <th>Subject</th>
+    <th>Created At</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @email_templates.each do |email_template| %>
+      <tr id="<%= email_template.id %>-row">
+        <td><%= email_template.company.name %></td>
+        <td><%= email_template.title %></td>
+        <td><%= email_template.subject %></td>
+        <td><%= email_template.created_at %></td>
+        <td>
+          <div id="<%= email_template.id %>-content" style="display: none">
+            <%= email_template.body.html_safe %>
+          </div>
+          <button data-target='#modal_form_horizontal' data-link="<%= act_on_campaign_email_template_path(email_template) %>" id="<%= email_template.id %>-btn" data-toggle='modal' class='btn btn-primary btn-sm template-approve' type='button'>
+            <i class="icon-checkmark3 position-left"></i>Take Action
+          </button>
+        </td>
+      </tr>
+  <% end %>
+  <% if @email_templates.blank? %>
+      <tr>
+        <td colspan="5">No Campaigns Found</td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<div class="modal fade in" id="modal_form_horizontal" style="display: none;">
+  <div class="modal-dialog modal-full">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <button data-dismiss="modal" class="close" type="button">×</button>
+        <h5 class="modal-title">Approve/Reject Email Template</h5>
+      </div>
+      <%#= form_tag test_email_template_path(@email_template), class: 'form-horizontal', multipart: true do |form| %>
+      <div class="modal-body template-body" style="max-height: 500px;overflow:auto">
+
+      </div>
+      <div class="modal-footer">
+        <%= link_to '<i class="icon-checkmark3 position-left"></i>Reject'.html_safe, '#',id:'reject-campaign', class: 'btn bg-danger campaign-btn',remote: true %>
+        <%= link_to '<i class="icon-checkmark3 position-left"></i>Approve'.html_safe, '#',id:'approve-campaign', class: 'btn bg-success campaign-btn',remote: true %>
+      </div>
+      <%# end %>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $(document).on('click', '.template-approve', function () {
+            $("#approve-campaign").attr('href', $(this).attr('data-link')+'?status=approve');
+            $("#reject-campaign").attr('href', $(this).attr('data-link')+'?status=reject');
+            $('.template-body').html($('#'+$(this).attr('id').split('-')[0]+'-content').html()); //or
+        });
+        $(document).on('click', '.campaign-btn', function () {
+            if($(this).attr('id').split('-')[0] == 'approve'){
+                $('#'+$(this).attr('href').split('email_templates/')[1].split('/act_on_campaign')[0]+'-row').hide();
+            }
+            $('#modal_form_horizontal').modal('hide');
+        });
+    })
+</script>

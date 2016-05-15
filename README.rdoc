@@ -31,3 +31,27 @@ Please feel free to use a different markup language if you do not plan to run
 mysqldump -u root -p[root_password] [database_name] > dumpfilename.sql
 
 mysql -u root -psecure@1234 email_generator_development < dumpfilename.sql
+
+
+Stored Procedure
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `new_procedure`(in custom_field_ids varchar(50))
+BEGIN
+SELECT  GROUP_CONCAT(DISTINCT
+        CONCAT('MAX(CASE WHEN custom_field_id = ''',
+               custom_field_id,
+               ''' THEN Value END) AS ',
+               CONCAT('`', custom_field_id, '`')
+               )) INTO @sql
+FROM custom_field_values where custom_field_id in (2,3,4,5);
+
+
+SET @sql = CONCAT('SELECT   a.name AS Name,a.email as Email, ', @sql, '
+                    FROM    subscribers a
+                            LEFT JOIN custom_field_values b
+                                ON a.id = b.subscriber_id where a.subscriber_group_id in (3,4,5)
+                    GROUP   BY a.email');
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+END

@@ -1,25 +1,32 @@
-<h2>Change your password</h2>
 
+
+
+
+<%#= render "devise/shared/links" %>
+<!-- Advanced login -->
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
+    <div class="panel panel-body login-form">
+      <div class="text-center">
+        <div class="icon-object border-primary text-primary"><i class="icon-lock2"></i></div>
+        <h5 class="content-group">Change your password<small class="display-block">All fields are required</small></h5>
+      </div>
+      <div class="form-group has-feedback has-feedback-left">
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
-  </div>
+        <%= f.password_field :password, autofocus: true, autocomplete: 'off',class: 'form-control',placeholder: 'Password'  %>
+        <div class="form-control-feedback">
+          <i class="icon-user-lock text-muted"></i>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+      <div class="form-group has-feedback has-feedback-left">
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
+        <%= f.password_field :password_confirmation, autocomplete: 'off',class: 'form-control' ,placeholder: 'Confirm Password' %>
+        <div class="form-control-feedback">
+          <i class="icon-user-lock text-muted"></i>
+        </div>
+      </div>
+
+      <button type="submit" class="btn bg-primary btn-block btn-lg">Change my password <i class="icon-circle-right2 position-right"></i></button>
+    </div>
 <% end %>
-
-<%= render "devise/shared/links" %>
+<!-- /advanced login -->

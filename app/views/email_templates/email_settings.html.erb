@@ -5,7 +5,7 @@
     <li class="active">
       <a href="#custom-fields-info" id="custom-fields-tab" data-toggle="tab">Custom Fields</a>
     </li>
-    <li><a href="#email-settings-info" id="email-settings-tab" data-toggle="tab">Email Settings</a></li>
+    <li><a href="#basic-settings-info" id="basic-settings-tab" data-toggle="tab">Company Settings</a></li>
   </ul>
 
   <div class="tab-content">
@@ -39,122 +39,48 @@
         </tbody>
       </table>
     </div>
-    <div id="email-settings-info" class="tab-pane cont">
-      <%= form_for(@email_setting, url: save_email_settings_email_templates_path, method: 'post', class: 'form-horizontal') do |f| %>
-          <button type="button" class="btn btn-primary edit-settings pull-right"><i class="icon-pencil"></i> Edit
-          </button>
-          <div class="editing-settings">
-            <button type="submit" class="btn btn-primary save-settings pull-right">Save</button>
-            <button type="button" class="btn btn-default cancel-settings pull-right" style="margin-right: 10px">Cancel</button>
-          </div>
-          <h1>Email Settings</h1>
-          <table class="table table-bordered table-striped">
-            <thead>
-            <tr class="bg-blue">
-              <th width="40%">Name</th>
-              <th>Active</th>
-            </tr>
-            </thead>
 
+    <div id="basic-settings-info" class="tab-pane cont">
+      <%= form_for(@company, url: save_basic_settings_email_templates_path, method: 'post', class: 'form-horizontal') do |f| %>
+          <button type="button" class="btn btn-primary edit-basic-settings pull-right"><i class="icon-pencil"></i> Edit
+          </button>
+          <div class="editing-basic-settings">
+            <button type="submit" class="btn btn-primary save-basic-settings pull-right">Save</button>
+            <button type="button" class="btn btn-default cancel-basic-settings pull-right" style="margin-right: 10px">Cancel</button>
+          </div>
+          <h1>Basic Settings</h1>
+          <table class="table table-bordered table-striped">
             <tbody>
             <tr>
-              <td>Address</td>
-              <td>
-                <div class="view-settings">
-                  <%= @email_setting.address %>
+              <td style="width: 30%">Company Name</td>
+              <td style="width: 70%">
+                <div class="view-basic-settings">
+                  <%= @company.name %>
                 </div>
-                <div class="editing-settings">
-                  <%= f.text_field :address, class: 'form-control', required: true %>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Domain</td>
-              <td>
-                <div class="view-settings">
-                  <%= @email_setting.domain %>
-                </div>
-                <div class="editing-settings">
-                  <%= f.text_field :domain, class: 'form-control', required: true %>
+                <div class="editing-basic-settings">
+                  <%= f.text_field :name, class: 'form-control', required: true %>
                 </div>
               </td>
             </tr>
             <tr>
-              <td>Port</td>
-              <td>
-                <div class="view-settings">
-                  <%= @email_setting.port %>
+              <td style="width: 30%">Default Sender Address</td>
+              <td style="width: 70%">
+                <div class="view-basic-settings">
+                  <%= @company.sender_address %>
                 </div>
-                <div class="editing-settings">
-                  <%= f.text_field :port, class: 'form-control', required: true %>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Username</td>
-              <td>
-                <div class="view-settings">
-                  <%= @email_setting.username %>
-                </div>
-                <div class="editing-settings">
-                  <%= f.text_field :username, class: 'form-control', required: true %>
+                <div class="editing-basic-settings">
+                  <%= f.email_field :sender_address, class: 'form-control', required: true %>
                 </div>
               </td>
             </tr>
             <tr>
-              <td>Password</td>
-              <td>
-                <div class="view-settings">
-                  <%= @email_setting.password %>
+              <td style="width: 30%">Default Sender Name</td>
+              <td style="width: 70%">
+                <div class="view-basic-settings">
+                  <%= @company.sender_name %>
                 </div>
-                <div class="editing-settings">
-                  <%= f.text_field :password, class: 'form-control', required: true %>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Authentication</td>
-              <td>
-                <div class="view-settings">
-                  <%= @email_setting.authentication %>
-                </div>
-                <div class="editing-settings">
-                  <%= f.text_field :authentication, class: 'form-control', required: true %>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Enable Start TLS</td>
-              <td>
-                <div class="view-settings">
-                  <%= @email_setting.enable_starttls_auto %>
-                </div>
-                <div class="editing-settings">
-                  <%#= f.text_field :enable_starttls_auto,class: 'form-control',required: true %>
-                  <div class="row">
-                    <div class="col-md-3">
-                      <div class="radio">
-                        <label>
-                          <div class="choice border-primary-600 text-primary-800"><span class="checked">
-                            <input type="radio" checked="checked" class="control-primary" name="email_setting[enable_starttls_auto]">
-                          </span>
-                          </div>
-                          Enable
-                        </label>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3">
-                      <div class="radio">
-                        <label>
-                          <div class="choice border-primary-600 text-primary-800">
-                            <span><input type="radio" class="control-primary" name="email_setting[enable_starttls_auto]"></span></div>
-                          Disable
-                        </label>
-                      </div>
-
-                    </div>
-                  </div>
+                <div class="editing-basic-settings">
+                  <%= f.text_field :sender_name, class: 'form-control'%>
                 </div>
               </td>
             </tr>
@@ -167,21 +93,21 @@
 
 
 <style>
-    .editing-settings {
+    .editing-basic-settings {
         display: none;
     }
 </style>
 <script>
     $(function () {
-        $(document).on("click", ".edit-settings", function () {
+        $(document).on("click", ".edit-basic-settings", function () {
             $(this).hide();
-            $('.view-settings').hide();
-            $('.editing-settings').show();
+            $('.view-basic-settings').hide();
+            $('.editing-basic-settings').show();
         });
-        $(document).on("click", ".cancel-settings", function () {
-            $('.view-settings').show();
-            $('.editing-settings').hide();
-            $('.edit-settings').show();
+        $(document).on("click", ".cancel-basic-settings", function () {
+            $('.view-basic-settings').show();
+            $('.editing-basic-settings').hide();
+            $('.edit-basic-settings').show();
         });
     });
 </script>

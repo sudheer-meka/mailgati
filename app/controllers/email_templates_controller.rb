@@ -81,6 +81,7 @@ class EmailTemplatesController < ApplicationController
   def confirm_campaign
     if request.method_symbol == :post
       @email_template.update_attribute(:status, 'Approval Pending')
+      Notification.delay.approve_reject_campaign(@email_template)
       respond_to do |format|
         format.html { redirect_to email_templates_url, notice: 'Email Campaign was successfully Sent' }
         format.json { head :no_content }
@@ -90,28 +91,36 @@ class EmailTemplatesController < ApplicationController
 
   def act_on_campaign
     @email_template = EmailTemplate.find(params[:id])
-    if params[:status] == 'approve'
-      @company = @email_template.company
-      group_ids = @email_template.subscriber_groups.pluck('id').join(',')
+    unless  %w[Approved Rejected].include? @email_template.status
+      if params[:status] == 'approve'
+        @company = @email_template.company
+        group_ids = @email_template.subscriber_groups.pluck('id').join(',')
+        # @email_template.update_attribute(:status, 'Approved')
+        custom_field_id_name_map = {}
+        custom_fields = @company.custom_fields.where(name: (@email_template.subject_variables + @email_template.body_variables).uniq)
+        custom_fields.each do |filed|
+          custom_field_id_name_map["#{filed.id}"] = filed.name
+        end
+        custom_field_ids = custom_field_id_name_map.keys.join(',')
+        if custom_field_ids.blank?
+          @results = collect_values(ActiveRecord::Base.connection.exec_query("call get_subscribers('#{group_ids}')"), custom_field_id_name_map)
+        else
+          @results = collect_values(ActiveRecord::Base.connection.exec_query("call new_procedure('#{custom_field_ids}'"+','+"'#{group_ids}')"), custom_field_id_name_map)
+        end
 
-      @email_template.update_attribute(:status, 'Approved')
-      custom_field_id_name_map = {}
-      custom_fields = @company.custom_fields.where(name: (@email_template.subject_variables + @email_template.body_variables).uniq)
-      custom_fields.each do |filed|
-        custom_field_id_name_map["#{filed.id}"] = filed.name
-      end
-      custom_field_ids = custom_field_id_name_map.keys.join(',')
-      if custom_field_ids.blank?
-        @results = collect_values(ActiveRecord::Base.connection.exec_query("call get_subscribers('#{group_ids}')"), custom_field_id_name_map)
+        Notification.delay.send_campaign(@results['-@email-'],@email_template,@results)
+
       else
-        @results = collect_values(ActiveRecord::Base.connection.exec_query("call new_procedure('#{custom_field_ids}'"+','+"'#{group_ids}')"), custom_field_id_name_map)
+        @email_template.update_attribute(:status, 'Rejected')
       end
-      Notification.delay.send_campaign(['sudheerm16@gmail.com'],@email_template,@results)
-    else
-      @email_template.update_attribute(:status, 'Rejected')
     end
-    render json: 'ok'
-    return
+    if request.xhr?
+      render json: 'OK'
+      return
+    else
+      redirect_to root_url,notice: "Email Template was successfully #{@email_template.status}"
+      return
+    end
   end
 
   # DELETE /email_templates/1
@@ -131,6 +140,14 @@ class EmailTemplatesController < ApplicationController
     # @email_setting = EmailSetting.find_or_initialize_by(user_id: current_user.id).delete
     @email_setting = EmailSetting.find_or_initialize_by(company_id: @company.id)
     @custom_fields = @company.custom_fields
+  end
+
+  def save_basic_settings
+    @company.name = params[:company][:name]
+    @company.sender_name = params[:company][:sender_name]
+    @company.sender_address = params[:company][:sender_address]
+    @company.save!
+    redirect_to email_settings_email_templates_url, notice: 'Company settings was successfully saved.'
   end
 
   def save_email_settings
@@ -262,6 +279,6 @@ class EmailTemplatesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def email_template_params
-    params.require(:email_template).permit(:title, :subject, :body, :sender_address)
+    params.require(:email_template).permit(:title, :subject, :body, :sender_address, :sender_name)
   end
 end

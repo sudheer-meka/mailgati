@@ -30,14 +30,21 @@
     <div class="form-group">
       <label class="control-label col-lg-2">Subject</label>
       <div class="col-lg-10">
-        <%= f.text_field :subject, class: 'form-control', id: 'subject' %>
+        <%= f.text_field :subject, class: 'form-control', id: 'subject',placeholder: 'Title' %>
       </div>
     </div>
 
     <div class="form-group">
       <label class="control-label col-lg-2">Sender Address</label>
       <div class="col-lg-10">
-        <%= f.email_field :sender_address, class: 'form-control', id: 'subject' %>
+        <%= f.text_field :sender_address, class: 'form-control', id: 'sender-address',value: (@email_template.sender_address || @company.sender_address ),placeholder: 'Sender Address' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-lg-2">Sender Name</label>
+      <div class="col-lg-10">
+        <%= f.text_field :sender_name, class: 'form-control', id: 'sender-name',value: (@email_template.sender_name || @company.sender_name ),placeholder: 'Sender Name' %>
       </div>
     </div>
 

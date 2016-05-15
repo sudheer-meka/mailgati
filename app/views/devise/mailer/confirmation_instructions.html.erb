@@ -1,5 +1,16 @@
-<p>Welcome <%= @email %>!</p>
+<p><span class="wysiwyg-font-size-small">Welcome <%= @email %>!<br></span></p>
 
-<p>You can confirm your account email through the link below:</p>
+<p><span class="wysiwyg-font-size-small">Thank
+you for signing up on MailGati.  To activate your account, visit the
+link below.</span><span class="wysiwyg-font-size-small"> <br></span></p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p>
+  <span class="wysiwyg-font-size-small">
+      <a href="<%= confirmation_url(@resource, confirmation_token: @token) %>" .html_safe style="font-size: 13px;text-decoration: none;line-height: 1.538646;border-radius: 2px;position: relative;padding: 6px 11px;background-color: #2196f3;border-color: #2196f3;color: #fff;cursor: pointer;display: inline-block;font-weight: normal;margin-bottom: 0;text-align: center;vertical-align: middle;white-space: nowrap;outline: none;">Confirm
+        my account</a>
+  </span>
+</p>
+
+<p><span class="wysiwyg-font-size-small"><br></span></p><p><span class="wysiwyg-font-size-small">Happy
+Emailing!</span></p>
+<p><span class="wysiwyg-font-size-small"><b>MailGati</b></span></p>

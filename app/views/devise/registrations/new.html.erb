@@ -1,73 +1,76 @@
-
-
 <%#= render "devise/shared/links" %>
 <!-- Advanced login -->
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <div class="panel panel-body login-form">
-    <div class="text-center">
-      <div class="icon-object border-success text-success"><i class="icon-plus3"></i></div>
-      <h5 class="content-group">Create account <small class="display-block">All fields are required</small></h5>
-    </div>
-    <div class="content-divider text-muted form-group"><span>Your Details</span></div>
-    <div class="form-group has-feedback has-feedback-left">
-      <%= f.text_field :first_name, autofocus: true,placeholder: 'First Name',class: 'form-control' %>
-      <div class="form-control-feedback">
-        <i class="icon-user text-muted"></i>
-      </div>
-    </div>
-    <div class="form-group has-feedback has-feedback-left">
-      <%= f.text_field :last_name, autofocus: true,placeholder: 'Last Name',class: 'form-control' %>
-      <div class="form-control-feedback">
-        <i class="icon-user text-muted"></i>
-      </div>
-    </div>
-    <div class="form-group has-feedback has-feedback-left">
-      <%= f.text_field :contact, autofocus: true,placeholder: 'Contact',class: 'form-control' %>
-      <div class="form-control-feedback">
-        <i class="icon-mobile text-muted"></i>
-      </div>
-    </div>
-    <div class="form-group has-feedback has-feedback-left">
-      <%= text_field_tag :company, nil,class: 'form-control' ,placeholder: 'Company' %>
-      <div class="form-control-feedback">
-        <i class="icon-office text-muted"></i>
-      </div>
-    </div>
 
-    <div class="content-divider text-muted form-group"><span>Your credentials</span></div>
-
-    <div class="form-group has-feedback has-feedback-left">
-      <%= f.email_field :email, autofocus: true,placeholder: 'Email',class: 'form-control' %>
-      <div class="form-control-feedback">
-        <i class="icon-user-check text-muted"></i>
+    <div class="panel panel-body login-form">
+      <div class="text-center">
+        <div class="icon-object border-primary text-primary"><i class="icon-plus3"></i></div>
+        <h5 class="content-group">Create account
+          <small class="display-block">All fields are required</small>
+        </h5>
       </div>
-    </div>
-
-    <div class="form-group has-feedback has-feedback-left">
-
-      <%= f.password_field :password, autocomplete: 'off',class: 'form-control' ,placeholder: 'Password' %>
-      <div class="form-control-feedback">
-        <i class="icon-user-lock text-muted"></i>
+      <%= devise_error_messages! %>
+      <div class="content-divider text-muted form-group"><span>Your Details</span></div>
+      <div class="form-group has-feedback has-feedback-left">
+        <%= f.text_field :first_name, autofocus: true, placeholder: 'First Name', class: 'form-control' %>
+        <div class="form-control-feedback">
+          <i class="icon-user text-muted"></i>
+        </div>
       </div>
-    </div>
-
-    <div class="form-group has-feedback has-feedback-left">
-      <%= f.password_field :password_confirmation, autocomplete: 'off',class: 'form-control' ,placeholder: 'Password' %>
-      <div class="form-control-feedback">
-        <i class="icon-user-lock text-muted"></i>
+      <div class="form-group has-feedback has-feedback-left">
+        <%= f.text_field :last_name, autofocus: true, placeholder: 'Last Name', class: 'form-control' %>
+        <div class="form-control-feedback">
+          <i class="icon-user text-muted"></i>
+        </div>
       </div>
-    </div>
-
-    <div class="form-group">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" class="styled">
-          Accept <a href="#">terms of service</a>
-        </label>
+      <div class="form-group has-feedback has-feedback-left">
+        <%= f.text_field :contact, autofocus: true, placeholder: 'Contact', class: 'form-control' %>
+        <div class="form-control-feedback">
+          <i class="icon-mobile text-muted"></i>
+        </div>
       </div>
-    </div>
+      <div class="form-group has-feedback has-feedback-left">
+        <%= text_field_tag :company, nil, class: 'form-control', placeholder: 'Company' %>
+        <div class="form-control-feedback">
+          <i class="icon-office text-muted"></i>
+        </div>
+      </div>
 
-    <button type="submit" class="btn bg-teal btn-block btn-lg">Register <i class="icon-circle-right2 position-right"></i></button>
-  </div>
+      <div class="content-divider text-muted form-group"><span>Your credentials</span></div>
+
+      <div class="form-group has-feedback has-feedback-left">
+        <%= f.email_field :email, autofocus: true, placeholder: 'Email', class: 'form-control' %>
+        <div class="form-control-feedback">
+          <i class="icon-user-check text-muted"></i>
+        </div>
+      </div>
+
+      <div class="form-group has-feedback has-feedback-left">
+
+        <%= f.password_field :password, autocomplete: 'off', class: 'form-control', placeholder: 'Password' %>
+        <div class="form-control-feedback">
+          <i class="icon-user-lock text-muted"></i>
+        </div>
+      </div>
+
+      <div class="form-group has-feedback has-feedback-left">
+        <%= f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control', placeholder: 'Password' %>
+        <div class="form-control-feedback">
+          <i class="icon-user-lock text-muted"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" class="styled">
+            Accept <a href="#">terms of service</a>
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn bg-primary btn-block btn-lg">Register
+        <i class="icon-circle-right2 position-right"></i></button>
+    </div>
 <% end %>
 <!-- /advanced login -->

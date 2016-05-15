@@ -1,0 +1,7 @@
+<div style="border: dotted;padding: 20px">
+  <%= render partial: 'mailer_content' %>
+</div>
+<div style="text-align: center;margin-top: 30px">
+  <a href="<%= "#{act_on_campaign_email_template_url(@email_template)}?status=reject" %>" .html_safe style="font-size: 13px;text-decoration: none;line-height: 1.538646;border-radius: 2px;position: relative;padding: 6px 11px;background-color: #f44336;border-color: #f44336;color: #fff;cursor: pointer;display: inline-block;font-weight: normal;margin-bottom: 0;text-align: center;vertical-align: middle;white-space: nowrap;outline: none;">Reject</a>
+  <a href="<%= "#{act_on_campaign_email_template_url(@email_template)}?status=approve" %>" .html_safe style="font-size: 13px;text-decoration: none;line-height: 1.538646;border-radius: 2px;position: relative;padding: 6px 11px;background-color: #4caf50;border-color: #4caf50;color: #fff;cursor: pointer;display: inline-block;font-weight: normal;margin-bottom: 0;text-align: center;vertical-align: middle;white-space: nowrap;outline: none;">Approve</a>
+</div>

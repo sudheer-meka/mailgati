@@ -18,7 +18,7 @@ class User::RegistrationsController < Devise::RegistrationsController
     @company = Company.create(name: params[:company])
     resource.company_id = @company.id
     session[:company_id] = @company.id
-    if resource.save!
+    if resource.save
       @group = @company.subscriber_groups.create(name: 'Test')
       @group.subscribers.create(email: resource.email,name: "#{resource.first_name} #{resource.last_name}",contact: resource.contact)
       if resource.active_for_authentication?
@@ -26,7 +26,7 @@ class User::RegistrationsController < Devise::RegistrationsController
         sign_up(resource_name, resource)
         respond_with resource, :location => root_url #after_sign_up_url_for(resource) TODO change post migration
       else
-        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
+        set_flash_message :notice, :"signed_up_but_you need to activate your account,please check your mail." if is_navigational_format?
         expire_data_after_sign_in!
         respond_with resource, :location => root_path
       end

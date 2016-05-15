@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web, at: '/sidekiq', as: 'sidekiq'
 
-  devise_for :users, :controllers => {:registrations => "user/registrations"}
+  devise_for :users, :controllers => {:registrations => 'user/registrations'}
   namespace :admin do
     root :to => 'admin#index'
   end
@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get 'email_settings'
 
       post 'save_email_settings'
+      post 'save_basic_settings'
     end
     member do
       post 'test'

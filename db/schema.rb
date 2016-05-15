@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511164036) do
+ActiveRecord::Schema.define(version: 20160515161415) do
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id",    limit: 4
@@ -37,10 +37,12 @@ ActiveRecord::Schema.define(version: 20160511164036) do
   add_index "audits", ["user_id", "user_type"], name: "user_index", using: :btree
 
   create_table "companies", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.boolean  "is_active",              default: true
+    t.string   "name",           limit: 255
+    t.boolean  "is_active",                  default: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "sender_address", limit: 255
+    t.string   "sender_name",    limit: 255
   end
 
   create_table "custom_field_values", force: :cascade do |t|
@@ -91,6 +93,7 @@ ActiveRecord::Schema.define(version: 20160511164036) do
     t.integer  "company_id",     limit: 4
     t.string   "sender_address", limit: 255
     t.string   "status",         limit: 255,   default: "In Complete"
+    t.string   "sender_name",    limit: 255
   end
 
   create_table "email_templates_subscriber_groups", id: false, force: :cascade do |t|
@@ -135,8 +138,15 @@ ActiveRecord::Schema.define(version: 20160511164036) do
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
     t.integer  "company_id",             limit: 4
+    t.string   "first_name",             limit: 255
+    t.string   "last_name",              limit: 255
+    t.string   "contact",                limit: 255
+    t.string   "confirmation_token",     limit: 255
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
   end
 
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 

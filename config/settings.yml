@@ -1,0 +1,10 @@
+default: &default
+  oauth2:
+    client_id: 61057622407-t7c9oopqahee6cpe191kvmcb921nnobh.apps.googleusercontent.com
+    client_secret: hmOxR29pwimpO7JUTYB3gLrV
+  cloud_storage:
+    bucket: mail-gati
+    access_key_id: GOOGP3XVVGXLOTEXGLJG
+    secret_access_key: eC4j7Jzzce5eVy5H5EvaRqJOh7PrOY1HuMtlq0FL
+
+

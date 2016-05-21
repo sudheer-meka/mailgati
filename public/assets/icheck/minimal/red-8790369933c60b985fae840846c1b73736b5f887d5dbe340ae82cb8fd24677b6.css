@@ -1,0 +1,79 @@
+/* iCheck plugin Minimal skin, red
+----------------------------------- */
+/* line 4, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/minimal/red.scss */
+.icheckbox_minimal-red,
+.iradio_minimal-red {
+  display: inline-block;
+  *display: inline;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  width: 18px;
+  height: 18px;
+  background: url(/assets/icheck/minimal/red-9c2ab7cc55dfafd7343804da7fa39111e1b225fdba40a532a7425ceb2171e4a9.png) no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+/* line 18, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/minimal/red.scss */
+.icheckbox_minimal-red {
+  background-position: 0 0;
+}
+
+/* line 21, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/minimal/red.scss */
+.icheckbox_minimal-red.hover {
+  background-position: -20px 0;
+}
+
+/* line 24, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/minimal/red.scss */
+.icheckbox_minimal-red.checked {
+  background-position: -40px 0;
+}
+
+/* line 27, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/minimal/red.scss */
+.icheckbox_minimal-red.disabled {
+  background-position: -60px 0;
+  cursor: default;
+}
+
+/* line 31, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/minimal/red.scss */
+.icheckbox_minimal-red.checked.disabled {
+  background-position: -80px 0;
+}
+
+/* line 35, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/minimal/red.scss */
+.iradio_minimal-red {
+  background-position: -100px 0;
+}
+
+/* line 38, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/minimal/red.scss */
+.iradio_minimal-red.hover {
+  background-position: -120px 0;
+}
+
+/* line 41, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/minimal/red.scss */
+.iradio_minimal-red.checked {
+  background-position: -140px 0;
+}
+
+/* line 44, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/minimal/red.scss */
+.iradio_minimal-red.disabled {
+  background-position: -160px 0;
+  cursor: default;
+}
+
+/* line 48, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/minimal/red.scss */
+.iradio_minimal-red.checked.disabled {
+  background-position: -180px 0;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5 / 4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  /* line 54, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/minimal/red.scss */
+  .icheckbox_minimal-red,
+  .iradio_minimal-red {
+    background-image: url(/assets/icheck/minimal/red@2x-bd22b4d271868f16cc2161ac0fae8ec07e3dd5aa1057b0e2712e3fa1c1e9d842.png);
+    -webkit-background-size: 200px 20px;
+    background-size: 200px 20px;
+  }
+}

@@ -1,0 +1,781 @@
+/* iCheck plugin Square skin
+----------------------------------- */
+/* line 4, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square,
+.iradio_square {
+  display: inline-block;
+  *display: inline;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  background: url(/assets/icheck/square/square-8a7989b98489642a7862a32e1f66748a3671d6677941af3129d5504e31cfbccd.png) no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+/* line 18, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square {
+  background-position: 0 0;
+}
+
+/* line 21, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square.hover {
+  background-position: -24px 0;
+}
+
+/* line 24, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square.checked {
+  background-position: -48px 0;
+}
+
+/* line 27, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square.disabled {
+  background-position: -72px 0;
+  cursor: default;
+}
+
+/* line 31, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square.checked.disabled {
+  background-position: -96px 0;
+}
+
+/* line 35, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square {
+  background-position: -120px 0;
+}
+
+/* line 38, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square.hover {
+  background-position: -144px 0;
+}
+
+/* line 41, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square.checked {
+  background-position: -168px 0;
+}
+
+/* line 44, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square.disabled {
+  background-position: -192px 0;
+  cursor: default;
+}
+
+/* line 48, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square.checked.disabled {
+  background-position: -216px 0;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5 / 4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  /* line 54, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+  .icheckbox_square,
+  .iradio_square {
+    background-image: url(/assets/icheck/square/square@2x-8ed64c959db4f6f50081d5de7430983af90c88ef10abd334b2b53f9a61424b9d.png);
+    -webkit-background-size: 240px 24px;
+    background-size: 240px 24px;
+  }
+}
+/* red */
+/* line 63, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-red,
+.iradio_square-red {
+  display: inline-block;
+  *display: inline;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  background: url(/assets/icheck/square/red-07396c4458cd328a3ad8c3de309f5cbc948babb2d022f212e8bdbb7cb571ddb5.png) no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+/* line 77, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-red {
+  background-position: 0 0;
+}
+
+/* line 80, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-red.hover {
+  background-position: -24px 0;
+}
+
+/* line 83, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-red.checked {
+  background-position: -48px 0;
+}
+
+/* line 86, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-red.disabled {
+  background-position: -72px 0;
+  cursor: default;
+}
+
+/* line 90, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-red.checked.disabled {
+  background-position: -96px 0;
+}
+
+/* line 94, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-red {
+  background-position: -120px 0;
+}
+
+/* line 97, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-red.hover {
+  background-position: -144px 0;
+}
+
+/* line 100, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-red.checked {
+  background-position: -168px 0;
+}
+
+/* line 103, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-red.disabled {
+  background-position: -192px 0;
+  cursor: default;
+}
+
+/* line 107, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-red.checked.disabled {
+  background-position: -216px 0;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5 / 4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  /* line 113, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+  .icheckbox_square-red,
+  .iradio_square-red {
+    background-image: url(/assets/icheck/square/red@2x-44008e3df669f173ad9e67364f419caed9bbf243d7bdc57e46c38bdd2e9d8657.png);
+    -webkit-background-size: 240px 24px;
+    background-size: 240px 24px;
+  }
+}
+/* green */
+/* line 122, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-green,
+.iradio_square-green {
+  display: inline-block;
+  *display: inline;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  background: url(/assets/icheck/square/green-4828efe2a264a35e799fbd342fcf005ba57d8335750879bcf66279e573dcfa23.png) no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+/* line 136, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-green {
+  background-position: 0 0;
+}
+
+/* line 139, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-green.hover {
+  background-position: -24px 0;
+}
+
+/* line 142, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-green.checked {
+  background-position: -48px 0;
+}
+
+/* line 145, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-green.disabled {
+  background-position: -72px 0;
+  cursor: default;
+}
+
+/* line 149, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-green.checked.disabled {
+  background-position: -96px 0;
+}
+
+/* line 153, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-green {
+  background-position: -120px 0;
+}
+
+/* line 156, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-green.hover {
+  background-position: -144px 0;
+}
+
+/* line 159, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-green.checked {
+  background-position: -168px 0;
+}
+
+/* line 162, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-green.disabled {
+  background-position: -192px 0;
+  cursor: default;
+}
+
+/* line 166, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-green.checked.disabled {
+  background-position: -216px 0;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5 / 4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  /* line 172, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+  .icheckbox_square-green,
+  .iradio_square-green {
+    background-image: url(/assets/icheck/square/green@2x-7b89106773bb4fc754f47e0f1cc0633d64b2ef8a4fb6ba3cbf2b4ede2de903ba.png);
+    -webkit-background-size: 240px 24px;
+    background-size: 240px 24px;
+  }
+}
+/* blue */
+/* line 181, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-blue,
+.iradio_square-blue {
+  display: inline-block;
+  *display: inline;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  background: url(/assets/icheck/square/blue-abff66ea99f7e2b2a51d02feb00d0385f2ac35100fdc65b5d4e4395228fd020b.png) no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+/* line 195, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-blue {
+  background-position: 0 0;
+}
+
+/* line 198, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-blue.hover {
+  background-position: -24px 0;
+}
+
+/* line 201, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-blue.checked {
+  background-position: -48px 0;
+}
+
+/* line 204, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-blue.disabled {
+  background-position: -72px 0;
+  cursor: default;
+}
+
+/* line 208, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-blue.checked.disabled {
+  background-position: -96px 0;
+}
+
+/* line 212, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-blue {
+  background-position: -120px 0;
+}
+
+/* line 215, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-blue.hover {
+  background-position: -144px 0;
+}
+
+/* line 218, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-blue.checked {
+  background-position: -168px 0;
+}
+
+/* line 221, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-blue.disabled {
+  background-position: -192px 0;
+  cursor: default;
+}
+
+/* line 225, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-blue.checked.disabled {
+  background-position: -216px 0;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5 / 4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  /* line 231, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+  .icheckbox_square-blue,
+  .iradio_square-blue {
+    background-image: url(/assets/icheck/square/blue@2x-c0ce7ecfbd5605a7a0d0239d83b736eda75dbc71ff183472e02c6d6cdfbcc888.png);
+    -webkit-background-size: 240px 24px;
+    background-size: 240px 24px;
+  }
+}
+/* aero */
+/* line 240, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-aero,
+.iradio_square-aero {
+  display: inline-block;
+  *display: inline;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  background: url(/assets/icheck/square/aero-0256fcd9601e1bad8dc98bad53f2de7c8e78d9416e92c1b5c4db3cccf0931768.png) no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+/* line 254, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-aero {
+  background-position: 0 0;
+}
+
+/* line 257, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-aero.hover {
+  background-position: -24px 0;
+}
+
+/* line 260, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-aero.checked {
+  background-position: -48px 0;
+}
+
+/* line 263, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-aero.disabled {
+  background-position: -72px 0;
+  cursor: default;
+}
+
+/* line 267, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-aero.checked.disabled {
+  background-position: -96px 0;
+}
+
+/* line 271, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-aero {
+  background-position: -120px 0;
+}
+
+/* line 274, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-aero.hover {
+  background-position: -144px 0;
+}
+
+/* line 277, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-aero.checked {
+  background-position: -168px 0;
+}
+
+/* line 280, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-aero.disabled {
+  background-position: -192px 0;
+  cursor: default;
+}
+
+/* line 284, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-aero.checked.disabled {
+  background-position: -216px 0;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5 / 4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  /* line 290, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+  .icheckbox_square-aero,
+  .iradio_square-aero {
+    background-image: url(/assets/icheck/square/aero@2x-978e637c09ea1fa3cfbdb340142ad86a351c1fb863851a8fb86dba05f20e139f.png);
+    -webkit-background-size: 240px 24px;
+    background-size: 240px 24px;
+  }
+}
+/* grey */
+/* line 299, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-grey,
+.iradio_square-grey {
+  display: inline-block;
+  *display: inline;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  background: url(/assets/icheck/square/grey-80ed11e21b6c2f1217c83fd9150f90d73587ae049681750d5b75bba2a6aac87b.png) no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+/* line 313, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-grey {
+  background-position: 0 0;
+}
+
+/* line 316, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-grey.hover {
+  background-position: -24px 0;
+}
+
+/* line 319, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-grey.checked {
+  background-position: -48px 0;
+}
+
+/* line 322, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-grey.disabled {
+  background-position: -72px 0;
+  cursor: default;
+}
+
+/* line 326, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-grey.checked.disabled {
+  background-position: -96px 0;
+}
+
+/* line 330, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-grey {
+  background-position: -120px 0;
+}
+
+/* line 333, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-grey.hover {
+  background-position: -144px 0;
+}
+
+/* line 336, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-grey.checked {
+  background-position: -168px 0;
+}
+
+/* line 339, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-grey.disabled {
+  background-position: -192px 0;
+  cursor: default;
+}
+
+/* line 343, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-grey.checked.disabled {
+  background-position: -216px 0;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5 / 4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  /* line 349, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+  .icheckbox_square-grey,
+  .iradio_square-grey {
+    background-image: url(/assets/icheck/square/grey@2x-40bb731297212c86a4c0141ca76dc6d4ed4a753a681336a8b92d75ab30cb7495.png);
+    -webkit-background-size: 240px 24px;
+    background-size: 240px 24px;
+  }
+}
+/* orange */
+/* line 358, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-orange,
+.iradio_square-orange {
+  display: inline-block;
+  *display: inline;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  background: url(/assets/icheck/square/orange-2bdda400b27bc002d0573094587f9a198e7b8e1e5fcf82f2e2932796f6a32c34.png) no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+/* line 372, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-orange {
+  background-position: 0 0;
+}
+
+/* line 375, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-orange.hover {
+  background-position: -24px 0;
+}
+
+/* line 378, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-orange.checked {
+  background-position: -48px 0;
+}
+
+/* line 381, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-orange.disabled {
+  background-position: -72px 0;
+  cursor: default;
+}
+
+/* line 385, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-orange.checked.disabled {
+  background-position: -96px 0;
+}
+
+/* line 389, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-orange {
+  background-position: -120px 0;
+}
+
+/* line 392, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-orange.hover {
+  background-position: -144px 0;
+}
+
+/* line 395, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-orange.checked {
+  background-position: -168px 0;
+}
+
+/* line 398, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-orange.disabled {
+  background-position: -192px 0;
+  cursor: default;
+}
+
+/* line 402, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-orange.checked.disabled {
+  background-position: -216px 0;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5 / 4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  /* line 408, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+  .icheckbox_square-orange,
+  .iradio_square-orange {
+    background-image: url(/assets/icheck/square/orange@2x-52de7be969ad86e226bb1f93773a1933b44617069dae00a1f02f32fd2ad07c20.png);
+    -webkit-background-size: 240px 24px;
+    background-size: 240px 24px;
+  }
+}
+/* yellow */
+/* line 417, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-yellow,
+.iradio_square-yellow {
+  display: inline-block;
+  *display: inline;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  background: url(/assets/icheck/square/yellow-5c2016d71a7eb13a848f0c1441486d2d01f8de05a0e4f10e1c8a6c7e1ccf30bf.png) no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+/* line 431, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-yellow {
+  background-position: 0 0;
+}
+
+/* line 434, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-yellow.hover {
+  background-position: -24px 0;
+}
+
+/* line 437, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-yellow.checked {
+  background-position: -48px 0;
+}
+
+/* line 440, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-yellow.disabled {
+  background-position: -72px 0;
+  cursor: default;
+}
+
+/* line 444, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-yellow.checked.disabled {
+  background-position: -96px 0;
+}
+
+/* line 448, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-yellow {
+  background-position: -120px 0;
+}
+
+/* line 451, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-yellow.hover {
+  background-position: -144px 0;
+}
+
+/* line 454, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-yellow.checked {
+  background-position: -168px 0;
+}
+
+/* line 457, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-yellow.disabled {
+  background-position: -192px 0;
+  cursor: default;
+}
+
+/* line 461, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-yellow.checked.disabled {
+  background-position: -216px 0;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5 / 4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  /* line 467, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+  .icheckbox_square-yellow,
+  .iradio_square-yellow {
+    background-image: url(/assets/icheck/square/yellow@2x-7cba0273efb682c044ff6b908a81a013fd7a58d8e8ca23ec282b62f58e6595f6.png);
+    -webkit-background-size: 240px 24px;
+    background-size: 240px 24px;
+  }
+}
+/* pink */
+/* line 476, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-pink,
+.iradio_square-pink {
+  display: inline-block;
+  *display: inline;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  background: url(/assets/icheck/square/pink-bb85090ae0fedbd3fd0cadc1a74b0c9ceac38f09eb947c7d229a1b0b342a8d82.png) no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+/* line 490, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-pink {
+  background-position: 0 0;
+}
+
+/* line 493, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-pink.hover {
+  background-position: -24px 0;
+}
+
+/* line 496, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-pink.checked {
+  background-position: -48px 0;
+}
+
+/* line 499, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-pink.disabled {
+  background-position: -72px 0;
+  cursor: default;
+}
+
+/* line 503, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-pink.checked.disabled {
+  background-position: -96px 0;
+}
+
+/* line 507, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-pink {
+  background-position: -120px 0;
+}
+
+/* line 510, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-pink.hover {
+  background-position: -144px 0;
+}
+
+/* line 513, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-pink.checked {
+  background-position: -168px 0;
+}
+
+/* line 516, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-pink.disabled {
+  background-position: -192px 0;
+  cursor: default;
+}
+
+/* line 520, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-pink.checked.disabled {
+  background-position: -216px 0;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5 / 4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  /* line 526, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+  .icheckbox_square-pink,
+  .iradio_square-pink {
+    background-image: url(/assets/icheck/square/pink@2x-775bb94369b6742d9cde67d8e65ce7b24c495866420ade49ae2291afc8d9a777.png);
+    -webkit-background-size: 240px 24px;
+    background-size: 240px 24px;
+  }
+}
+/* purple */
+/* line 535, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-purple,
+.iradio_square-purple {
+  display: inline-block;
+  *display: inline;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  background: url(/assets/icheck/square/purple-1fe326c961b2a8320dca1b0041ca34df702c23bbe5d2a3fd2064539ebbbf06ce.png) no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+/* line 549, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-purple {
+  background-position: 0 0;
+}
+
+/* line 552, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-purple.hover {
+  background-position: -24px 0;
+}
+
+/* line 555, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-purple.checked {
+  background-position: -48px 0;
+}
+
+/* line 558, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-purple.disabled {
+  background-position: -72px 0;
+  cursor: default;
+}
+
+/* line 562, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.icheckbox_square-purple.checked.disabled {
+  background-position: -96px 0;
+}
+
+/* line 566, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-purple {
+  background-position: -120px 0;
+}
+
+/* line 569, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-purple.hover {
+  background-position: -144px 0;
+}
+
+/* line 572, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-purple.checked {
+  background-position: -168px 0;
+}
+
+/* line 575, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-purple.disabled {
+  background-position: -192px 0;
+  cursor: default;
+}
+
+/* line 579, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+.iradio_square-purple.checked.disabled {
+  background-position: -216px 0;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5 / 4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  /* line 585, /home/sudhir/.rvm/gems/ruby-2.2.0/gems/icheck-rails-1.0.2.2/vendor/assets/stylesheets/icheck/square/_all.scss */
+  .icheckbox_square-purple,
+  .iradio_square-purple {
+    background-image: url(/assets/icheck/square/purple@2x-1fa92204f94dabdba60b69a0f4fed54ca83f4367a97f384ae8f4bb01e0b6eea7.png);
+    -webkit-background-size: 240px 24px;
+    background-size: 240px 24px;
+  }
+}

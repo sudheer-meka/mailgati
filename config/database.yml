@@ -10,16 +10,24 @@
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 #
 default: &default
-  adapter: mysql2
-  encoding: utf8
-  pool: 5
-  username: root
-  password: 1234
-  socket: /var/run/mysqld/mysqld.sock
+#  adapter: mysql2
+#  encoding: utf8
+#  pool: 5
+#  username: root
+#  password: 1234
+    socket: /var/run/mysqld/mysqld.sock
+    adapter: mysql2
+    encoding: utf8
+    pool: 5
+    username: root
+    password: 1234
+#    host: localhost
+#    socket: /tmp/mysqld.sock
 
 development:
   <<: *default
   database: email_generator_development
+#  database: mailgati_bootstrap
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -50,5 +58,3 @@ test:
 production:
   <<: *default
   database: email_generator_production
-  username: root
-  password: 'secure@1234'

@@ -38,7 +38,7 @@ class Notification < ApplicationMailer
 
   def send_campaign(email,email_template,subs)
     @body = email_template.body
-    headers["X-SMTPAPI"] = JSON.generate({to: email,sub: subs}, :indent => ' ')
+    headers["X-SMTPAPI"] = JSON.generate({to: email,sub: subs,unique_args: {subscriber_group_id: '-@subscriber_group_id-',subscriber_id: '-@subscriber_id-',email_template_id: email_template.id} }, :indent => ' ')
     mail(from: "#{email_template.sender_name.titleize rescue nil}<#{email_template.sender_address}>",subject: "#{email_template.subject}",to: email)
   end
 

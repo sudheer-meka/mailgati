@@ -3,7 +3,7 @@
   <tr class="bg-blue">
     <th>Title</th>
     <th>Subject</th>
-    <th>Stats</th>
+    <!--<th>Stats</th>-->
     <th>Actions</th>
   </tr>
   </thead>
@@ -13,11 +13,11 @@
         <td><%= email_template.title %></td>
         <td><%= email_template.subject %></td>
 
-        <td>
-          <% activity = email_template.email_activities %>
-          <span>Opened: 1</span></br>
-          <span>Clicked: 1</span>
-        </td>
+        <!--<td>-->
+          <!--<%# activity = email_template.email_activities %>-->
+          <!--<span>Opened: 1</span></br>-->
+          <!--<span>Clicked: 1</span>-->
+        <!--</td>-->
         <td>
           <div class="btn-group">
             <% unless (%w[Approved Rejected].include?(email_template.status) or email_template.status == 'Approval Pending') %>
@@ -25,9 +25,9 @@
                 <%= link_to '<i class="icon-bin"></i>'.html_safe, email_template, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-icon' %>
             <% else %>
                 <%= link_to '<i class="icon-copy4"></i>'.html_safe,copy_template_email_template_path(email_template), class: 'btn btn-primary btn-icon' %>
+                <%= link_to '<i class="icon-stats-bars2"></i>'.html_safe,email_template_path(email_template), class: 'btn btn-primary btn-icon' %>
             <% end %>
           </div>
-
         </td>
       </tr>
   <% end %>

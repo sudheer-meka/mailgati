@@ -3,7 +3,7 @@
   <tr class="bg-blue">
     <th>Title</th>
     <th>Subject</th>
-    <!--<th>Body</th>-->
+    <th>Stats</th>
     <th>Actions</th>
   </tr>
   </thead>
@@ -13,6 +13,11 @@
         <td><%= email_template.title %></td>
         <td><%= email_template.subject %></td>
 
+        <td>
+          <% activity = email_template.email_activities %>
+          <span>Opened: 1</span></br>
+          <span>Clicked: 1</span>
+        </td>
         <td>
           <div class="btn-group">
             <% unless (%w[Approved Rejected].include?(email_template.status) or email_template.status == 'Approval Pending') %>

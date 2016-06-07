@@ -57,4 +57,4 @@ test:
 #
 production:
   <<: *default
-  database: email_generator_production
+  database: email_generator_development

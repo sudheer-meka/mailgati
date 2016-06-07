@@ -10,3 +10,21 @@
 @siteAdmin.save!(validate: false)
 
 
+
+
+
+Type of Email Status
+Send
+Delivered
+Bounced
+Opened
+Spam
+Unscribe
+Clicked
+Dropped
+
+We need below stats
+Campaign Wise
+Group Wise
+Month Wise
+Day Wise

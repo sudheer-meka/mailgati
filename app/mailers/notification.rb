@@ -33,7 +33,7 @@ class Notification < ApplicationMailer
 
   def test_campaign(email,email_template)
     @body = email_template.body
-    mail(from: "#{email_template.name.titleize}<#{email_template.sender_address}>",subject: "#{email_template.subject}",to: email)
+    mail(from: "#{email_template.sender_name.name.titleize}<#{email_template.sender_address}>",subject: "#{email_template.subject}",to: email)
   end
 
   def send_campaign(email,email_template,subs)
@@ -45,6 +45,6 @@ class Notification < ApplicationMailer
   def approve_reject_campaign(email_template)
     @email_template = email_template
     @body = email_template.body
-    mail(from: 'Allan<allan@quikchex.in>',subject: "Approve/Reject -#{email_template.subject}",to: %w[sudheerm16@gmail.com allanhfernandes@gmail.com])
+    mail(from: 'Sudheer Meka<sudheerm16@gmail.com>',subject: "Approve/Reject -#{email_template.subject}",to: %w[sudheerm16@gmail.com allanhfernandes@gmail.com])
   end
 end

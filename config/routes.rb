@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   require 'sidekiq/web'
-  mount Sidekiq::Web, at: '/sidekiq', as: 'sidekiq'
-
+  #mount Sidekiq::Web, at: '/sidekiq', as: 'sidekiq'
+  authenticate :user, lambda { |u| u.email == 'systemadmin@mailgati.com' } do
+    mount Sidekiq::Web, at: '/sidekiq', as: 'sidekiq'
+  end
+  match '/support/v1/EventWebHook', :to  => 'support/v1/api_tickets#event_webhook', :via => %w[POST], :defaults => { :format => 'json' }
   devise_for :users, :controllers => {:registrations => 'user/registrations'}
   namespace :admin do
     root :to => 'admin#index'

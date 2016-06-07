@@ -26,9 +26,8 @@ class User::RegistrationsController < Devise::RegistrationsController
         sign_up(resource_name, resource)
         respond_with resource, :location => root_url #after_sign_up_url_for(resource) TODO change post migration
       else
-        set_flash_message :notice, :"signed_up_but_you need to activate your account,please check your mail." if is_navigational_format?
         expire_data_after_sign_in!
-        respond_with resource, :location => root_path
+        respond_with resource, :location => root_path,notice: "Signed Up need to activate your account,please check your mail." if is_navigational_format?
       end
     else
       clean_up_passwords resource

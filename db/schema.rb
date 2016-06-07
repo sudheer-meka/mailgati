@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160515161415) do
+ActiveRecord::Schema.define(version: 20160606123343) do
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id",    limit: 4
@@ -66,6 +66,15 @@ ActiveRecord::Schema.define(version: 20160515161415) do
   end
 
   add_index "custom_fields", ["company_id"], name: "index_custom_fields_on_company_id", using: :btree
+
+  create_table "email_activities", force: :cascade do |t|
+    t.integer  "subscriber_group_id", limit: 4
+    t.integer  "email_template_id",   limit: 4
+    t.integer  "subscriber_id",       limit: 4
+    t.string   "status",              limit: 255
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
 
   create_table "email_settings", force: :cascade do |t|
     t.integer  "user_id",              limit: 4

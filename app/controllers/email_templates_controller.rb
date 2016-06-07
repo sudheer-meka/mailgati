@@ -82,6 +82,17 @@ class EmailTemplatesController < ApplicationController
     if request.method_symbol == :post
       @email_template.update_attribute(:status, 'Approval Pending')
       Notification.delay.approve_reject_campaign(@email_template)
+      inserts = []
+      @email_template.subscriber_groups(include: :subscribers).each do |group|
+        group.subscribers.each do |subscriber|
+          # inserts.push "(#{group.id}, #{@email_template.id}, #{subscriber.id.to_s}, Processing,#{Time.now},#{Time.now})"
+          subscriber.email_activities.create(subscriber_group_id: group.id,email_template_id: @email_template.id,status: 'Processing')
+        end
+      end
+
+      # sql = "INSERT INTO email_activities ('subscriber_group_id', 'email_template_id', 'subscriber_id','status','created_at','updated_at') VALUES #{inserts.join(',')}"
+      # ActiveRecord::Base.connection.execute(sql)
+
       respond_to do |format|
         format.html { redirect_to email_templates_url, notice: 'Email Campaign was successfully Sent' }
         format.json { head :no_content }
@@ -107,7 +118,6 @@ class EmailTemplatesController < ApplicationController
         else
           @results = collect_values(ActiveRecord::Base.connection.exec_query("call new_procedure('#{custom_field_ids}'"+','+"'#{group_ids}')"), custom_field_id_name_map)
         end
-
         Notification.delay.send_campaign(@results['-@email-'],@email_template,@results)
 
       else

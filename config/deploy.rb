@@ -4,8 +4,8 @@ set :deploy_to, "/var/www/rails_apps/#{application}"
 set :scm, :git
 set :branch, 'master'
 set :user, 'sudheer'
-set :scm_passphrase, 'NUpFEUM+j8LhxNyIz9lq7X2XurDltdL+WzEn3EjzJTc='
-set :use_sudo, false
+# set :scm_passphrase, 'NUpFEUM+j8LhxNyIz9lq7X2XurDltdL+WzEn3EjzJTc='
+set :use_sudo, true
 set :rails_env, 'production'
 set :deploy_via, :copy
 set :keep_releases, 5
@@ -44,7 +44,7 @@ after 'deploy:update_code' do
   run "ln -nfs #{shared_path}/database.yml #{release_path}/config/database.yml"
   # run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
 end
-load 'deploy/assets'
+# load 'deploy/assets'cat
 #
 # # set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`

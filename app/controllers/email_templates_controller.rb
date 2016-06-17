@@ -14,13 +14,13 @@ class EmailTemplatesController < ApplicationController
   def show
     @email_activities = @email_template.email_activities
     total_processed = @email_activities.count.to_f
-    open_count = @email_activities.where(status: %w[open clicked unsubscribe spam_complaint]).count
+    open_count = @email_activities.where(status: %w[open click unsubscribe spam_complaint]).count
     delivery_count = open_count + @email_activities.where(status: 'delivered').count
     bounce_count = @email_activities.where(status: 'bounced').count
-    clicked_count = @email_activities.where(status: 'clicked').count
+    clicked_count = @email_activities.where(status: 'click').count
 
     if total_processed > 0
-      @stats = {total_processed: total_processed,open_count: ((open_count/total_processed)),delivery_count: ((delivery_count/total_processed)*100),clicked_count: ((clicked_count/total_processed)*100),bounce_count: ((bounce_count/total_processed)*100)}
+      @stats = {total_processed: total_processed,open_count: ((open_count/total_processed)),delivery_count: ((delivery_count/total_processed)),clicked_count: ((clicked_count/total_processed)),bounce_count: ((bounce_count/total_processed))}
     else
       @stats = {total_processed: total_processed,open_count: 0,delivery_count: 0,clicked_count: 0,bounce_count: 0}
     end
@@ -119,7 +119,7 @@ class EmailTemplatesController < ApplicationController
       if params[:status] == 'approve'
         @company = @email_template.company
         group_ids = @email_template.subscriber_groups.pluck('id').join(',')
-        # @email_template.update_attribute(:status, 'Approved')
+        @email_template.update_attribute(:status, 'Approved')
         custom_field_id_name_map = {}
         custom_fields = @company.custom_fields.where(name: (@email_template.subject_variables + @email_template.body_variables).uniq)
         custom_fields.each do |filed|
@@ -134,7 +134,6 @@ class EmailTemplatesController < ApplicationController
         # render json: @results
         # return
         Notification.delay.send_campaign(@results['-@email-'],@email_template,@results)
-
       else
         @email_template.update_attribute(:status, 'Rejected')
       end

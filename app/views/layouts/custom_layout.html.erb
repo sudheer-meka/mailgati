@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mail Gati</title>
-
+  <link rel="shortcut icon" href="/assets/mailgati.png">
   <!--Global stylesheets -->
   <!--<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800' rel='stylesheet' type='text/css'>-->
   <%= stylesheet_link_tag 'application', media: 'all' %>
@@ -18,7 +18,7 @@
   <!-- Main navbar -->
   <div class="navbar navbar-inverse">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/"><%= image_tag 'logo_light.png' %></a>
+      <a class="navbar-brand" href="/"><%= image_tag 'mailgati_logo.png',width: '150px',hight: '150px'; %></a>
 
       <ul class="nav navbar-nav pull-right visible-xs-block">
         <li><a data-toggle="collapse " data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
@@ -64,8 +64,8 @@
               <a href="<%= email_settings_email_templates_path %>"><i class="icon-cogs position-left"></i>Settings</a>
             </li>
             <!--<li class="<%#= 'active' if current_page?(email_generators_email_templates_path) %>">-->
-              <!--<a href="<%#= email_generators_email_templates_path %>"><i class="icon-rocket position-left"></i>Generate-->
-                <!--Emails</a></li>-->
+            <!--<a href="<%#= email_generators_email_templates_path %>"><i class="icon-rocket position-left"></i>Generate-->
+            <!--Emails</a></li>-->
           </ul>
 
         </div>
@@ -147,7 +147,37 @@
 
 </div>
 <!-- /page container -->
-
-
 </body>
+<div class="modal fade" id="custom-confirm-box" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width: 30%">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h3>Are you sure?</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <p class="confirm-message" style="font-size: 16px">You're by your own now, good luck!</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i>&nbsp;Cancel
+        </button>
+        <a href="#" type="button" data-method="get" class="btn btn-primary  custom-popup-submit" data-dismiss="modal"><i class="fa fa-check"></i>&nbsp;Confirm</a>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '.custom-popup', function () {
+            $(".custom-popup-submit").attr('href', $(this).attr('data-link'));
+            $(".custom-popup-submit").attr('data-method', $(this).attr('data-method-type'));
+            $('.confirm-message').html($(this).attr('data-message')); //or
+        });
+    });
+</script>
 </html>

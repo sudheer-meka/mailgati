@@ -25,27 +25,28 @@
   </tr>
   <tr>
     <td colspan="3">
-      <span><b>Selected Subscriber Groups</b></span></br></br>
+      <span><b>Selected Subscriber Groups</b></span>
+      <br>
+      <br>
       <% @email_template.subscriber_groups.each_with_index do |list, index| %>
           <%= "#{index +1 }. #{list.name.titleize}" %>
-          </br>
+          <br>
       <% end %>
     </td>
   </tr>
   <tr>
     <td colspan="2">
-      <span><b>Body</b></span></br></br>
+      <span><b>Body</b></span><br><br>
       <%= @email_template.body.html_safe %>
     </td>
-
   </tr>
-
 </table>
 
 <div class="text-center">
-  <%= link_to '<i class="icon-arrow-left13 position-left"></i>Back'.html_safe, select_lists_email_template_url(@email_template), class: "btn btn-danger" %>
-  <%= link_to '<i class="icon-cancel-circle2 position-left"></i>Cancel'.html_safe, email_templates_path, class: "btn bg-slate-400" %>
-  <%= link_to '<i class="icon-checkmark3 position-left"></i>Confirm'.html_safe, confirm_campaign_email_template_url(@email_template), method: 'post', class: "btn btn-primary" %>
+  <%= link_to '<i class="icon-arrow-left13 position-left"></i>Back'.html_safe, select_lists_email_template_url(@email_template), class: 'btn btn-danger' %>
+  <%= link_to '<i class="icon-cancel-circle2 position-left"></i>Cancel'.html_safe, email_templates_path, class: 'btn bg-slate-400' %>
+  <%= link_to '<i class="icon-checkmark3 position-left"></i>Send Email'.html_safe, "#",  class: 'btn btn-primary custom-popup', data: {toggle:'modal',method_type: 'post',link: confirm_campaign_email_template_url(@email_template),message: 'You really want to send this campaign?',target: '#custom-confirm-box'}  %>
+  <%#= link_to '<i class="icon-checkmark3 position-left"></i>Send Email'.html_safe, confirm_campaign_email_template_url(@email_template), method: 'post', class: 'btn btn-primary' %>
 </div>
 
 <div class="modal fade in" id="modal_form_horizontal" style="display: none;">
@@ -55,7 +56,7 @@
         <button data-dismiss="modal" class="close" type="button">×</button>
         <h5 class="modal-title">Test <%= @email_template.title %></h5>
       </div>
-      <%= form_tag test_email_template_path(@email_template), class: 'form-horizontal', multipart: true do |form| %>
+      <%= form_tag test_email_template_path(@email_template), class: 'form-horizontal', multipart: true do  %>
           <div class="modal-body">
             <div class="form-group">
               <label class="control-label col-sm-3">Email</label>

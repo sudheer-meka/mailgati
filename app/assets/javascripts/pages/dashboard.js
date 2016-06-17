@@ -3081,8 +3081,8 @@ $(function() {
     // ------------------------------
 
     // Initialize charts
-    progressCounter('#hours-available-progress', 38, 2, "#F06292", 0.68, "icon-watch text-pink-400", 'Hours available', '64% average')
-    progressCounter('#goal-progress', 38, 2, "#5C6BC0", 0.82, "icon-trophy3 text-indigo-400", 'Productivity goal', '87% average')
+    progressCounter('#hours-available-progress', 38, 2, "#F06292", 0.53, "icon-watch text-pink-400", 'Hours available', '64% average');
+    progressCounter('#goal-progress', 38, 2, "#5C6BC0", 0.82, "icon-trophy3 text-indigo-400", 'Productivity goal', '87% average');
 
     // Chart setup
     function progressCounter(element, radius, border, color, end, iconClass, textTitle, textAverage) {

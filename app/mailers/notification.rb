@@ -33,7 +33,7 @@ class Notification < ApplicationMailer
 
   def test_campaign(email,email_template)
     @body = email_template.body
-    mail(from: "#{email_template.sender_name.name.titleize}<#{email_template.sender_address}>",subject: "#{email_template.subject}",to: email)
+    mail(from: "#{email_template.sender_name.titleize}<#{email_template.sender_address}>",subject: "#{email_template.subject}",to: email)
   end
 
   def send_campaign(email,email_template,subs)

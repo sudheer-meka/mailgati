@@ -1,9 +1,9 @@
 <style>
-  .panel{
-      min-height: 200px;
-  }
+    .panel {
+        min-height: 200px;
+    }
 </style>
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
 <div class="row">
   <div class="col-md-3">
     <!-- Available hours -->
@@ -13,7 +13,7 @@
         <div id="delivered-progress" class="content-group-sm svg-center position-relative">
         </div>
         <!-- /progress counter -->
-        </div>
+      </div>
     </div>
     <!-- /available hours -->
   </div>
@@ -25,7 +25,7 @@
         <div id="open-progress" class="content-group-sm svg-center position-relative">
         </div>
         <!-- /progress counter -->
-        </div>
+      </div>
     </div>
   </div>
   <div class="col-md-3">
@@ -63,148 +63,140 @@
   </thead>
   <tbody>
   <% @email_template.email_activities(include: :subscribers).each do |activity| %>
-    <% subscriber = activity.subscriber %>
-    <tr>
-      <td><% subscriber.email %></td>
-      <td><% subscriber.name %></td>
-      <td><% activity.status %></td>
-    </tr>
+      <% subscriber = activity.subscriber %>
+      <tr>
+        <td><%= subscriber.email %></td>
+        <td><%= subscriber.name %></td>
+        <td><%= activity.status %></td>
+        <td><%= activity.status %></td>
+      </tr>
   <% end %>
   </tbody>
 </table>
 <script>
-  $(function(){
-      progressCounter('#delivered-progress', 38, 2, "#F06292", '<%= @stats[:delivery_count].to_json %>', "icon-rocket text-pink-400", 'Delivery Rate', '88% average');
-      progressCounter('#click-progress', 38, 2, "#66bb6a", '<%= @stats[:clicked_count].to_json %>', "icon-mouse-left text-success-400", 'Click Rate', '5% average');
-      progressCounter('#bounce-progress', 38, 2, "#ef5350", '<%= @stats[:bounce_count].to_json %>', "icon-cross text-danger-400", 'Bounce Rate', '3% average');
-      progressCounter('#open-progress', 38, 2, "#5c6bc0", '<%= @stats[:open_count].to_json %>', "icon-mail-read text-indigo-400", 'Open Rate', '12% average')
+    $(document).ready(function(){
+        progressCounter('#delivered-progress', 38, 2, "#F06292", '<%= @stats[:delivery_count].to_json %>', "icon-rocket text-pink-400", 'Delivery Rate', '88% average');
+        progressCounter('#click-progress', 38, 2, "#66bb6a", '<%= @stats[:clicked_count].to_json %>', "icon-mouse-left text-success-400", 'Click Rate', '5% average');
+        progressCounter('#bounce-progress', 38, 2, "#ef5350", '<%= @stats[:bounce_count].to_json %>', "icon-cross text-danger-400", 'Bounce Rate', '3% average');
+        progressCounter('#open-progress', 38, 2, "#5c6bc0", '<%= @stats[:open_count].to_json %>', "icon-mail-read text-indigo-400", 'Open Rate', '12% average')
+    });
+    function progressCounter(element, radius, border, color, end, iconClass, textTitle, textAverage) {
+        // Basic setup
+        // ------------------------------
 
-  });
-  progressCounter
-  function progressCounter(element, radius, border, color, end, iconClass, textTitle, textAverage) {
+        // Main variables
+        var d3Container = d3.select(element),
+                startPercent = 0,
+                iconSize = 32,
+                endPercent = end,
+                twoPi = Math.PI * 2,
+                formatPercent = d3.format('.0%'),
+                boxSize = radius * 2;
 
+        // Values count
+        var count = Math.abs((endPercent - startPercent) / 0.01);
 
-      // Basic setup
-      // ------------------------------
-
-      // Main variables
-      var d3Container = d3.select(element),
-              startPercent = 0,
-              iconSize = 32,
-              endPercent = end,
-              twoPi = Math.PI * 2,
-              formatPercent = d3.format('.0%'),
-              boxSize = radius * 2;
-
-      // Values count
-      var count = Math.abs((endPercent - startPercent) / 0.01);
-
-      // Values step
-      var step = endPercent < startPercent ? -0.01 : 0.01;
+        // Values step
+        var step = endPercent < startPercent ? -0.01 : 0.01;
 
 
+        // Create chart
+        // ------------------------------
 
-      // Create chart
-      // ------------------------------
+        // Add SVG element
+        var container = d3Container.append('svg');
 
-      // Add SVG element
-      var container = d3Container.append('svg');
-
-      // Add SVG group
-      var svg = container
-              .attr('width', boxSize)
-              .attr('height', boxSize)
-              .append('g')
-              .attr('transform', 'translate(' + (boxSize / 2) + ',' + (boxSize / 2) + ')');
-
+        // Add SVG group
+        var svg = container
+                .attr('width', boxSize)
+                .attr('height', boxSize)
+                .append('g')
+                .attr('transform', 'translate(' + (boxSize / 2) + ',' + (boxSize / 2) + ')');
 
 
-      // Construct chart layout
-      // ------------------------------
+        // Construct chart layout
+        // ------------------------------
 
-      // Arc
-      var arc = d3.svg.arc()
-              .startAngle(0)
-              .innerRadius(radius)
-              .outerRadius(radius - border);
-
-
-
-      //
-      // Append chart elements
-      //
-
-      // Paths
-      // ------------------------------
-
-      // Background path
-      svg.append('path')
-              .attr('class', 'd3-progress-background')
-              .attr('d', arc.endAngle(twoPi))
-              .style('fill', '#eee');
-
-      // Foreground path
-      var foreground = svg.append('path')
-              .attr('class', 'd3-progress-foreground')
-              .attr('filter', 'url(#blur)')
-              .style('fill', color)
-              .style('stroke', color);
-
-      // Front path
-      var front = svg.append('path')
-              .attr('class', 'd3-progress-front')
-              .style('fill', color)
-              .style('fill-opacity', 1);
+        // Arc
+        var arc = d3.svg.arc()
+                .startAngle(0)
+                .innerRadius(radius)
+                .outerRadius(radius - border);
 
 
+        //
+        // Append chart elements
+        //
 
-      // Text
-      // ------------------------------
+        // Paths
+        // ------------------------------
 
-      // Percentage text value
-      var numberText = d3.select(element)
-              .append('h2')
-              .attr('class', 'mt-15 mb-5')
+        // Background path
+        svg.append('path')
+                .attr('class', 'd3-progress-background')
+                .attr('d', arc.endAngle(twoPi))
+                .style('fill', '#eee');
 
-      // Icon
-      d3.select(element)
-              .append("i")
-              .attr("class", iconClass + " counter-icon")
-              .attr('style', 'top: ' + ((boxSize - iconSize) / 2) + 'px');
+        // Foreground path
+        var foreground = svg.append('path')
+                .attr('class', 'd3-progress-foreground')
+                .attr('filter', 'url(#blur)')
+                .style('fill', color)
+                .style('stroke', color);
 
-      // Title
-      d3.select(element)
-              .append('div')
-              .text(textTitle);
-
-      // Subtitle
-      d3.select(element)
-              .append('div')
-              .attr('class', 'text-size-small text-muted')
-              .text(textAverage);
+        // Front path
+        var front = svg.append('path')
+                .attr('class', 'd3-progress-front')
+                .style('fill', color)
+                .style('fill-opacity', 1);
 
 
+        // Text
+        // ------------------------------
 
-      // Animation
-      // ------------------------------
+        // Percentage text value
+        var numberText = d3.select(element)
+                .append('h2')
+                .attr('class', 'mt-15 mb-5')
 
-      // Animate path
-      function updateProgress(progress) {
-          foreground.attr('d', arc.endAngle(twoPi * progress));
-          front.attr('d', arc.endAngle(twoPi * progress));
-          numberText.text(formatPercent(progress));
-      }
+        // Icon
+        d3.select(element)
+                .append("i")
+                .attr("class", iconClass + " counter-icon")
+                .attr('style', 'top: ' + ((boxSize - iconSize) / 2) + 'px');
 
-      // Animate text
-      var progress = startPercent;
-      (function loops() {
-          updateProgress(progress);
-          if (count > 0) {
-              count--;
-              progress += step;
-              setTimeout(loops, 10);
-          }
-      })();
-  }
+        // Title
+        d3.select(element)
+                .append('div')
+                .text(textTitle);
+
+        // Subtitle
+        d3.select(element)
+                .append('div')
+                .attr('class', 'text-size-small text-muted')
+                .text(textAverage);
+
+
+        // Animation
+        // ------------------------------
+
+        // Animate path
+        function updateProgress(progress) {
+            foreground.attr('d', arc.endAngle(twoPi * progress));
+            front.attr('d', arc.endAngle(twoPi * progress));
+            numberText.text(formatPercent(progress));
+        }
+
+        // Animate text
+        var progress = startPercent;
+        (function loops() {
+            updateProgress(progress);
+            if (count > 0) {
+                count--;
+                progress += step;
+                setTimeout(loops, 10);
+            }
+        })();
+    }
 
 </script>

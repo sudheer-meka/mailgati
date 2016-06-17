@@ -15,12 +15,18 @@ class User::RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource(resource_params)
-    @company = Company.create(name: params[:company])
-    resource.company_id = @company.id
-    session[:company_id] = @company.id
+
     if resource.save
-      @group = @company.subscriber_groups.create(name: 'Test')
-      @group.subscribers.create(email: resource.email,name: "#{resource.first_name} #{resource.last_name}",contact: resource.contact)
+      @company = resource.company
+      unless @company
+        @company = Company.create(name: params[:company])
+        resource.company_id = @company.id
+        session[:company_id] = @company.id
+        resource.save
+        @group = @company.subscriber_groups.find_or_create_by(name: 'Test')
+        @group.subscribers.create(email: resource.email,name: "#{resource.first_name} #{resource.last_name}",contact: resource.contact)
+      end
+
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_up(resource_name, resource)
@@ -35,11 +41,8 @@ class User::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-
   def resource_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :company, :contact)
   end
-
   private :resource_params
-
 end

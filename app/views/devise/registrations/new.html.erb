@@ -1,7 +1,7 @@
 <%#= render "devise/shared/links" %>
 <!-- Advanced login -->
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-
+    <%= devise_error_messages! %>
     <div class="panel panel-body login-form">
       <div class="text-center">
         <div class="icon-object border-primary text-primary"><i class="icon-plus3"></i></div>
@@ -71,6 +71,9 @@
 
       <button type="submit" class="btn bg-primary btn-block btn-lg">Register
         <i class="icon-circle-right2 position-right"></i></button>
+
+        <%= link_to  '<i class="icon-circle-left2 position-left"></i>Log in'.html_safe, new_session_path(resource_name),class: "btn bg-blue btn-block" %><br />
+
     </div>
 <% end %>
 <!-- /advanced login -->

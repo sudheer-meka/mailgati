@@ -4,6 +4,8 @@
     }
 </style>
 <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+<h1 class="text-center">Statistics</h1>
+<p class="color-danger lead text-center">Total Sent: <%= @stats[:total_processed].to_i %></p>
 <div class="row">
   <div class="col-md-3">
     <!-- Available hours -->
@@ -72,16 +74,16 @@
       </tr>
   <% end %>
   </tbody>
-</table>
+</table>-
 <div class="row text-center no-margin" >
   <%= will_paginate @email_activities, renderer: BootstrapPagination::Rails %>
 </div>
 <script>
     $(document).ready(function(){
-        progressCounter('#delivered-progress', 38, 2, "#F06292", '<%= @stats[:delivery_count].to_json %>', "icon-rocket text-pink-400", 'Delivery Rate', '88% average');
-        progressCounter('#click-progress', 38, 2, "#66bb6a", '<%= @stats[:clicked_count].to_json %>', "icon-mouse-left text-success-400", 'Click Rate', '5% average');
-        progressCounter('#bounce-progress', 38, 2, "#ef5350", '<%= @stats[:bounce_count].to_json %>', "icon-cross text-danger-400", 'Bounce Rate', '3% average');
-        progressCounter('#open-progress', 38, 2, "#5c6bc0", '<%= @stats[:open_count].to_json %>', "icon-mail-read text-indigo-400", 'Open Rate', '12% average')
+        progressCounter('#delivered-progress', 38, 2, "#F06292", '<%= @stats[:delivery_percent].to_json %>', "icon-rocket text-pink-400", 'Delivery Rate', '<%= @stats[:delivery_count].to_json %> Delivered');
+        progressCounter('#click-progress', 38, 2, "#66bb6a", '<%= @stats[:clicked_percent].to_json %>', "icon-mouse-left text-success-400", 'Click Rate', '<%= @stats[:clicked_count].to_json %> Clicked');
+        progressCounter('#bounce-progress', 38, 2, "#ef5350", '<%= @stats[:bounce_percent].to_json %>', "icon-cross text-danger-400", 'Bounce Rate', '<%= @stats[:bounce_count].to_json %> Bounced');
+        progressCounter('#open-progress', 38, 2, "#5c6bc0", '<%= @stats[:open_percent].to_json %>', "icon-mail-read text-indigo-400", 'Open Rate', '<%= @stats[:open_count].to_json %> Opened')
     });
     function progressCounter(element, radius, border, color, end, iconClass, textTitle, textAverage) {
         // Basic setup

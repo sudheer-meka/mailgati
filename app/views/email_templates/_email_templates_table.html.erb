@@ -4,6 +4,7 @@
     <th>Title</th>
     <th>Subject</th>
     <th>Created At</th>
+    <th>Stats</th>
     <!--<th>Stats</th>-->
     <th>Actions</th>
   </tr>
@@ -11,10 +12,20 @@
   <tbody>
   <% templates.each do |email_template| %>
       <tr>
+        <%
+           email_activities = email_template.email_activities
+           stats = email_template.stats(email_activities)
+        %>
         <td><%= email_template.title %></td>
         <td><%= email_template.subject %></td>
         <td><%= email_template.created_at.strftime('%d-%m-%Y %I:%M:%S %p') %></td>
-
+        <td>
+          <span>Sent: <%= stats[:total_processed] %></span><br>
+          <span>Delivered: <%= stats[:delivery_count]%> (<%= stats[:delivery_percent] %> %)</span><br>
+          <span>Opened: <%= stats[:open_count]%> (<%= stats[:open_percent] %> %)</span><br>
+          <span>Clicked: <%= stats[:clicked_count]%> (<%= stats[:clicked_percent] %> %)</span><br>
+          <span>Bounced: <%= stats[:bounce_count]%> (<%= stats[:bounce_percent] %> %)</span>
+        </td>
         <!--<td>-->
           <!--<%# activity = email_template.email_activities %>-->
           <!--<span>Opened: 1</span></br>-->

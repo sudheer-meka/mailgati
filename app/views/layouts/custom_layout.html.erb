@@ -4,8 +4,14 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mail Gati</title>
-  <link rel="shortcut icon" href="/assets/mailgati.png">
+
+
+  <% unless request.base_url == 'http://mail.quikchex.in' %>
+      <title>Mail Gati</title>
+      <link rel="shortcut icon" href="/assets/mailgati.png">
+  <% else %>
+      <title>Mailgati</title>
+  <% end %>
   <!--Global stylesheets -->
   <!--<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800' rel='stylesheet' type='text/css'>-->
   <%= stylesheet_link_tag 'application', media: 'all' %>
@@ -18,8 +24,9 @@
   <!-- Main navbar -->
   <div class="navbar navbar-inverse">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/"><%= image_tag 'mailgati_logo.png',width: '150px',hight: '150px'; %></a>
-
+      <% unless request.base_url == 'http://mail.quikchex.in' %>
+          <a class="navbar-brand" href="/"><%= image_tag 'mailgati_logo.png', width: '150px', hight: '150px'; %></a>
+      <% end %>
       <ul class="nav navbar-nav pull-right visible-xs-block">
         <li><a data-toggle="collapse " data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
       </ul>

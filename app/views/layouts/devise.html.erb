@@ -45,7 +45,9 @@
 
   <!-- Footer -->
   <div class="footer text-white">
-    <a href="http://mailgati.com" target="_blank">&copy; 2016 Mail Gati Private Limited</a>
+    <% unless request.base_url == 'http://mail.quikchex.in' %>
+        <a href="http://mailgati.com" target="_blank">&copy; 2016 Mail Gati Private Limited</a>
+    <% end %>
   </div>
   <!-- /footer -->
 </div>

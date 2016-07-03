@@ -1,6 +1,6 @@
 class EmailTemplatesController < ApplicationController
   before_action :set_company, except: [:act_on_campaign]
-  before_action :set_email_template, only: [:confirm_campaign, :show, :edit, :update, :destroy, :get_import_file, :test, :select_lists,:copy_template]
+  before_action :set_email_template, only: [:confirm_campaign, :show, :edit, :update, :destroy, :get_import_file, :test, :select_lists, :copy_template]
   # GET /email_templates
   # GET /email_templates.json
   def index
@@ -16,15 +16,14 @@ class EmailTemplatesController < ApplicationController
     total_processed = @email_activities.count.to_f
     open_count = @email_activities.where(status: %w[open click unsubscribe spam_complaint]).count
     delivery_count = open_count + @email_activities.where(status: 'delivered').count
-    bounce_count = @email_activities.where(status: 'bounced').count
+    bounce_count = @email_activities.where(status: 'bounce').count
     clicked_count = @email_activities.where(status: 'click').count
-
+    @email_activities = @email_activities.paginate(page: params[:page], per_page: 100)
     if total_processed > 0
-      @stats = {total_processed: total_processed,open_count: ((open_count/total_processed)),delivery_count: ((delivery_count/total_processed)),clicked_count: ((clicked_count/total_processed)),bounce_count: ((bounce_count/total_processed))}
+      @stats = {total_processed: total_processed, open_count: ((open_count/total_processed)), delivery_count: ((delivery_count/total_processed)), clicked_count: ((clicked_count/total_processed)), bounce_count: ((bounce_count/total_processed))}
     else
-      @stats = {total_processed: total_processed,open_count: 0,delivery_count: 0,clicked_count: 0,bounce_count: 0}
+      @stats = {total_processed: total_processed, open_count: 0, delivery_count: 0, clicked_count: 0, bounce_count: 0}
     end
-
   end
 
   # GET /email_templates/new
@@ -105,7 +104,6 @@ class EmailTemplatesController < ApplicationController
 
       # sql = "INSERT INTO email_activities ('subscriber_group_id', 'email_template_id', 'subscriber_id','status','created_at','updated_at') VALUES #{inserts.join(',')}"
       # ActiveRecord::Base.connection.execute(sql)
-
       respond_to do |format|
         format.html { redirect_to email_templates_url, notice: 'Email Campaign was successfully Sent' }
         format.json { head :no_content }
@@ -115,7 +113,7 @@ class EmailTemplatesController < ApplicationController
 
   def act_on_campaign
     @email_template = EmailTemplate.find(params[:id])
-    unless  %w[Approved Rejected].include? @email_template.status
+    unless %w[Approved Rejected].include? @email_template.status
       if params[:status] == 'approve'
         @company = @email_template.company
         group_ids = @email_template.subscriber_groups.pluck('id').join(',')
@@ -131,9 +129,18 @@ class EmailTemplatesController < ApplicationController
         else
           @results = collect_values(ActiveRecord::Base.connection.exec_query("call new_procedure('#{custom_field_ids}'"+','+"'#{group_ids}')"), custom_field_id_name_map)
         end
-        # render json: @results
-        # return
-        Notification.delay.send_campaign(@results['-@email-'],@email_template,@results)
+        final_output = {}
+        @results.each do |key, value|
+          batch = 1
+          value.each_slice(100).to_a.each do |group|
+            final_output["batch_#{batch}"] = {} unless final_output.has_key?("batch_#{batch}")
+            final_output["batch_#{batch}"][key] = group
+            batch += 1
+          end
+        end
+        final_output.each do |key, value|
+          Notification.delay.send_campaign(value['-@email-'], @email_template, value)
+        end
       else
         @email_template.update_attribute(:status, 'Rejected')
       end
@@ -142,7 +149,7 @@ class EmailTemplatesController < ApplicationController
       render json: 'OK'
       return
     else
-      redirect_to root_url,notice: "Email Template was successfully #{@email_template.status}"
+      redirect_to root_url, notice: "Email Template was successfully #{@email_template.status}"
       return
     end
   end
@@ -284,7 +291,7 @@ class EmailTemplatesController < ApplicationController
   end
 
   def copy_template
-    template = @company.email_templates.new(title: @email_template.title,subject: @email_template.subject,body: @email_template.body,sender_address: @email_template.sender_address,status: 'In Complete')
+    template = @company.email_templates.new(title: @email_template.title, subject: @email_template.subject, body: @email_template.body, sender_address: @email_template.sender_address, status: 'In Complete')
     template.save!
     @email_template.subscriber_groups.each do |group|
       template.subscriber_groups << group

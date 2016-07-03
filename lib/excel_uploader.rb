@@ -29,7 +29,7 @@ class ExcelUploader
             name = row[(find_header_index('Name'))]
             details_missing_for = ''
             details_missing_for += 'Email, ' if email.nil?
-            details_missing_for += 'Name, ' if name.nil?
+            # details_missing_for += 'Name, ' if name.nil?
             raise "Data at Line #{index + 1} is Blank for: #{details_missing_for}" unless details_missing_for == ''
             @subscriber = @subscribers.find_by(email: email) rescue nil
             @subscriber = @subscriber_group.subscribers.new(email: email) unless @subscriber

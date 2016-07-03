@@ -30,6 +30,7 @@ module SubscriberInfoReport
         subscriber_row_values.each_with_index do |content, index|
           sheet[row_count, index] = content
         end
+        row_count += 1
       end
       statement_xls
     end

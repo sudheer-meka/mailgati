@@ -62,7 +62,7 @@
   </tr>
   </thead>
   <tbody>
-  <% @email_template.email_activities(include: :subscribers).each do |activity| %>
+  <% @email_activities.each do |activity| %>
       <% subscriber = activity.subscriber %>
       <tr>
         <td><%= subscriber.email %></td>
@@ -73,6 +73,9 @@
   <% end %>
   </tbody>
 </table>
+<div class="row text-center no-margin" >
+  <%= will_paginate @email_activities, renderer: BootstrapPagination::Rails %>
+</div>
 <script>
     $(document).ready(function(){
         progressCounter('#delivered-progress', 38, 2, "#F06292", '<%= @stats[:delivery_count].to_json %>', "icon-rocket text-pink-400", 'Delivery Rate', '88% average');

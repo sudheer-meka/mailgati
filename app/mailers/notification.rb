@@ -45,6 +45,6 @@ class Notification < ApplicationMailer
   def approve_reject_campaign(email_template)
     @email_template = email_template
     @body = email_template.body
-    mail(from: 'Sudheer Meka<sudheerm16@gmail.com>',subject: "Approve/Reject -#{email_template.subject}",to: %w[sudheerm16@gmail.com allanhfernandes@gmail.com])
+    mail(from: 'Sudheer Meka<sudheerm16@gmail.com>',subject: "Company: #{email_template.company.name rescue ''} - Approve/Reject -#{email_template.subject}",to: %w[sudheerm16@gmail.com allanhfernandes@gmail.com])
   end
 end

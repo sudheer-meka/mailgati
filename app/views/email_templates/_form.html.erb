@@ -1,4 +1,3 @@
-
 <%= javascript_include_tag 'plugins/editors/wysihtml5/wysihtml5.min' %>
 <%= javascript_include_tag 'plugins/editors/wysihtml5/toolbar' %>
 <%= javascript_include_tag 'plugins/editors/wysihtml5/parsers' %>
@@ -7,7 +6,7 @@
 <h1 align="center">Step 1: Email Campaign Settings</h1>
 <p class="color-danger lead text-center">Select the subject,sender and template for this campaign</p>
 
-<%= form_for(@email_template,html:{class: 'form-horizontal'}) do |f| %>
+<%= form_for(@email_template, html: {class: 'form-horizontal'}) do |f| %>
     <% if @email_template.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@email_template.errors.count, "error") %> prohibited this email_template from being
@@ -19,40 +18,49 @@
           </ul>
         </div>
     <% end %>
-
     <div class="form-group">
       <label class="control-label col-lg-2">Title</label>
+
       <div class="col-lg-10">
-        <%= f.text_field :title, class: 'form-control', id: 'title',placeholder: 'Title' %>
+        <%= f.text_field :title, class: 'form-control', id: 'title', placeholder: 'Title' %>
+
       </div>
     </div>
 
     <div class="form-group">
       <label class="control-label col-lg-2">Subject</label>
-      <div class="col-lg-10">
-        <%= f.text_field :subject, class: 'form-control', id: 'subject',placeholder: 'Title' %>
+
+      <div class="col-lg-6">
+        <%= f.text_field :subject, class: 'form-control', placeholder: 'Subject' %>
+      </div>
+      <div class="col-lg-4">
+        <%= select_tag 'megers', options_for_select((%w[Email Name Contact] + @company.custom_fields.map { |field| field.name }).map{|field| [field,field.underscore.gsub(' ','_')]}), class: 'form-control', id: 'select-merge', prompt: 'Insert Merge Tags' %>
       </div>
     </div>
-
     <div class="form-group">
       <label class="control-label col-lg-2">Sender Address</label>
+
       <div class="col-lg-10">
-        <%= f.text_field :sender_address, class: 'form-control', id: 'sender-address',value: (@email_template.sender_address || @company.sender_address ),placeholder: 'Sender Address' %>
+        <%= f.text_field :sender_address, class: 'form-control', id: 'sender-address', value: (@email_template.sender_address || @company.sender_address), placeholder: 'Sender Address' %>
       </div>
     </div>
 
     <div class="form-group">
       <label class="control-label col-lg-2">Sender Name</label>
+
       <div class="col-lg-10">
-        <%= f.text_field :sender_name, class: 'form-control', id: 'sender-name',value: (@email_template.sender_name || @company.sender_name ),placeholder: 'Sender Name' %>
+        <%= f.text_field :sender_name, class: 'form-control', id: 'sender-name', value: (@email_template.sender_name || @company.sender_name), placeholder: 'Sender Name' %>
       </div>
     </div>
 
     <div class="form-group">
       <label class="control-label col-lg-2">Body</label>
+      <button data-target="#modal_form_horizontal" data-toggle="modal" class="btn btn-primary btn-sm pull-right" type="button">
+        Merge Tags
+      </button>
       </br>
       <div class="col-lg-12">
-        <%= f.text_area :body,cols:'18', rows:'18', class: 'wysihtml5 wysihtml5-default form-control', id: 'body'%>
+        <%= f.text_area :body, cols: '18', rows: '18', class: 'wysihtml5 wysihtml5-default form-control', id: 'body' %>
       </div>
     </div>
     <div class="text-center">
@@ -64,11 +72,39 @@
 
 <!--<input type="checkbox" class='icheck-me' data-skin="square" data-color="blue">-->
 
-<!--<script>-->
-<!--//    $(function(){-->
-<!--//        $(".icheck-me").iCheck({-->
-<!--//            checkboxClass: 'icheckbox_square-blue',-->
-<!--//            radioClass: 'iradio_square-blue'-->
-<!--//        });-->
-<!--//    })-->
-<!--</script>-->
+<script>
+    $(function () {
+        $(document).on('change', '#select-merge', function () {
+            $('#email_template_subject').val($('#email_template_subject').val() + '-@' + $(this).val() + '-');
+        });
+    })
+</script>
+
+<div class="modal fade in" id="modal_form_horizontal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <button data-dismiss="modal" class="close" type="button">×</button>
+        <h5 class="modal-title">Merge Tags</h5>
+      </div>
+      <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>Field</th>
+          <th>Tag</th>
+        </tr>
+        </thead>
+        <% (%w[Email Name Contact] + @company.custom_fields.map { |field| field.name }).each do |field| %>
+            <tr>
+              <td><%= field %></td>
+              <td>-@<%= field.underscore.gsub(' ','_') %>-</td>
+            </tr>
+        <% end %>
+
+      </table>
+    </div>
+  </div>
+</div>
+
+Father Name
+father_name

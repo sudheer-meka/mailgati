@@ -30,9 +30,9 @@ class EmailTemplate < ActiveRecord::Base
     delivery_count = open_count + email_activities.where(status: 'delivered').count
     bounce_count = email_activities.where(status: 'bounce').count
     clicked_count = email_activities.where(status: 'click').count
-    if total_processed > 0
+    if delivery_count > 0
       # @stats = {total_processed: total_processed, open_count: ((open_count/total_processed)), delivery_count: ((delivery_count/total_processed)), clicked_count: ((clicked_count/total_processed)), bounce_count: ((bounce_count/total_processed))}
-      detailed_stats = {total_processed: total_processed, open_count: open_count,open_percent: (open_count/total_processed), delivery_count: delivery_count,delivery_percent: ((delivery_count/total_processed)), clicked_count:clicked_count,clicked_percent:  ((clicked_count/total_processed)), bounce_count:bounce_count,bounce_percent: ((bounce_count/total_processed))}
+      detailed_stats = {total_processed: total_processed, open_count: open_count,open_percent: (open_count/delivery_count), delivery_count: delivery_count,delivery_percent: ((delivery_count/delivery_count)), clicked_count:clicked_count,clicked_percent:  ((clicked_count/delivery_count)), bounce_count:bounce_count,bounce_percent: ((bounce_count/delivery_count))}
     else
       detailed_stats = {total_processed: total_processed, open_count: 0,open_percent: 0, delivery_count: 0,delivery_percent: 0, clicked_count:0,clicked_percent:  0, bounce_count:0,bounce_percent: 0}
     end

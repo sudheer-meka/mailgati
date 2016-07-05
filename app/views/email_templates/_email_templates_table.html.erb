@@ -3,9 +3,7 @@
   <tr class="bg-blue">
     <th>Title</th>
     <th>Subject</th>
-    <th>Created At</th>
     <th>Stats</th>
-    <!--<th>Stats</th>-->
     <th>Actions</th>
   </tr>
   </thead>
@@ -16,15 +14,14 @@
            email_activities = email_template.email_activities
            stats = email_template.stats(email_activities)
         %>
-        <td><%= email_template.title %></td>
+        <td><%= email_template.title %><br><span><%= email_template.created_at.strftime('%d-%m-%Y %I:%M:%S %p') %></span></td>
         <td><%= email_template.subject %></td>
-        <td><%= email_template.created_at.strftime('%d-%m-%Y %I:%M:%S %p') %></td>
         <td>
-          <span>Sent: <%= stats[:total_processed] %></span><br>
-          <span>Delivered: <%= stats[:delivery_count]%> (<%= stats[:delivery_percent] %> %)</span><br>
-          <span>Opened: <%= stats[:open_count]%> (<%= stats[:open_percent] %> %)</span><br>
-          <span>Clicked: <%= stats[:clicked_count]%> (<%= stats[:clicked_percent] %> %)</span><br>
-          <span>Bounced: <%= stats[:bounce_count]%> (<%= stats[:bounce_percent] %> %)</span>
+          <span>Sent: <%= stats[:total_processed].to_i %></span><br>
+          <span>Delivered: <%= stats[:delivery_count]%> (<%= (stats[:delivery_percent]*100).round(2) %> %)</span><br>
+          <span>Opened: <%= stats[:open_count]%> (<%= (stats[:open_percent]*100).round(2) %> %)</span><br>
+          <span>Clicked: <%= stats[:clicked_count]%> (<%= (stats[:clicked_percent]*100).round(2) %> %)</span><br>
+          <span>Bounced: <%= stats[:bounce_count]%> (<%= (stats[:bounce_percent]*100).round(2) %> %)</span>
         </td>
         <!--<td>-->
           <!--<%# activity = email_template.email_activities %>-->
@@ -38,7 +35,7 @@
                 <%= link_to '<i class="icon-bin"></i>'.html_safe, email_template, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-icon' %>
             <% else %>
                 <%= link_to '<i class="icon-copy4"></i> Copy'.html_safe,copy_template_email_template_path(email_template), class: 'btn btn-primary btn-icon' %>
-                <%= link_to '<i class="icon-stats-bars2"></i> Stats'.html_safe,email_template_path(email_template), class: 'btn btn-primary btn-icon' %>
+                <%= link_to '<i class="icon-stats-bars2"></i> Stats'.html_safe,email_template_path(email_template), class: 'btn btn-primary btn-icon', :"data-no-turbolink" => true %>
             <% end %>
           </div>
         </td>

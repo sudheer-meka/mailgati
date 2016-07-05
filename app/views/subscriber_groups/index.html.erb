@@ -5,6 +5,7 @@
   <thead>
   <tr class="bg-blue">
     <th>Name</th>
+    <th>Group Stats</th>
     <th>Active</th>
     <!--<th>Body</th>-->
     <th colspan="2"></th>
@@ -13,8 +14,21 @@
 
   <tbody>
   <% @subscriber_groups.each do |subscriber_group| %>
+      <%
+          subscribers  = subscriber_group.subscribers.where(is_active: true)
+          email_activities = EmailActivity.where(subscriber_id: subscribers.map(&:id))
+          stats = subscriber_group.stats(email_activities)
+      %>
       <tr>
         <td><%= link_to subscriber_group.name.titleize, subscriber_group_path(subscriber_group) %></td>
+        <td>
+          Subscribers Count: <%= subscribers.count %></br>
+          <span>Sent: <%= stats[:total_processed].to_i %></span><br>
+          <span>Delivered: <%= stats[:delivery_count]%> (<%= (stats[:delivery_percent]*100).round(2) %> %)</span><br>
+          <span>Opened: <%= stats[:open_count]%> (<%= (stats[:open_percent]*100).round(2) %> %)</span><br>
+          <span>Clicked: <%= stats[:clicked_count]%> (<%= (stats[:clicked_percent]*100).round(2) %> %)</span><br>
+          <span>Bounced: <%= stats[:bounce_count]%> (<%= (stats[:bounce_percent]*100).round(2) %> %)</span>
+        </td>
         <td><%= subscriber_group.is_active ? 'Active' : 'In Active' %></td>
         <td><%= link_to '<i class="icon-pencil4">'.html_safe, edit_subscriber_group_path(subscriber_group), class: "btn btn-default" %></td>
         <td><%= link_to '<i class="icon-bin">'.html_safe, subscriber_group, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>

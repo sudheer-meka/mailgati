@@ -20,6 +20,8 @@
 //= require plugins/forms/styling/uniform.min
 //= require core/app
 //= require 'icheck'
+//= require papaparse.min
+//= require ckeditor-jquery
 //= require turbolinks
 
 

@@ -1,0 +1,21 @@
+$('#header-mapper').html('<%= j render(partial:'header_mapper') %>');
+$('.header-mapper').on('change', function () {
+    var custom_field = '#' + this.name.split("_")[0].split(' ').join('_') + '_field';
+    if (this.value === 'Add New Field') {
+        $(custom_field).show();
+    }
+    else {
+        $(custom_field).hide();
+    }
+    var values = [];
+    $(".header-mapper").each(function () {
+        if ($.inArray(this.value, values) >= 0) {
+            alert("You already used " + this.value + " field");
+            $(this).val('');
+            return false; // <-- stops the loop
+        } else {
+            if ($.inArray(this.value, ['Do Not Upload', 'Add New Field', '', undefined]) < 0)
+                values.push(this.value);
+        }
+    });
+});

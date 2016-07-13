@@ -1,0 +1,36 @@
+<style>
+    .custom_field {
+        display: none;
+        margin: 1px;
+    }
+</style>
+<% @header.each do |id| %>
+    <%= hidden_field_tag "header_columns[]", id %>
+<% end %>
+<table class="table table-bordered table-striped" style="margin-bottom: 30px">
+  <thead>
+  <tr>
+    <th>Header</th>
+    <th>Field</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @header.each do |header| %>
+      <tr>
+        <td style="width: 30%"><%= header %></td>
+        <td>
+          <%= select_tag "#{header}_value", options_for_select(@fields), prompt: 'Select', class: 'form-control header-mapper', id: 'select-header', required: true %>
+          <span id="<%= header.split(' ').join('_') %>_field" class="custom_field">
+          <%= text_field_tag "#{header}_custom_field", nil, place_holder: 'New Field', class: 'form-control' %>
+          </span>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<div class="row">
+  <button class="btn btn-primary" type="submit"><b><i class="icon-upload"></i></b> Subscriber Information
+  </button>
+</div>
+

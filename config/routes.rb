@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       post 'select_lists'
       post 'confirm_campaign'
       get 'confirm_campaign'
+      get 'stats_report'
     end
   end
   # resources :companies do
@@ -34,7 +35,10 @@ Rails.application.routes.draw do
   resources :subscriber_groups do
     member do
       get 'import_subscribers'
+      get 'custom_subscribers_upload'
+      get 'get_header_mappers'
       post 'export_subscribers'
+      post 'custom_export_subscribers'
     end
     resources :subscribers do
     end

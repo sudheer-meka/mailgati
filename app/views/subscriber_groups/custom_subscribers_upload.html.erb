@@ -1,0 +1,23 @@
+<%= form_tag custom_export_subscribers_subscriber_group_path(@subscriber_group), class: 'form-horizontal', multipart: true do |form| %>
+      <div class="row">
+          <%= file_field_tag :upload_file, class: "form-control", required: true %>
+      </div>
+      <div id="header-mapper" style="margin-top: 30px">
+      </div>
+<% end %>
+
+<script>
+    $(function () {
+        // jQuery methods go here...
+        $(document).on('change', '#upload_file', function () {
+            var file = document.getElementById('upload_file').files[0];
+            Papa.parse(file, {
+                worker: true,
+                complete: function (results) {
+                    $.get('<%= get_header_mappers_subscriber_group_path(@subscriber_group) %>',{header: results.data[0]}, function(){
+                    });
+                }
+            });
+        });
+    });
+</script>

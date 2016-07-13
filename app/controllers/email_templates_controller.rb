@@ -1,6 +1,6 @@
 class EmailTemplatesController < ApplicationController
   before_action :set_company, except: [:act_on_campaign]
-  before_action :set_email_template, only: [:confirm_campaign, :show, :edit, :update, :destroy, :get_import_file, :test, :select_lists, :copy_template]
+  before_action :set_email_template, only: [:confirm_campaign, :show, :edit, :update, :destroy, :get_import_file, :test, :select_lists, :copy_template, :stats_report]
   # GET /email_templates
   # GET /email_templates.json
   def index
@@ -291,6 +291,12 @@ class EmailTemplatesController < ApplicationController
       format.html { redirect_to email_templates_url, notice: 'Email campaign was copied successfully.' }
       format.json { head :no_content }
     end
+  end
+
+  def stats_report
+    report_content = EmailActivityReport::Engine.new(@email_template).stats_statement
+    report_content.write 'public/report_content.xls'
+    send_file 'public/report_content.xls', :type => 'application/vnd.ms-excel', :filename => "#{@email_template.title}-stats-report.xls", disposition: 'attachment'
   end
 
   private

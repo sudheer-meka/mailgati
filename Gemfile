@@ -71,3 +71,4 @@ gem 'icheck-rails'
 #
 gem 'audited', '~> 4.0'
 gem 'audited-activerecord', '~> 4.2'
+gem 'ckeditor_rails'

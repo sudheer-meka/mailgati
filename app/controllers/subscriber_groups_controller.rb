@@ -1,6 +1,6 @@
 class SubscriberGroupsController < ApplicationController
   before_action :set_company
-  before_action :set_subscriber_group, only: [:show, :edit, :update, :destroy, :import_subscribers, :export_subscribers]
+  before_action :set_subscriber_group, except: [:index, :new, :create]
 
   def index
     @subscriber_groups = @company.subscriber_groups.paginate(page: params[:page], per_page: 10)
@@ -9,7 +9,7 @@ class SubscriberGroupsController < ApplicationController
   # GET /subscriber_groups/1
   # GET /subscriber_groups/1.json
   def show
-    @subscribers = @subscriber_group.subscribers.paginate(page: params[:page], per_page: 10)
+    @subscribers = @subscriber_group.subscribers.paginate(page: params[:page], per_page: 100)
   end
 
   # GET /subscriber_groups/new
@@ -66,18 +66,55 @@ class SubscriberGroupsController < ApplicationController
     send_file 'public/report_content.xls', :type => 'application/vnd.ms-excel', :filename => 'Subscriber Info Upload.xls', disposition: 'attachment'
   end
 
+  def custom_export_subscribers
+    upload_file = params[:upload_file]
+    if upload_file.present?
+      spreadsheet = open_spreadsheet(upload_file)
+      @excel_uploader = ExcelUploader.new(@company, current_user)
+      header_field_map = {}
+      params[:header_columns].each do |header|
+        next if params["#{header}_value"] == 'Do Not Upload'
+        if params["#{header}_value"] == 'Add New Field'
+          custom_field_name = params["#{header}_custom_field"]
+          next if custom_field_name.blank?
+          params["#{header}_value"] = custom_field_name
+          @company.custom_fields.find_or_create_by(name: params["#{header}_custom_field"])
+        end
+        header_field_map[params["#{header}_value"]] = header
+      end
+      @result = @excel_uploader.subscriber_info_custom_upload(spreadsheet, params[:id], header_field_map)
+    else
+      @result == 'Please select a file to upload'
+    end
+
+    if @result == 'OK'
+      redirect_to subscriber_group_path(params[:id]), notice: 'Subscribers Uploaded Successfully'
+    else
+      redirect_to subscriber_group_path(params[:id]), alert: @result
+    end
+  end
+
   def export_subscribers
     upload_file = params[:upload_file]
     if upload_file.present?
       spreadsheet = open_spreadsheet(upload_file)
       @excel_uploader = ExcelUploader.new(@company, current_user)
-      @result = @excel_uploader.subscriber_info_upload(spreadsheet,params[:id])
+      @result = @excel_uploader.subscriber_info_upload(spreadsheet, params[:id])
     end
     if @result == 'OK'
-      redirect_to subscriber_group_path(params[:id]),notice: 'Subscribers Uploaded Successfully'
+      redirect_to subscriber_group_path(params[:id]), notice: 'Subscribers Uploaded Successfully'
     else
-      redirect_to subscriber_group_path(params[:id]),alert: @result
+      redirect_to subscriber_group_path(params[:id]), alert: @result
     end
+  end
+
+  def custom_subscribers_upload
+
+  end
+
+  def get_header_mappers
+    @header = params[:header]
+    @fields = %w[Email Name Company Phone] + @company.custom_fields.map { |field| field.name } + ['Do Not Upload', 'Add New Field']
   end
 
   private

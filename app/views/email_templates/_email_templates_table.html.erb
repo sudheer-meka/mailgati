@@ -34,8 +34,9 @@
                 <%= link_to '<i class="icon-pencil4"></i>'.html_safe, edit_email_template_path(email_template), class: "btn btn-default btn-icon" %>&nbsp;
                 <%= link_to '<i class="icon-bin"></i>'.html_safe, email_template, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-icon' %>
             <% else %>
-                <%= link_to '<i class="icon-copy4"></i> Copy'.html_safe,copy_template_email_template_path(email_template), class: 'btn btn-primary btn-icon' %>
-                <%= link_to '<i class="icon-stats-bars2"></i> Stats'.html_safe,email_template_path(email_template), class: 'btn btn-primary btn-icon', :"data-no-turbolink" => true %>
+                <%= link_to '<i class="icon-copy4 position-left"></i>Copy'.html_safe,copy_template_email_template_path(email_template), class: 'btn btn-primary btn-icon' %>
+                <%= link_to '<i class="icon-stats-bars2 position-left"></i>Stats'.html_safe,email_template_path(email_template), class: 'btn btn-primary btn-icon', :"data-no-turbolink" => true %>
+                <%= link_to '<i class="icon-file-excel position-left"></i>Report'.html_safe,stats_report_email_template_path(email_template), class: 'btn btn-primary btn-icon'%>
             <% end %>
           </div>
         </td>

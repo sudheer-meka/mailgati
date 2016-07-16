@@ -129,8 +129,13 @@ class EmailTemplatesController < ApplicationController
             batch += 1
           end
         end
+        # senders = @company.senders.where(is_active: true).select{true}.shuffle
+        count = 0
         final_output.each do |key, value|
+          # sender = senders[count]
           Notification.delay.send_campaign(value['-@email-'], @email_template, value)
+          count += 1
+          # count = 0 if count == senders.length
         end
       else
         @email_template.update_attribute(:status, 'Rejected')
@@ -297,6 +302,14 @@ class EmailTemplatesController < ApplicationController
     report_content = EmailActivityReport::Engine.new(@email_template).stats_statement
     report_content.write 'public/report_content.xls'
     send_file 'public/report_content.xls', :type => 'application/vnd.ms-excel', :filename => "#{@email_template.title}-stats-report.xls", disposition: 'attachment'
+  end
+
+  def bounced_subscribers
+    @group_id_name_map = {}
+    @company.subscriber_groups.each do |group|
+      @group_id_name_map[group.id] = group.name
+    end
+    @subscribers = @company.bounced_subscribers
   end
 
   private

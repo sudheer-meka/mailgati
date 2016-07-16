@@ -1,5 +1,6 @@
 
 <%= link_to '<i class="icon-add position-left"></i>Subscriber'.html_safe, new_subscriber_group_subscriber_path(@subscriber_group), class: "btn btn-primary pull-right" %>
+<%= link_to '<i class="icon-file-excel position-left"></i>Custom Subscriber Upload'.html_safe, custom_subscribers_upload_subscriber_group_path(@subscriber_group), class: 'btn btn-primary pull-right',style: 'margin-right: 20px' %>
 <button data-target="#modal_theme_primary" data-toggle="modal" class="btn btn-primary pull-right" type="button" style="margin-right: 20px"><i class="icon-file-excel position-left"></i>Subscriber Info
   </button>
 <h1>Subscribers - <%= @subscriber_group.name %></h1>

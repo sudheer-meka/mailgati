@@ -1,0 +1,23 @@
+<h1 class="text-center">Bounced Subscribers</h1>
+<p class="color-danger lead text-center">Inactive and Bounced Subscribers</p>
+<table class="table table-bordered table-striped" style="margin-bottom: 30px">
+  <thead>
+  <tr class="bg-blue">
+    <th>Email</th>
+    <th>Subscriber Group Name</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @subscribers.each do |subscriber| %>
+      <tr>
+        <td><%= subscriber.email %></td>
+        <td><%= @group_id_name_map[subscriber.subscriber_group_id] %></td>
+      </tr>
+  <% end %>
+  <% if @subscribers.blank? %>
+      <tr>
+        <td colspan="4">No Bounced Subscribers Found</td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   # get '/get_import_file/:template_id', controller: 'email_templates', action: 'get_import_file'
   match '/get_import_file/(:id)', controller: :email_templates, action: :get_import_file,via: :get,as: 'get_import_file'
   match '/export_file', controller: :email_templates, action: :export_file,via: :post,as: 'export_file'
-
+  match '/bounced_subscribers', controller: :email_templates, action: :bounced_subscribers,via: :get,as: 'bounced_subscribers'
 # The priority is based upon order of creation: first created -> highest priority.
 # See how all your routes lay out with "rake routes".
 

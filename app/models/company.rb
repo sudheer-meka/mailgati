@@ -6,4 +6,8 @@ class Company < ActiveRecord::Base
   has_one :email_setting,dependent: :destroy
   audited
   has_associated_audits
+
+  def bounced_subscribers
+    Subscriber.where(is_active: false,subscriber_group_id: subscriber_groups.map(&:id))
+  end
 end

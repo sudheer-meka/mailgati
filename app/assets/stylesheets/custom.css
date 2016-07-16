@@ -1,3 +1,9 @@
+.navbar-brand > img {
+    height: 42px;
+    margin-top: -11px;
+    width: 150px;
+}
+
 .nav-tabs {
     border-bottom: 1px solid transparent;
     margin-bottom: 0px;

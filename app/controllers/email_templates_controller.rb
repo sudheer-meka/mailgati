@@ -309,7 +309,7 @@ class EmailTemplatesController < ApplicationController
     @company.subscriber_groups.each do |group|
       @group_id_name_map[group.id] = group.name
     end
-    @subscribers = @company.bounced_subscribers.paginate(page: params[:page], per_page: 10)
+    @subscribers = @company.bounced_subscribers.paginate(page: params[:page], per_page: 100)
   end
 
   private

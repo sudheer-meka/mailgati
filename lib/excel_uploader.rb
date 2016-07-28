@@ -36,12 +36,13 @@ class ExcelUploader
             @subscriber.name = name
             contact = row[(find_header_index('Contact'))]
             @subscriber.contact = contact.to_i
-            custom_field_ids.each do |id|
-              custom_field_value = @subscriber.custom_field_values.find_or_initialize_by(custom_field_id: id)
-              custom_field_value.value = row[(find_header_index(field_name_id_map[id]))]
-              custom_field_value.save!
+            if @subscriber.save
+              custom_field_ids.each do |id|
+                custom_field_value = @subscriber.custom_field_values.find_or_initialize_by(custom_field_id: id)
+                custom_field_value.value = row[(find_header_index(field_name_id_map[id]))]
+                custom_field_value.save!
+              end
             end
-            @subscriber.save!
           rescue Exception => invalid
             raise invalid
             @error = true
@@ -89,13 +90,14 @@ class ExcelUploader
             @subscriber.name = name
             contact = row[(find_header_index(header_field_map['Phone']))] rescue nil
             @subscriber.contact = contact.to_i if contact
-            custom_field_ids.each do |id|
-              next unless field_name_id_map[id]
-              custom_field_value = @subscriber.custom_field_values.find_or_initialize_by(custom_field_id: id)
-              custom_field_value.value = row[(find_header_index(field_name_id_map[id]))]
-              custom_field_value.save!
+            if @subscriber.save
+              custom_field_ids.each do |id|
+                next unless field_name_id_map[id]
+                custom_field_value = @subscriber.custom_field_values.find_or_initialize_by(custom_field_id: id)
+                custom_field_value.value = row[(find_header_index(field_name_id_map[id]))]
+                custom_field_value.save!
+              end
             end
-            @subscriber.save!
           rescue Exception => invalid
             raise invalid
             @error = true

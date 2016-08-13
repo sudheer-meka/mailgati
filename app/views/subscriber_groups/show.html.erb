@@ -1,8 +1,9 @@
 
 <%= link_to '<i class="icon-add position-left"></i>Subscriber'.html_safe, new_subscriber_group_subscriber_path(@subscriber_group), class: "btn btn-primary pull-right" %>
-<%= link_to '<i class="icon-file-excel position-left"></i>Custom Subscriber Upload'.html_safe, custom_subscribers_upload_subscriber_group_path(@subscriber_group), class: 'btn btn-primary pull-right',style: 'margin-right: 20px' %>
-<button data-target="#modal_theme_primary" data-toggle="modal" class="btn btn-primary pull-right" type="button" style="margin-right: 20px"><i class="icon-file-excel position-left"></i>Subscriber Info
-  </button>
+<%= link_to '<i class="icon-file-excel position-left"></i>Subscriber Upload'.html_safe, custom_subscribers_upload_subscriber_group_path(@subscriber_group), class: 'btn btn-primary pull-right',style: 'margin-right: 20px' %>
+<%= link_to '<i class="icon-download"></i>  Download Subscribers'.html_safe, import_subscribers_subscriber_group_path(@subscriber_group), class: 'btn btn-primary pull-right' ,style: 'margin-right: 20px' %>
+<!--<button data-target="#modal_theme_primary" data-toggle="modal" class="btn btn-primary pull-right" type="button" style="margin-right: 20px"><i class="icon-file-excel position-left"></i>Subscribers Download-->
+  <!--</button>-->
 <h1>Subscribers - <%= @subscriber_group.name %></h1>
 <table class="table table-bordered" style="margin-bottom: 30px">
   <thead>
@@ -39,39 +40,39 @@
   <%= will_paginate @subscribers, renderer: BootstrapPagination::Rails %>
 </div>
 
-<div class="modal fade in" id="modal_theme_primary"  style="display: none">
-  <div class="modal-dialog" style="width: 625px;">
-    <div class="modal-content">
-      <div class="modal-header bg-primary">
-        <button data-dismiss="modal" class="close" type="button">×</button>
-        <h6 class="modal-title">Subscribers Upload</h6>
-      </div>
+<!--<div class="modal fade in" id="modal_theme_primary"  style="display: none">-->
+  <!--<div class="modal-dialog" style="width: 625px;">-->
+    <!--<div class="modal-content">-->
+      <!--<div class="modal-header bg-primary">-->
+        <!--<button data-dismiss="modal" class="close" type="button">×</button>-->
+        <!--<h6 class="modal-title">Subscribers Upload</h6>-->
+      <!--</div>-->
 
-      <div class="modal-body">
-        <p class="lead-text">Subscriber upload helps you create subscribers or update their information in bulk.</p>
-        <br>
+      <!--<div class="modal-body">-->
+        <!--<p class="lead-text">Subscriber upload helps you create subscribers or update their information in bulk.</p>-->
+        <!--<br>-->
 
-        <p class="lead-text">Upload Subscribers in just 2 steps:</p>
-        <%= form_tag export_subscribers_subscriber_group_path(@subscriber_group), class: 'form-horizontal', multipart: true do |form| %>
-            <div>
-              <span class="lead-text">Step 1: Download Subscriber Global Format</span>
-              <br>
-              <p>Includes all your Subscribers with their available details.</p>
-              <%= link_to '<i class="icon-download"></i>  Click here to download the template'.html_safe, import_subscribers_subscriber_group_path(@subscriber_group), class: 'btn btn-primary' %>
-              <br>
-              <br>
-              <span class="lead-text">Step 2: Make necessary changes in the downloaded file or add new row(s) to create new subscriber(s) and upload<span style="color:red;"> *</span></span>
-              <div class="row">
-                <div class="col-md-8">
-                  <%= file_field_tag :upload_file, class: "form-control", required: true %>
-                </div>
-                <div class="col-md-3">
-                  <button class="btn btn-primary" type="submit"><b><i class="icon-upload"></i></b>  Subscriber Information</button>
-                </div>
-              </div>
-            </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
+        <!--<p class="lead-text">Upload Subscribers in just 2 steps:</p>-->
+        <!--<%#= form_tag export_subscribers_subscriber_group_path(@subscriber_group), class: 'form-horizontal', multipart: true do |form| %>-->
+            <!--<div>-->
+              <!--<span class="lead-text">Step 1: Download Subscriber Global Format</span>-->
+              <!--<br>-->
+              <!--<p>Includes all your Subscribers with their available details.</p>-->
+              <!--<%#= link_to '<i class="icon-download"></i>  Click here to download the template'.html_safe, import_subscribers_subscriber_group_path(@subscriber_group), class: 'btn btn-primary' %>-->
+              <!--<br>-->
+              <!--<br>-->
+              <!--<span class="lead-text">Step 2: Make necessary changes in the downloaded file or add new row(s) to create new subscriber(s) and upload<span style="color:red;"> *</span></span>-->
+              <!--<div class="row">-->
+                <!--<div class="col-md-8">-->
+                  <!--<%#= file_field_tag :upload_file, class: "form-control", required: true %>-->
+                <!--</div>-->
+                <!--<div class="col-md-3">-->
+                  <!--<button class="btn btn-primary" type="submit"><b><i class="icon-upload"></i></b>  Subscriber Information</button>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+        <!--<%# end %>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->

@@ -1,0 +1,15 @@
+<% @subscribers.each do |subscriber| %>
+    <tr>
+      <td><%= subscriber.name %></td>
+      <td><%= subscriber.email %></td>
+      <!--<td><%#= subscriber.contact %></td>-->
+      <td><%= subscriber.is_active ? 'Active' : 'In Active' %></td>
+      <td><%= link_to '<i class="icon-pencil4">'.html_safe, edit_subscriber_group_subscriber_path(@subscriber_group, subscriber), class: "btn btn-default btn-icon" %></td>
+      <td><%= link_to '<i class="icon-bin">'.html_safe, subscriber_group_subscriber_path(@subscriber_group, subscriber), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger btn-icon' %></td>
+    </tr>
+<% end %>
+<% if @subscribers.blank? %>
+    <tr>
+      <td colspan="5">No Subscribers Found</td>
+    </tr>
+<% end %>

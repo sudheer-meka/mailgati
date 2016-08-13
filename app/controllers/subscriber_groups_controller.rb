@@ -117,6 +117,18 @@ class SubscriberGroupsController < ApplicationController
     @fields = %w[Email Name Company Phone] + @company.custom_fields.map { |field| field.name } + ['Do Not Upload', 'Add New Field']
   end
 
+  def search
+    wildcard_search = wildcard_search = "%#{params[:query]}%"
+    page = params[:page].blank? ?  1 : params[:page].to_i
+    if wildcard_search.blank?
+      @subscribers = @subscriber_group.subscribers.paginate(per_page: 100,page: page)
+    else
+      @subscribers = @subscriber_group.subscribers.where('name LIKE ? OR email LIKE ?', wildcard_search, wildcard_search).paginate(per_page: 100,page: page)
+    end
+    # render json: @subscribers.count
+    # return
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_subscriber_group

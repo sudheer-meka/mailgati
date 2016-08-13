@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       get 'get_header_mappers'
       post 'export_subscribers'
       post 'custom_export_subscribers'
+      get 'search'
     end
     resources :subscribers do
     end

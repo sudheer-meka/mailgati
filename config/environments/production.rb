@@ -76,5 +76,14 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  config.action_mailer.default_url_options = { :host => 'mailerdesk.com', :protocol => 'http' }
+  config.action_mailer.default_url_options = { :host => 'app.mailgati.com', :protocol => 'https' }
+  ActionMailer::Base.smtp_settings = {
+      :address => "smtp.sendgrid.net",
+      :port => 587,
+      :domain => "app.mailgati.com",
+      :authentication => :plain,
+      :user_name => "sudheer@quikchex",
+      :password => "secure@1234",
+      :enable_starttls_auto => true
+  }
 end

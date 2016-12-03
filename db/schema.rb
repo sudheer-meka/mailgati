@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160606123343) do
+ActiveRecord::Schema.define(version: 20160607110201) do
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id",    limit: 4
@@ -35,6 +35,16 @@ ActiveRecord::Schema.define(version: 20160606123343) do
   add_index "audits", ["created_at"], name: "index_audits_on_created_at", using: :btree
   add_index "audits", ["request_uuid"], name: "index_audits_on_request_uuid", using: :btree
   add_index "audits", ["user_id", "user_type"], name: "user_index", using: :btree
+
+  create_table "campaign_logs", force: :cascade do |t|
+    t.string   "status",            limit: 255
+    t.string   "url",               limit: 255
+    t.string   "ip",                limit: 255
+    t.string   "browser",           limit: 255
+    t.integer  "email_activity_id", limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
 
   create_table "companies", force: :cascade do |t|
     t.string   "name",           limit: 255

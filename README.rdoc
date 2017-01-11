@@ -56,4 +56,43 @@ EXECUTE stmt;
 DEALLOCATE PREPARE stmt;
 END
 
-Root : cHRtwHXFTsBDaRjWw6zHp4pLr30KDtUtHf5eUIBBJDwscEIVLO
+
+Root :cHRtwHXFTsBDaRjWw6zHp4pLr30KDtUtHf5eUIBBJDwscEIVLO
+    cd /var/www/rails_apps
+    rm -rf mailgati
+    git clone https://sudheerm16@bitbucket.org/sudheerm16/mailgati.git
+    mkdir /var/www/rails_apps/mailgati/public/pids
+    mkdir /var/www/rails_apps/mailgati/tmp
+    mkdir /var/www/rails_apps/mailgati/tmp/pids
+    cp /var/www/rails_apps/database.yml /var/www/rails_apps/mailgati/config/database.yml
+    cp /var/www/rails_apps/development.rb /var/www/rails_apps/mailgati/config/environments
+    /bin/bash --login
+    cd mailgati
+    bundle
+    rake db:migrate
+    sudo chmod 0777 -fR /var/www/rails_apps/mailgati
+    cd ;sh server_restart.sh;cd /var/www/rails_apps/-mailgati
+    RAILS_ENV=production bundle exec rake assets:precompile
+
+
+
+sudo systemctl start redis
+sudo systemctl stop redis
+
+
+bitbuket: Sudheer@sbh1
+sendgrid: secure@1234
+
+
+
+
+sudo systemctl stop redis
+service apache2 restart
+sudo systemctl start redis
+cd /var/www/rails_apps/mailgati
+bundle exec sidekiq -d -c 5 -i 0 -e production -q default -l sidekiq.log
+
+/bin/bash --login
+gem unintall passenger
+gem install passenger
+passenger-install-apache2-module

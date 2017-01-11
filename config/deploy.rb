@@ -34,9 +34,7 @@ namespace :deploy do
 
     run "ln -nfs #{shared_path}/database.yml #{current_path}/config/database.yml"
     # run "ln -nfs #{shared_path}/mongoid.yml #{current_path}/config/mongoid.yml"
-    run "sudo chmod 0777 -fR /var/www/rails_apps/#{application}/*"
 
-    # run "cd; sh server_restart.sh"
   end
 end
 

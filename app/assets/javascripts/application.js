@@ -10,10 +10,10 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-// require plugins/loaders/pace.min
+
 //= require core/libraries/jquery.min
+//= require plugins/loaders/pace.min
 //= require core/libraries/bootstrap.min
-//= require papaparse.min
 //= require plugins/loaders/blockui.min
 //= require plugins/ui/nicescroll.min
 //= require plugins/ui/drilldown
@@ -21,7 +21,7 @@
 //= require plugins/forms/styling/uniform.min
 //= require core/app
 //= require 'icheck'
-
+//= require papaparse.min
 //= require ckeditor-jquery
 //= require turbolinks
 

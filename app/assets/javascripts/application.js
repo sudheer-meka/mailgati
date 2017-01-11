@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require plugins/loaders/pace.min
+// require plugins/loaders/pace.min
 //= require core/libraries/jquery.min
 //= require core/libraries/bootstrap.min
 //= require plugins/loaders/blockui.min

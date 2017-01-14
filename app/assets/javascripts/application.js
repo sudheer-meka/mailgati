@@ -24,5 +24,6 @@
 //= require papaparse.min
 //= require ckeditor-jquery
 //= require turbolinks
+//= require jquery.remotipart
 
 

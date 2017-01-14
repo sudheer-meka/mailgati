@@ -159,6 +159,7 @@ GEM
       json (~> 1.4)
     redis (3.3.0)
     ref (2.0.0)
+    remotipart (1.2.1)
     responders (2.2.0)
       railties (>= 4.2.0, < 5.1)
     roo (2.4.0)
@@ -243,6 +244,7 @@ DEPENDENCIES
   mysql2 (>= 0.3.13, < 0.5)
   net-ssh (= 2.7.0)
   rails (= 4.2.5)
+  remotipart (~> 1.0)
   roo
   roo-xls
   rvm-capistrano

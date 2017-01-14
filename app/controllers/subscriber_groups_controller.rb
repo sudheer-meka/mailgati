@@ -67,34 +67,55 @@ class SubscriberGroupsController < ApplicationController
   end
 
   def custom_export_subscribers
-    upload_file = params[:upload_file]
-    if upload_file.present?
-      spreadsheet = open_spreadsheet(upload_file)
-      @excel_uploader = ExcelUploader.new(@company, current_user)
-      header_field_map = {}
-      params[:header_columns].each do |header|
-        next if params["#{header}_value"] == 'Do Not Upload'
-        if params["#{header}_value"] == 'Add New Field'
-          custom_field_name = params["#{header}_custom_field"]
-          next if custom_field_name.blank?
-          params["#{header}_value"] = custom_field_name
-          @company.custom_fields.find_or_create_by(name: params["#{header}_custom_field"])
-        end
-        header_field_map[params["#{header}_value"]] = header
-      end
-      @result = @excel_uploader.subscriber_info_custom_upload(spreadsheet, params[:id], header_field_map)
+
+    if params["map_headers"]
+      upload_file = params[:upload_file]
     else
-      @result == 'Please select a file to upload'
+      upload_file = "public/uploads/#{params[:file_name]}"
+
     end
 
-    if @result == 'OK'
-      redirect_to subscriber_group_path(params[:id]), notice: 'Subscribers Uploaded Successfully'
+    unless upload_file.blank?
+      @excel_uploader = ExcelUploader.new(@company, current_user)
+      if params["map_headers"]
+        spreadsheet = open_spreadsheet(upload_file)
+        @header = spreadsheet.first
+        @fields = %w[Email Name Company Phone] + @company.custom_fields.map { |field| field.name } + ['Do Not Upload', 'Add New Field']
+        require 'securerandom'
+        @file_name = "#{SecureRandom.hex}-#{upload_file.original_filename}"
+        File.open(Rails.root.join('public', 'uploads', @file_name), 'wb') do |file|
+          file.write(upload_file.read)
+        end
+      else
+        spreadsheet = Roo::Spreadsheet.open("public/uploads/#{params[:file_name]}")
+        header_field_map = {}
+        params[:header_columns].each do |header|
+          next if params["#{header}_value"] == 'Do Not Upload'
+          if params["#{header}_value"] == 'Add New Field'
+            custom_field_name = params["#{header}_custom_field"]
+            next if custom_field_name.blank?
+            params["#{header}_value"] = custom_field_name
+            @company.custom_fields.find_or_create_by(name: params["#{header}_custom_field"])
+          end
+          header_field_map[params["#{header}_value"]] = header
+        end
+        @result = @excel_uploader.subscriber_info_custom_upload(spreadsheet, params[:id], header_field_map)
+
+        if @result == 'OK'
+          redirect_to subscriber_group_path(params[:id]), notice: 'Subscribers Uploaded Successfully'
+        else
+          redirect_to subscriber_group_path(params[:id]), alert: @result
+        end
+      end
     else
+      @result == 'Please select a file to upload'
       redirect_to subscriber_group_path(params[:id]), alert: @result
     end
+
   end
 
   def export_subscribers
+
     upload_file = params[:upload_file]
     if upload_file.present?
       spreadsheet = open_spreadsheet(upload_file)
@@ -119,11 +140,11 @@ class SubscriberGroupsController < ApplicationController
 
   def search
     wildcard_search = wildcard_search = "%#{params[:query]}%"
-    page = params[:page].blank? ?  1 : params[:page].to_i
+    page = params[:page].blank? ? 1 : params[:page].to_i
     if wildcard_search.blank?
-      @subscribers = @subscriber_group.subscribers.paginate(per_page: 100,page: page)
+      @subscribers = @subscriber_group.subscribers.paginate(per_page: 100, page: page)
     else
-      @subscribers = @subscriber_group.subscribers.where('name LIKE ? OR email LIKE ?', wildcard_search, wildcard_search).paginate(per_page: 100,page: page)
+      @subscribers = @subscriber_group.subscribers.where('name LIKE ? OR email LIKE ?', wildcard_search, wildcard_search).paginate(per_page: 100, page: page)
     end
     # render json: @subscribers.count
     # return

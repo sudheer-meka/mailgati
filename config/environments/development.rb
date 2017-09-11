@@ -60,13 +60,5 @@ Rails.application.configure do
   #     :password => "nigel1@quikchex",
   #     :enable_starttls_auto => true
   # }
-  ActionMailer::Base.smtp_settings = {
-      :address => "smtp.sendgrid.net",
-      :port => 587,
-      :domain => "secure.quikchex.in",
-      :authentication => :plain,
-      :user_name => "sudheer@quikchex",
-      :password => "sudheer1@quikchex",
-      :enable_starttls_auto => true
-  }
+  
 end
